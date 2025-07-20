@@ -6,13 +6,17 @@
 %Included for Gather Purpose only:
 %input "thesisreferences.bib"
 
+% Additional packages for Paper 2
+\usepackage{listings}
+\usepackage{xcolor}
+
 \makeglossaries
 
 \newacronym{nlp}{NLP}{Natural Language Processing}
 
 \begin{document}
 
-\defaultbibliography{thesisreferences}     %% Change this only.
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021}     %% Change this only.
 \defaultbibliographystyle{plain}        %% Could be changed if you like 
                                            %% references typeset differently.
 %-------------------------------------------------------------------
@@ -106,6 +110,8 @@ appearing on the\\ chapter start page\label{ch2}}
 \makepartpage{Part II}%
 \startpapers
 
+% Bibliography files for papers
+
 %-------------------------------------------------------------------
 \def\paperheader{Paper A}
 \def\papertitle{The Title of the Papers in the Thesis are Automatically Split In Several Lines if Necessary}
@@ -131,10 +137,10 @@ appearing on the\\ chapter start page\label{ch2}}
 
 %-------------------------------------------------------------------
 \def\paperheader{Paper B}
-\def\papertitle{The Theory of Research}
-\def\paperauthorstring{John Doe and Jane Doe}
-\def\referencestring{Example Thesis, Internal Report, Lule{\aa} University of Technology, 2009.}
-\def\copyrightstring{2009, The Publisher, Reprinted with permission.}
+\def\papertitle{Cyber-physical automation systems modelling with IEC 61499 for their formal verification}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
@@ -150,7 +156,6 @@ appearing on the\\ chapter start page\label{ch2}}
 % The actual contents is imported by un-commenting the \input line below.
 % Make sure the file exist.
 \input{papers/paper2.tex}
-
 %-------------------------------------------------------------------
 \def\paperheader{Paper C}
 \def\papertitle{Yet Another Sub-Optimal Estimator of Sinusoids in Noise}
