@@ -69,8 +69,9 @@ If you prefer to compile manually:
 # First pass
 pdflatex MX_Thesis.tex
 
-# Compile bibliography
+# Compile bibliography (main + bibunits)
 bibtex MX_Thesis
+bibtex bu1 bu2 bu3 bu4  # For individual papers
 
 # Compile glossary (if you have acronyms)
 makeglossaries MX_Thesis
@@ -103,10 +104,17 @@ MX_Thesis/
 │   └── chapter3.tex       # Chapter 3: Nonsense chapter
 ├── papers/                # Included papers directory
 │   ├── paper1.tex         # Paper A: The Title of the Papers...
-│   ├── paper2.tex         # Paper B: The Theory of Research
+│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification
 │   └── paper3.tex         # Paper C: Yet Another Sub-Optimal Estimator...
+├── MX_Papers/             # Original paper sources directory
+│   ├── Paper1/            # Original Paper 1 source files
+│   ├── Paper2/            # Original Paper 2 source files
+│   │   ├── Paper2.tex     # Original paper content
+│   │   ├── INDIN2021.bib  # Paper 2 bibliography
+│   │   └── images/        # Paper 2 images
+│   └── Paper3/            # Original Paper 3 source files
 ├── scripts/               # Compilation scripts directory
-│   ├── compile_thesis.sh  # Full compilation script
+│   ├── compile_thesis.sh  # Full compilation script (updated)
 │   ├── quick_compile.sh   # Quick compilation script
 │   ├── clean_build.sh     # Clean build script
 │   └── show_structure.sh  # Project structure display
@@ -130,7 +138,7 @@ Edit `MX_Thesis.tex` to update:
 
 ### Adding Citations
 
-1. **Add references** to `thesisreferences.bib`
+1. **Add references** to `thesisreferences.bib` (for chapters) or individual paper bibliography files (for papers)
 2. **Cite in text** using `\cite{reference_key}`
 3. **Compile** using the full compilation script
 
@@ -157,8 +165,8 @@ Edit `MX_Thesis.tex` to update:
    - Solution: Install MacTeX or add `/Library/TeX/texbin` to PATH
 
 2. **Bibliography not showing**
-   - Run full compilation script (includes bibtex)
-   - Check `thesisreferences.bib` file exists
+   - Run full compilation script (includes bibtex for all papers)
+   - Check bibliography files exist in `MX_Papers/Paper*/` directories
    - Verify citation syntax in your text
 
 3. **Glossary not working**
@@ -167,7 +175,7 @@ Edit `MX_Thesis.tex` to update:
 
 4. **Image not found**
    - Ensure `bg_wall.jpg` exists in the same directory
-   - Check image path in `MX_Thesis.tex`
+   - Check image paths in papers (should point to `MX_Papers/Paper*/images/`)
 
 5. **Compilation errors**
    - Check `build/logs/MX_Thesis.log` for detailed error messages
@@ -199,12 +207,13 @@ sudo tlmgr update --all
 - [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX)
 - [BibTeX Guide](https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management)
 - [Glossaries Package](https://ctan.org/pkg/glossaries)
+- [Bibunits Package](https://ctan.org/pkg/bibunits)
 
 ## 🆘 Getting Help
 
 If you encounter issues:
 
-1. Check the log file (`MX_Thesis.log`) for error messages
+1. Check the log file (`build/logs/MX_Thesis.log`) for error messages
 2. Ensure all required files are present
 3. Verify MacTeX installation
 4. Try cleaning auxiliary files and recompiling
@@ -213,9 +222,18 @@ If you encounter issues:
 
 - The thesis template uses a custom document class (`cseethesis.cls`)
 - Bibliography uses the `bibunits` package for per-chapter references
+- Each paper has its own bibliography file in the `MX_Papers/Paper*/` directories
 - Acronyms are handled by the `glossaries` package
 - The template supports both chapters and included papers
 - Multiple compilation passes are needed for proper cross-references
+- The compilation script automatically handles bibliography compilation for all papers
+
+## 🔄 Recent Updates
+
+- **Paper 2 Integration**: Cyber-Physical Systems Verification paper fully integrated
+- **Bibliography System**: Updated to handle multiple paper bibliographies automatically
+- **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
+- **File Organization**: Improved structure with clear separation between integrated papers and source files
 
 ---
 

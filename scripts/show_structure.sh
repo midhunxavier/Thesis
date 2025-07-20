@@ -25,12 +25,19 @@ echo "├── chapters/              # Thesis chapters directory"
 echo "│   ├── chapter1.tex       # Chapter 1: Thesis Introduction"
 echo "│   ├── chapter2.tex       # Chapter 2: Running header"
 echo "│   └── chapter3.tex       # Chapter 3: Nonsense chapter"
-echo "├── papers/                # Included papers directory"
+echo "├── papers/                # Integrated papers directory"
 echo "│   ├── paper1.tex         # Paper A: The Title of the Papers..."
-echo "│   ├── paper2.tex         # Paper B: The Theory of Research"
+echo "│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification"
 echo "│   └── paper3.tex         # Paper C: Yet Another Sub-Optimal Estimator..."
+echo "├── MX_Papers/             # Original paper sources directory"
+echo "│   ├── Paper1/            # Original Paper 1 source files"
+echo "│   ├── Paper2/            # Original Paper 2 source files"
+echo "│   │   ├── Paper2.tex     # Original paper content"
+echo "│   │   ├── INDIN2021.bib  # Paper 2 bibliography"
+echo "│   │   └── images/        # Paper 2 images"
+echo "│   └── Paper3/            # Original Paper 3 source files"
 echo "├── scripts/               # Compilation scripts directory"
-echo "│   ├── compile_thesis.sh  # Full compilation script"
+echo "│   ├── compile_thesis.sh  # Full compilation script (updated)"
 echo "│   ├── quick_compile.sh   # Quick compilation script"
 echo "│   ├── clean_build.sh     # Clean build script"
 echo "│   └── show_structure.sh  # This script"
@@ -39,13 +46,14 @@ echo "│   ├── auxiliary/         # Auxiliary files (.aux, .bbl, .blg, et
 echo "│   ├── logs/              # Log files (.log)"
 echo "│   └── output/            # Final PDF output"
 echo "├── .cursorrules           # Cursor AI rules and project guidelines"
+echo "├── claude.md              # AI assistant documentation"
 echo "└── README.md              # Documentation"
 echo
 
 echo -e "${YELLOW}🚀 Quick Usage:${NC}"
-echo "  ./scripts/compile_thesis.sh  # Full compilation"
-echo "  ./scripts/quick_compile.sh   # Quick compilation"
-echo "  ./scripts/clean_build.sh     # Clean build"
+echo "  ./scripts/compile_thesis.sh  # Full compilation (with bibliography)"
+echo "  ./scripts/quick_compile.sh   # Quick compilation (text only)"
+echo "  ./scripts/clean_build.sh     # Clean build directory"
 echo "  ./scripts/show_structure.sh  # Show project structure"
 echo
 
@@ -63,4 +71,25 @@ else
 fi
 
 echo
-echo -e "${BLUE}📖 For detailed instructions, see README.md${NC}" 
+echo -e "${YELLOW}📋 Paper Integration Status:${NC}"
+if [ -f "papers/paper2.tex" ]; then
+    echo -e "${GREEN}✅ Paper 2 integrated: papers/paper2.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 2 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper2/INDIN2021.bib" ]; then
+    echo -e "${GREEN}✅ Paper 2 bibliography: MX_Papers/Paper2/INDIN2021.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 2 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper2/images" ]; then
+    echo -e "${GREEN}✅ Paper 2 images: MX_Papers/Paper2/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 2 images directory not found${NC}"
+fi
+
+echo
+echo -e "${BLUE}📖 For detailed instructions, see README.md${NC}"
+echo -e "${BLUE}🤖 For AI assistance, see claude.md${NC}" 
