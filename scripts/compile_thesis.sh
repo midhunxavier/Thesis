@@ -89,6 +89,35 @@ clean_aux_files() {
     print_success "Auxiliary files cleaned"
 }
 
+# Copy bibliography files to auxiliary directory for bibtex processing
+copy_bibliography_files() {
+    print_status "Copying bibliography files to auxiliary directory..."
+    
+    # Copy main bibliography file
+    if [ -f "thesisreferences.bib" ]; then
+        cp thesisreferences.bib "$AUX_DIR/"
+        print_success "Copied thesisreferences.bib"
+    fi
+    
+    # Copy Paper 2 bibliography file
+    if [ -f "MX_Papers/Paper2/INDIN2021.bib" ]; then
+        cp MX_Papers/Paper2/INDIN2021.bib "$AUX_DIR/"
+        print_success "Copied MX_Papers/Paper2/INDIN2021.bib"
+    fi
+    
+    # Copy other paper bibliography files if they exist
+    for paper_dir in MX_Papers/Paper*/; do
+        if [ -d "$paper_dir" ]; then
+            for bib_file in "$paper_dir"*.bib; do
+                if [ -f "$bib_file" ]; then
+                    cp "$bib_file" "$AUX_DIR/"
+                    print_success "Copied $(basename "$bib_file")"
+                fi
+            done
+        fi
+    done
+}
+
 # Move files to appropriate build directories
 organize_files() {
     print_status "Organizing generated files..."
@@ -123,11 +152,14 @@ organize_files() {
 # Compile LaTeX document
 compile_latex() {
     local pass=$1
+    local organize=$2
     print_status "LaTeX compilation pass $pass..."
     
     if pdflatex -interaction=nonstopmode -shell-escape MX_Thesis.tex; then
         print_success "LaTeX pass $pass completed"
-        organize_files
+        if [ "$organize" = "true" ]; then
+            organize_files
+        fi
     else
         print_error "LaTeX pass $pass failed"
         print_status "Check the log file for details: $LOG_DIR/MX_Thesis.log"
@@ -135,15 +167,77 @@ compile_latex() {
     fi
 }
 
-# Compile bibliography
+# Compile bibliography for main document and bibunits
 compile_bibliography() {
     print_status "Compiling bibliography..."
     
-    if bibtex MX_Thesis; then
-        print_success "Bibliography compiled"
-        organize_files
-    else
-        print_warning "Bibliography compilation had issues (this might be normal if no citations exist)"
+    # Copy bibliography files to auxiliary directory
+    copy_bibliography_files
+    
+    # Compile main bibliography
+    if [ -f "MX_Thesis.aux" ]; then
+        print_status "Compiling main bibliography..."
+        if bibtex MX_Thesis; then
+            print_success "Main bibliography compiled"
+        else
+            print_warning "Main bibliography compilation had issues"
+        fi
+    fi
+    
+    # Compile bibunits bibliographies
+    print_status "Compiling bibunits bibliographies..."
+    
+    # Find all bu*.aux files and compile them
+    for bu_file in bu*.aux; do
+        if [ -f "$bu_file" ]; then
+            local bu_name="${bu_file%.aux}"
+            print_status "Compiling bibliography for $bu_name..."
+            
+            # Check if the bu*.aux file has \bibdata command
+            if grep -q "\\\\bibdata" "$bu_file"; then
+                if bibtex "$bu_name"; then
+                    print_success "Bibliography compiled for $bu_name"
+                else
+                    print_warning "Bibliography compilation had issues for $bu_name"
+                fi
+            else
+                print_warning "No bibliography data found in $bu_file"
+            fi
+        fi
+    done
+    
+    # Also check in auxiliary directory for any remaining bu*.aux files
+    if [ -d "$AUX_DIR" ]; then
+        for bu_file in "$AUX_DIR"/bu*.aux; do
+            if [ -f "$bu_file" ]; then
+                local bu_name=$(basename "${bu_file%.aux}")
+                print_status "Compiling bibliography for $bu_name (from auxiliary directory)..."
+                
+                # Check if the bu*.aux file has \bibdata command
+                if grep -q "\\\\bibdata" "$bu_file"; then
+                    if bibtex "$bu_name"; then
+                        print_success "Bibliography compiled for $bu_name"
+                    else
+                        print_warning "Bibliography compilation had issues for $bu_name"
+                    fi
+                else
+                    print_warning "No bibliography data found in $bu_file"
+                fi
+            fi
+        done
+    fi
+    
+    organize_files
+    
+    # Copy bibliography files back to main directory for LaTeX to find them
+    print_status "Copying bibliography files back to main directory..."
+    if [ -d "$AUX_DIR" ]; then
+        for bbl_file in "$AUX_DIR"/bu*.bbl; do
+            if [ -f "$bbl_file" ]; then
+                cp "$bbl_file" .
+                print_success "Copied $(basename "$bbl_file") to main directory"
+            fi
+        done
     fi
 }
 
@@ -220,23 +314,23 @@ main() {
     echo
     print_status "Starting compilation process..."
     
-    # First LaTeX pass
-    compile_latex 1
+    # First LaTeX pass (don't organize files yet)
+    compile_latex 1 false
     
-    # Compile bibliography
+    # Compile bibliography (main + bibunits)
     compile_bibliography
     
     # Compile glossary
     compile_glossary
     
     # Second LaTeX pass (for bibliography references)
-    compile_latex 2
+    compile_latex 2 false
     
     # Third LaTeX pass (for glossary references)
-    compile_latex 3
+    compile_latex 3 false
     
-    # Final LaTeX pass (for any remaining references)
-    compile_latex 4
+    # Final LaTeX pass (for any remaining references) - organize files
+    compile_latex 4 true
     
     # Show build summary
     show_build_summary
