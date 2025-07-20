@@ -1,0 +1,65 @@
+\subsection{Related Work}
+
+
+1. Vendor Lock-In and Interoperability Issues: Current control systems in industrial settings face challenges due to vendor-specific dependencies, which hinder the transfer of programs between different platforms. This lack of interoperability poses significant challenges in the context of Industry 4.0.
+
+2. IEC 61499 Standard Solution: The IEC 61499 standard provides a framework for developing portable and interoperable software, addressing vendor lock-in issues. However, variations in the interpretation and execution semantics among vendors still exist, complicating the migration of programs between different platforms.
+
+3. Importance of Thorough Testing: Migrating IEC 61499 applications to different run-time environments (RTEs) can introduce errors that may cause damage to humans or equipment. Therefore, it is crucial to thoroughly test IEC 61499 applications on the target platform before deployment.
+
+4. Model-Based Testing and TDD: Model-based testing can reduce the manual effort involved in testing and supports Test-Driven Development (TDD), which is widely used in agile software engineering. This approach helps ensure the reliability of software implementations in IEC 61499.
+
+5. Portable Test Applications: The proposed approach involves creating a test application as a composite Function Block (FB) that is portable across various IEC 61499 platforms. This allows for validating the correct functionality of FBs before deployment in real-world machinery, ensuring consistent behavior across different RTEs.
+
+* Note: We need to gather numerous articles related to the aforementioned points. Identify the issues highlighted in these articles and summarize them in the Related Work section. Finally, articulate the research gap that exists and demonstrate how our solution is crucial for addressing this gap.
+
+An example related work flow text : 
+
+
+The challenges of vendor lock-in and interoperability in current industrial control systems are well-documented, particularly in the context of Industry 4.0. Many industrial settings rely heavily on proprietary solutions, making it difficult to transfer control programs between different platforms without substantial re-engineering efforts. This lack of interoperability not only hampers innovation but also increases costs and complexity for companies attempting to integrate new technologies or switch vendors. These issues underline the necessity for standardized solutions that promote portability and interoperability across different platforms.
+
+To address these challenges, the IEC 61499 standard has emerged as a promising solution. This standard provides a framework for developing portable and interoperable software applications for industrial automation systems. IEC 61499 achieves this by defining a high-level architecture for distributed control systems, including the specification of function blocks that can be reused across different platforms. However, despite the promise of IEC 61499, variations in interpretation and execution semantics among different vendors still pose significant challenges. These discrepancies can complicate the migration of programs between platforms, as the behavior of function blocks may differ depending on the specific runtime environment (RTE) used.
+
+Given the potential for discrepancies and errors during migration, thorough testing of IEC 61499 applications on the target platform is paramount. Migrating applications without comprehensive testing can lead to errors that may result in severe damage to equipment or harm to humans. Therefore, it is crucial to employ rigorous testing methodologies to ensure that the migrated applications function correctly in the new environment. This necessity has driven the development of advanced testing strategies tailored to the unique requirements of IEC 61499 applications.
+
+Model-based testing has emerged as an effective approach to reduce the manual effort involved in testing IEC 61499 applications. By creating abstract models of the system's expected behavior, model-based testing can automatically generate test cases and verify the correctness of the system. This approach aligns well with Test-Driven Development (TDD), a practice widely adopted in agile software engineering. TDD emphasizes the creation of test cases before the actual implementation, ensuring that each part of the software meets its specified requirements. Applying TDD and model-based testing to IEC 61499 helps in identifying and addressing issues early in the development process, thus enhancing the reliability of the software.
+
+
+\section{State of the Art}
+\label{sec::sota}
+
+
+
+Developers can apply various testing strategies prior to deploying an application. They can be differentiated based on the involved software activities (e.g., unit tests or integration tests), the maturity of the software, and the degree of automation~\cite{softwareTesting}. 
+
+Unit testing is a fundamental approach in software testing, which evaluates the implementation of a piece of software \cite{softwareTesting} to ensure its reliability. In IEC~61499, executing a test requires providing event and data signals. For control engineers who develop Function Blocks (FBs), it can be challenging to manually create a test FB and the required test application for observing the results. Model-based testing can reduce the manual effort and also supports a ``test first and fail'' methodology, known as Test-Driven Development (TDD) \cite{hametner2014}, which is widely used in agile software engineering.
+
+
+Simulation techniques such as visualisations or Digital Twins are commonly employed to assess whether a control application operates according to the intended logic. However, relying on a simulation does not ensure correctness, as some malfunctions may occur only on a PLC. Finally, simulations can also aid in comprehending the system's behaviour.
+
+The approach presented in \cite{Testing_Midhun} for creating a test suite with IEC~61499 FBs allows systematically evaluating the portability between RTEs. In this paper, we adapt this concept to test FBs in a platform-independent test application. 
+
+Like testing, formal verification can be used to enhance the system's reliability by checking various properties. Formal verification does not require any RTE. Sinha et al.\,\cite{Sinha.2019} provide an overview of formal methods for IEC~61499. Formal verification may uncover errors that do not occur during simulations, thus, identifying certain undesirable situations. 
+Verification and testing can complement each other \cite{Hussain.2006}. During the development, tests provide an early feedback, even if the model is still incomplete. Furthermore, errors that are introduced by the compiler may lead to runtime issues, but might not be revealed by formal methods. 
+
+\subsection{Test Strategies for Unit and Functional Testing}
+Verification techniques and many testing strategies are employed after developing the control program. To mitigate errors and fulfil the requirements of each FB, it can be beneficial to integrate testing approaches already into the system design phase (e.g., TDD). Unit testing ensures that each FB meets its specified requirements. After developing the control program for the entire system, functional testing can be conducted. This involves assessing the control system by providing input data and verifying the output against expected results.
+Two distinct testing strategies can be applied. Their integration into the IEC 61499 development is covered in the next sections. 
+
+\subsubsection{Approach A: Manually Create Test FBs}
+Previous work has demonstrated an approach for manually creating test FBs \cite{Testing_Midhun} for an IEC 61499 FB with control logic. These test FBs encompass multiple test scenarios and embed the control logic. The expected result is compared with the result obtained from executing the control logic. A test FB is implemented as a Basic FB with event and data pins. Each input event represents a test scenario linked to specific data inputs, while output events indicate the expected result and corresponding data outputs. When a test scenario is triggered, the state diagram (i.e., Execution Control Chart, ECC) executes an algorithm that assigns input values, generates outputs based on those values, and triggers the output event.
+
+\subsubsection{Approach B: Automatically Generate Test FBs from Specification Models}
+Tools should support engineers in specifying test cases to reduce the required software engineering knowledge and increase efficiency \cite{hametner2014}. Model-based testing involves automating at least part of the testing activities. For IEC~61499 FBs, service sequences are suitable for specifying tests \cite{hametner2014}. 
+% TODO describe here in related work existing work on model-based testing or sth like that?? shift our new work to the beginning of the next section
+A test runner can execute these tests in an RTE and automatically evaluate the results \cite{hametner2014}. Additionally, executing models directly can allow feedback without involving any RTE and is also feasible for service sequences \cite{wiesmayr2021}. The former approach requires specific tool support for a certain RTE, the latter cannot provide feedback regarding issues introduced in the deployment to an RTE. Our approach builds upon these works. 
+As an alternative to service sequences, UML models have been used as test specifications \cite{Hussain.2006}. From a state-based model, test cases can be derived using coverage-driven algorithms \cite{Hussain.2006}. Using an evolutionary algorithm, test cases with a high coverage were generated directly from the FB model in \cite{Buzhinsky.2015}. Test case generation can augment our approach, which focuses on executing tests of any source on multiple platforms. Additional tool support would be however required to use other kinds of test specifications.
+%In this approach, a test specification is created as service sequences to test the developed IEC 61499 function block with control logic. However, this approach is executed in the interpreter and does not have runtime support. The results are compared to the output of the sequence primitive.
+
+
+\subsection{Identified Issues Regarding Platform Independence}
+Two major problems are associated with distributed control software that spans multiple platforms: 
+(i) The \emph{lack of automated tool support for RTE comparison} makes comparing the behaviour and performance of FBs across different RTEs a challenging task. Currently, manual comparison is time-consuming and error-prone. Dedicated tools should analyse and evaluate the behaviour of FBs in different RTEs to ensure accurate comparison.
+
+(ii) \emph{Software development for different RTEs} is challenging because the compatibility and portability of an FB across different RTEs cannot be assumed. 
+For example, if an FB is initially developed and tested on one RTE, such as NXT EcoRT, there might be a need to reuse that FB in another project in a different RTE, such as 4diac FORTE. Differences in RTE behaviour, programming languages, and underlying architectures can cause compatibility issues and hinder the seamless transfer of FBs between different RTEs. 

@@ -1,0 +1,99 @@
+\documentclass{ieeeojies}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{todonotes}
+%\usepackage[table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{url}
+\newtcolorbox{rquestion}[1]{colback=gray!5!white,colframe=gray!75!black,fonttitle=\bfseries,title={#1},left=1mm,right=1mm, top=1mm, bottom=1mm}    
+
+\newtcolorbox{rdirection}{leftrule=2mm,colback=gray!5!white,colframe=gray!75!black,left=1mm,right=1mm, top=1mm, bottom=0mm}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+
+%\title{Generating Portable Test Cases for IEC~61499 FBs from Interface Behaviour Specifications}
+%\title{A Test Framework for Cross-Platform Development of IEC~61499-based Control Software}
+\title{Develop Once, Test Everywhere: Cross-Platform Development of Distributed Control Software}
+
+\author{
+\uppercase{Bianca Wiesmayr}\authorrefmark{1},
+\uppercase{Melanie Winter}\authorrefmark{1},
+\uppercase{Midhun Xavier}\authorrefmark{2},
+\uppercase{Sandeep Patil}\authorrefmark{2},
+\uppercase{Valeriy Vyatkin}\authorrefmark{2,4} \IEEEmembership{Fellow, IEEE},
+\uppercase{and Alois Zoitl}\authorrefmark{3} \IEEEmembership{Senior Member, IEEE}}
+
+\address[1]{LIT CPS Lab, Johannes Kepler University Linz, Austria (e-mail: bianca.wiesmayr@jku.at)}
+\address[2]{Luleå University of Technology, Luleå, Sweden (e-mails: midhun.xavier@ltu.se, sandeep.patil@ltu.se)}
+\address[3]{CDL VaSiCS, LIT CPS Lab, Johannes Kepler University Linz, Austria (e-mail: alois.zoitl@jku.at)}
+\address[4]{Aalto University, Helsinki, Finland (e-mail: Valeriy.Vyatkin@aalto.fi)}
+
+\tfootnote{This work was sponsored in part by the Horizon Europe project Zero-SWARM funded by the European Commission (grant agreement: 101057083).}
+
+\corresp{Corresponding author: Valeriy Vyatkin (e-mail: Valeriy.Vyatkin@aalto.fi).}
+
+\begin{abstract}
+\input{sections/00_abstract}
+\end{abstract}
+
+\begin{keywords}
+Model-based Testing, IEC 61499, Function Blocks, Service Sequences, Portability
+\end{keywords}
+
+%\titlepgskip=-15pt
+\setlength{\titlepgskip}{-15pt}
+
+\maketitle
+
+\input{sections/01_intro}
+\input{sections/02_relwork}
+\input{sections/03_runningexample}
+\input{sections/04_methodology}
+\input{sections/05_implementation}
+\input{sections/06_limitations}
+\input{sections/07_conclusions}
+
+%% these lines used to import a separate ".bib" for the bibliografy.
+\bibliographystyle{bibliography/IEEEtranIES}
+\bibliography{bibliography/IEEEabrv,bibliography/mybibfile}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Figures/photo-bianca.png}}]{Bianca Wiesmayr} is a postdoctoral researcher at the Cyber-Physical Systems Lab at the Linz Institute of Technology (LIT) at Johannes Kepler University (JKU) Linz, Austria. She holds a Master’s degree in Electronics and Information Technology and a doctoral degree in Engineering Sciences from the same university. Her PhD thesis analyzed the use of behavior modeling in the IEC~61499 development process. Her main research interests include model-driven control software engineering as well as modeling tools and their usability.
+\end{IEEEbiography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Figures/Alois_cropped_white_Journal.jpg}}]{Alois Zoitl} (M'08--SM'22) was born in Wels, Austria in 1977. He received the M.S. and PhD degrees in electrical Engineering from Vienna University of Technology, Austria in 2002 and 2007 respectively. 
+Since 2018 he is professor of Cyber-Physical Systems for Engineering and Production at the Johannes Kepler University, Linz, Austria.
+%He is also part-time with the research institute fortiss in Munich, Germany, where he was leading the competence field Industrie 4.0. 
+%Before that he was the head of the research field Distributed Intelligent Automation Systems (Odo Struger Laboratory) at the Automation and Control Institute (ACIN), Vienna University of Technology. 
+His research interests are in the area adaptive production systems, distributed control architectures, and dynamic reconfiguration of control applications as well as software development and software quality assurance methods for industrial automation.
+He is co-author of more than 200 publications (3 books, 6 book chapters, 19 journal articles) and the co-inventor of 4 patents in the mentioned areas. 
+%Alois Zoitl conducted and lead several industry funded R\&D projects as well as coordinated and participated in several public funded (national as well as European) R\&D projects. 
+He is a founding member of the open source initiatives Eclipse 4diac, providing a complete IEC~61499 solution, and OpENer. 
+%Furthermore, he is a member of the IEEE and GMA. 
+Since 2009 he is an active member of the IEC SC65B/WG15 for the distributed automation standard IEC~61499. He was named convenor of the group in May 2015.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Bio-Images/midhun.png}}]{Midhun Xavier} received B.Tech in Electronics and Communication Engineering from MG University, Kottayam, India in 2014; the Master of Computer Science from Indian Institute of Information Technology, NIT Trichy Campus, India in 2017. Currently, he is a Ph.D. student at Luleå University of Technology, Luleå, Sweden, with a major in formal verification and modeling of industrial automation systems using IEC 61499 standard. He is also an accomplished software engineer with 3 years of experience in data analytics and web3 development. He has worked with several esteemed organizations such as Uvionics Pvt. Ltd., TCS, and RCKR Software Pvt. Ltd. in India as a Software engineer. 
+\end{IEEEbiography}
+
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Bio-Images/sandeep.jpeg}}]{SANDEEP PATIL} (S’11, M’19) received a Bachelor’s degree in computer science engineering from the CMR Institute of Technology, Bangalore, India, in 2005; a Master of computer science (software engineering) degree from the Illinois Institute of Technology, Chicago, IL, USA, in 2010; the Master of Engineering Studies (computer systems) degree from the University of Auckland, Auckland, New Zealand, in 2011; and a Ph.D. degree in formal verification of cyber-physical systems from the Lulea University of Technology, Lulea, Sweden. His research interests include software engineering principles and methodologies in distributed industrial automation, especially using the IEC 61499 paradigm. He also works with formal verification techniques in the same application field. He is an accomplished software engineering professional with over 16 years of research and development experience in systems and application software, including four years as a Senior Software Engineer at Motorola India Pvt. Ltd., India.
+\end{IEEEbiography}
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{Bio-Images/vyatk-eps-converted-to.pdf}}]{Valeriy Vyatkin} (Fellow, IEEE) received Ph.D. degrees in Russia and Japan, in 1992 and 1999, respectively, and the Habilitation degree in Germany, in 2002., He is currently on Joint Appointment as the Chaired Professor with the Luleå University of Technology, Luleå, Sweden, and a Full Professor with Aalto University, Helsinki, Finland. Previously, he was a Visiting Scholar at Cambridge University, Cambridge, UK, and had permanent academic appointments with New Zealand, Germany, Japan, and Russia. His research interests include dependable distributed automation and industrial informatics, software engineering for industrial automation systems, artificial intelligence, distributed architectures, and multi-agent systems applied in various industry sectors, including smart grid, material handling, building management systems, data centres, and reconfigurable manufacturing. Dr. Vyatkin was a recipient of the Andrew P. Sage Award for the Best IEEE Transactions Paper in 2012. He has been Chair of the IEEE IES Technical Committee on Industrial Informatics since 2016 and Vice President of IES for Technical Activities for the term 2022–2025.
+\end{IEEEbiography}
+
+
+
+\EOD
+\end{document}

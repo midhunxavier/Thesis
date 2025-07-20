@@ -1,0 +1,60 @@
+Net Condition/Event Systems (NCES) is a finite state formalism that preserves the graphical notation and the non-interleaving semantics of Petri nets \cite{Petri62}, and extends them with a clear and concise notion of signal inputs and outputs. The formalism was introduced in \cite{RaHA95} \VV{in 1995} and has been used in dozens of applications, especially in embedded industrial automation systems. 
+
+%\fgx{8}{module}{Graphical notation of a NCES module.}{CEN}
+
+\begin {figure}
+    \centering
+    \includegraphics [width = .5 \textwidth] {images/nces_module.jpg}
+    \caption {Graphical notation of an NCES module.}
+    \label {fig:nces}
+\end {figure}
+
+Given a place/transition net $N=(P,T,F,m_0)$, the
+Net Condition/Event System (NCES) is defined as a tuple
+$\NN=(N,\theta_N,\Psi_N, Gr)$, where $\theta_N$ is an internal
+structure of signal arcs, $\Psi_N$ is an input/output structure,
+and $Gr \subseteq T$ is a set of so-called "obliged" transitions that fire as soon as it is enabled.
+Fig. \ref{fig:nces} shows an example of an NCES module. 
+The structure $\Psi_N$ consists of
+condition and event inputs and outputs ($ci,ei,eo,co$). The
+structure $\theta_N$ is formed from two types of {\it signal}
+arcs. Condition arcs lead from places and condition inputs to
+transitions and condition outputs. They provide additional
+enableness conditions of the recipient transitions. Event arcs
+from transitions and event inputs to transitions and event
+outputs provide one-sided synchronization of the recipient
+transitions: the firing of the source transition forces the firing of the recipient if the latter is enabled by the marking and conditions.
+
+The NCES modules can be interconnected by the condition and event arcs, forming thus distributed and hierarchical models \VV{as illustrated in Fig.\ref{fig:composition}}.
+NCES having no inputs can be analyzed without any additional
+information about its external environment.
+
+\begin {figure}
+    \centering
+    \includegraphics [width = .5 \textwidth] {images/composition.jpg}
+    \caption {Composition of NCES modules.}
+    \label {fig:composition}
+\end {figure}
+
+The semantics of NCES cover both asynchronous and synchronous behaviour (required to model plants and controllers respectively). NCES are supported by a family of model-developing and model-checking tools, such as a graphic editor, SESA and ViVe (\cite{vive}).
+
+The state of an NCES module is completely determined by the
+current marking $m: P \righarrow \N_0$ of places and values of
+inputs. A state transition is determined by the subset $\tau
+\subseteq T$ of simultaneously fired transitions, called {\it
+step}. The transitions having no incoming event arcs are called
+{\it spontaneous}, otherwise {\it forced}. The step fully determines the
+values of the event outputs of the module. In the original NCES version the step is formed by
+choosing some\footnote{This means the step in NCES is non-deterministic.} of the enabled spontaneous transitions, and all the enabled transitions forced by the transitions already included in the step. 
+
+A state of NCES is fully described by the marking of all its places (in the timed version also by clocks). A transition step specifies a state transition. 
+When used for system analysis, a set of all reachable states (complete or partial) 
+of NCES model is generated and then analyzed.
+
+For describing the execution model of function blocks we use a deterministic dialect 
+of NCES and the modeling approach that guarantee certain properties of the models as follows: 
+\begin{enumerate}
+\item In the chosen dialect a step is formed from all enabled spontaneous transitions and all forced transitions;
+\item The models are designed so that there is no conflicts (i.e. deficient marking in some places) leading to non-deterministic choice of some of the enabled transitions;
+\item The models also guarantee bounded marking in all places.
+\end{enumerate}

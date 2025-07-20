@@ -1,0 +1,10 @@
+\section{Limitations}
+\label{sec::limitations}
+We have proposed and implemented a framework for generating cross-platform tests for IEC~61499-based software. We used two tool environments to evaluate the portability and built on previous results of known execution issues. Currently, no industrial-scale FB libraries are publicly available for testing our approach in practice. As described in the paper, service sequences can serve as test cases for IEC~61499 FBs. However, there is no possibility to specify timing information \cite{Wiesmayr_ifac}. Our approach mainly targets the event-based behaviour of IEC~61499 FBs, while other approaches can cover timing verification (c.f. \cite{Bruns.2023}). 
+
+
+\begin{comment}
+    \item further research on test case generation would be useful
+    \item no timing in the 1499 service sequences (e.g., send REQ every 15 ms), hence, also not part of the test generation approach
+    \item timing also difficult to test with a test application, but well suitable for the typical problems of 1499 event-based systems
+\end{comment}
