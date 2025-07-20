@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021}     %% Change this only.
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep}     %% Change this only.
 \defaultbibliographystyle{plain}        %% Could be changed if you like 
                                            %% references typeset differently.
 %-------------------------------------------------------------------
@@ -158,16 +158,16 @@ appearing on the\\ chapter start page\label{ch2}}
 \input{papers/paper2.tex}
 %-------------------------------------------------------------------
 \def\paperheader{Paper C}
-\def\papertitle{Yet Another Sub-Optimal Estimator of Sinusoids in Noise}
-\def\paperauthorstring{Dr.\ C}
-\def\referencestring{Example Thesis, Internal Report, Lule{\aa} University of Technology, 2009.}
-\def\copyrightstring{2009, The Publisher, Reprinted with permission.}
+\def\papertitle{Formal verification of observers supervising a cyber-physical system implemented using IEC~61499}
+\def\paperauthorstring{Polina Ovsiannikova, Etienne Le Priol, Vincent Perret, Pranay Jhunjhunwala, Midhun Xavier, and Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
 % use of the function \makepaper.
 
-\makepapersubmitted
+\makepaperaccepted
   {\paperheader}
   {\papertitle}
   {\paperauthorstring}
@@ -178,23 +178,7 @@ appearing on the\\ chapter start page\label{ch2}}
 % Make sure the file exist.
 \input{papers/paper3.tex}
 
-%-------------------------------------------------------------------
-\def\paperheader{Paper D}
-\def\papertitle{An example of a yet-to-be-submitted paper}
-\def\paperauthorstring{Dr.\ C}
 
-% The definitions above could just as well be put directly into the function
-% call below, but were explicitly defined to more clearly illustrate the
-% use of the function \makepaper.
-
-\makepapertobesubmitted
-  {\paperheader}
-  {\papertitle}
-  {\paperauthorstring}
-
-% The actual contents is imported by un-commenting the \input line below.
-% Make sure the file exist.
-\input{papers/paper3.tex}
 
 
 \printglossary[type=\acronymtype]

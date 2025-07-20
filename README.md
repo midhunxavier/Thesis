@@ -231,6 +231,7 @@ If you encounter issues:
 ## 🔄 Recent Updates
 
 - **Paper 2 Integration**: Cyber-Physical Systems Verification paper fully integrated
+- **Paper 3 Integration**: Formal verification of observers supervising cyber-physical systems paper fully integrated
 - **Bibliography System**: Updated to handle multiple paper bibliographies automatically
 - **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
 - **File Organization**: Improved structure with clear separation between integrated papers and source files

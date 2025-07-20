@@ -90,6 +90,24 @@ else
     echo -e "${YELLOW}⚠️  Paper 2 images directory not found${NC}"
 fi
 
+if [ -f "papers/paper3.tex" ]; then
+    echo -e "${GREEN}✅ Paper 3 integrated: papers/paper3.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 3 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper3/refrencias_sobraep.bib" ]; then
+    echo -e "${GREEN}✅ Paper 3 bibliography: MX_Papers/Paper3/refrencias_sobraep.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 3 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper3/pic" ]; then
+    echo -e "${GREEN}✅ Paper 3 images: MX_Papers/Paper3/pic/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 3 images directory not found${NC}"
+fi
+
 echo
 echo -e "${BLUE}📖 For detailed instructions, see README.md${NC}"
 echo -e "${BLUE}🤖 For AI assistance, see claude.md${NC}" 
