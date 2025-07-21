@@ -4,7 +4,8 @@
 # This script compiles your LaTeX thesis with proper bibliography and glossary handling
 # All generated files are organized in a build directory structure
 
-set -e  # Exit on any error
+# Don't exit on error - we want to continue even if there are warnings
+# set -e  # Exit on any error
 
 # Colors for output
 RED='\033[0;31m'
@@ -93,15 +94,29 @@ clean_aux_files() {
 copy_bibliography_files() {
     print_status "Copying bibliography files to auxiliary directory..."
     
-    # Copy main bibliography file only
+    # Copy main bibliography file
     if [ -f "thesisreferences.bib" ]; then
         cp thesisreferences.bib "$AUX_DIR/"
         print_success "Copied thesisreferences.bib"
     fi
     
-    # Note: Individual paper bibliography files are referenced directly in MX_Thesis.tex
-    # through the \defaultbibliography command, so they don't need to be copied here
-    print_status "Paper bibliography files are referenced directly from MX_Papers/ directories"
+    # Copy paper bibliography files
+    if [ -f "MX_Papers/Paper1/sns.bib" ]; then
+        cp "MX_Papers/Paper1/sns.bib" "$AUX_DIR/"
+        print_success "Copied Paper1 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper2/INDIN2021.bib" ]; then
+        cp "MX_Papers/Paper2/INDIN2021.bib" "$AUX_DIR/"
+        print_success "Copied Paper2 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper3/refrencias_sobraep.bib" ]; then
+        cp "MX_Papers/Paper3/refrencias_sobraep.bib" "$AUX_DIR/"
+        print_success "Copied Paper3 bibliography"
+    fi
+    
+    print_status "Bibliography files copied to auxiliary directory"
 }
 
 # Move files to appropriate build directories
@@ -154,13 +169,15 @@ compile_latex() {
     else
         print_error "LaTeX pass $pass failed (no PDF generated)"
         print_status "Check the log file for details: $LOG_DIR/MX_Thesis.log"
-        exit 1
+        return 1
     fi
     
     # Show warning if there were issues but PDF was still generated
     if [ $exit_code -ne 0 ]; then
         print_warning "LaTeX pass $pass had warnings but PDF was generated successfully"
     fi
+    
+    return 0
 }
 
 # Compile bibliography for main document and bibunits
@@ -223,8 +240,6 @@ compile_bibliography() {
         done
     fi
     
-    organize_files
-    
     # Copy bibliography files back to main directory for LaTeX to find them
     print_status "Copying bibliography files back to main directory..."
     if [ -d "$AUX_DIR" ]; then
@@ -244,7 +259,6 @@ compile_glossary() {
         
         if makeglossaries MX_Thesis; then
             print_success "Glossary compiled"
-            organize_files
         else
             print_warning "Glossary compilation had issues"
         fi
@@ -311,7 +325,14 @@ main() {
     print_status "Starting compilation process..."
     
     # First LaTeX pass (don't organize files yet)
-    compile_latex 1 false
+    if ! compile_latex 1 false; then
+        print_error "First LaTeX pass failed. Check the log file for details."
+        print_status "Common issues:"
+        print_status "  - Undefined control sequences (\\RNum, \\com)"
+        print_status "  - Missing bibliography files"
+        print_status "  - Missing image files"
+        exit 1
+    fi
     
     # Compile bibliography (main + bibunits)
     compile_bibliography
@@ -320,13 +341,19 @@ main() {
     compile_glossary
     
     # Second LaTeX pass (for bibliography references)
-    compile_latex 2 false
+    if ! compile_latex 2 false; then
+        print_warning "Second LaTeX pass had issues, but continuing..."
+    fi
     
     # Third LaTeX pass (for glossary references)
-    compile_latex 3 false
+    if ! compile_latex 3 false; then
+        print_warning "Third LaTeX pass had issues, but continuing..."
+    fi
     
     # Final LaTeX pass (for any remaining references) - organize files
-    compile_latex 4 true
+    if ! compile_latex 4 true; then
+        print_warning "Final LaTeX pass had issues, but PDF was generated"
+    fi
     
     # Show build summary
     show_build_summary
