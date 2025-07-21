@@ -1,0 +1,287 @@
+\begin{bibunit}
+\thispagestyle{plain}
+
+% Add missing command definitions from original paper
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\section{Introduction}
+\label{sec:introduction}
+Realising flexible industrial automation systems requires an approach
+ for autonomous and distributed designs \cite{Lyu.2021}. Programmable Logic Controllers (PLCs) are the established platform for real-time control software that accesses sensors and actuators \cite{Sehr.2021}.  Standards play an important role in distributed automation, for instance, IEC~61131-3 and IEC~61499, which define programming paradigms for control software development \cite{Lyu.2021}. %Despite the increasing complexity of automation systems, the programming models of IEC 61131-3 are still prevalent \cite{Sehr.2021}. 
+ Multiple interacting PLCs form a distributed control system. Providing the respective engineering methodologies and models is a goal of IEC~61499 \cite{61499}. Heterogeneous systems can even be composed of PLCs from various vendors and programmed with different tools \cite{lyu2020towards} \cite{mazzolini2017structured}. Furthermore, a single development tool can distribute control code across multiple runtime environments (RTEs)~\cite{eclipse4diac}, motivating the need to execute component tests in each of these RTEs. Developers of IEC~61499 library modules  \cite{oberlehner.2022} will also need to provide their modules to users of various development environments. 
+ Despite the focus on portability \cite{61499} and the standardized XML format for data exchange \cite{61499.2}, IEC~61499-based software components must often be modified during the porting process \cite{Hopsu.2019, Testing_Midhun}. Due to varying execution behaviour, the ported software may behave differently on each platform \cite{Testing_Midhun, Wiesmayr.2023}, possibly leading to malfunctions of the distributed control system. Therefore, it is crucial to thoroughly test an IEC 61499 application on each relevant target platform before using the software in a real-world system. A platform-independent test specification has the potential to greatly reduce the involved effort.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{MX_Papers/Paper10/Figures/portingProcessPNG.PNG}
+    \caption{Process of porting test code for IEC~61499 Function Blocks between execution environments.}
+    \label{fig:porting_process}
+\end{figure}
+
+Evaluating a system's correctness typically involves providing test data and observing the system's reaction. Such tests are specified manually, obtained from models, or generated using other techniques \cite{Sinha.2019}. The engineering processes of complex control systems additionally require that PLC platforms ensure reliability through simulation and verification, rather than relying on iterative testing of a cyber-physical system \cite{Sehr.2021}. Simulation methods evaluate only a system model and, thus, can provide results faster \cite{Sinha.2019}. In the context of IEC~61499, executing test cases within a run-time environment can be considered a simulation. A certain degree of test automation is required to efficiently evaluate this software. Existing test processes for IEC~61499-based software rely on a framework in the target platform (e.g., \cite{hametner2014}) and are therefore not applicable for cross-platform development of IEC~61499-based software. When (re-)using parts of IEC~61499 software in multiple platforms, extensions to the IEC~61499 standard may not be available in all platforms (equally). Hence, we are investigating an approach for test automation that does not require any extensions of IEC~61499.
+
+This paper aims to address the challenge of evaluating the effect of porting software components to other platforms or configuring additional RTEs. The test framework allows us to execute tests in any IEC~61499-compliant RTE. Based on our initial concept presented in \cite{biancaMidhunETFAwip}, we generate an IEC~61499-compliant test application that automatically provides test events and data, compares the results of the software component under test with the expected observable behaviour and summarises the results so that they are accessible by the user. The general process is visualised in Figure~\ref{fig:porting_process}. 
+Like Hametner et al.~\cite{hametner2014}, we use service sequence models as test specifications. Related work in the context of testing and porting IEC~61499 components is outlined in Section~\ref{sec::sota}. Section~\ref{sec::running_example} introduces a running example. Based on this example, Section~\ref{sec::methodology} outlines the envisioned methodology to test FBs on any IEC~61499-compliant platform. 
+One of these IDEs, the 4diac IDE from the Eclipse 4diac open source project, was extended to generate the test application. 
+The generation rules for a test application and their implementation are described in Section~\ref{sec::implementation}. Realised as a composite FB, the test application is portable across various IEC 61499 platforms and enables validation of the correct functionality before deployment in real-world machinery. We evaluated our approach using a demonstrator (Section~\ref{sec::casestudy}). Section~\ref{sec::results} lists the identified portability issues and programming errors that we could detect using our test suite. In addition, we discuss limitations of our approach before concluding our paper in Section~\ref{sec::conclusions}. 
+
+\section{Related Work}
+\label{sec::sota}
+
+Portability, interoperability, configurability, and distribution across devices are key goals of IEC~61499 \cite{jhunjhunwala2024interoperability,hopsu2019portability, batchkova2013dynamic}. 
+This has led to its application in use cases of flexible manufacturing systems, such as multi-agent systems \cite{lyu2023multi, xavier2024enhancing}. However, portability between vendors has not yet been achieved due to vendor-specific execution behaviour \cite{misperceptions}. In this section, we therefore review recent studies on porting software between engineering platforms. Furthermore, techniques for improving the reliability of control software are discussed with a focus on testing approaches. The approach proposed in this paper aims to test software components on different platforms, thus, promoting reusability of software as well as supporting the process of porting software components. 
+
+\subsection{Portability of Control Software}
+Both standards that define programming languages for control software, i.e., IEC~61131-3 \cite{61131.3} and IEC~61499-1 \cite{61499}, define XML formats for exchanging software between PLC environments \cite{61131.10,plcopenpaper, 61499.2, Testing_Midhun}. The standardised format contributes to code exchange between tools from different vendors~\cite{plcopenpaper}. As existing tools only support a varying subset of features, portability is limited in practice \cite{Testing_Midhun}. Certain vendors also use custom XML tags to store additional information in their projects which are not covered by the standard itself, such as namespaces in IEC~61499. The resulting software may still be portable if the parser in the target IDE discards unknown XML tags that carry additional information \cite{Hopsu.2019}.  The language specification focusses on control software without detailing applied communication standards or visualisation options. Language extensions, such as modelling elements for communication \cite{Bruns.2023}, are not widely supported and therefore not yet portable. One of the IDEs allows specifying the human-machine interaction (HMI) as part of the control code with dedicated blocks, so-called CAT elements \cite{Hopsu.2019}. Converter programs can help translate programs between syntactic variants of IEC~61499 \cite{Hopsu.2019}, but vendor-specific extensions can typically not be transferred. 
+Even syntactic equivalence does not guarantee portability. Nowadays, cross-platform development does not require porting because a single IDE allows deploying software to multiple run-time environments \cite{aimirimi}. 
+The IEC~61499 language semantics is not specified formally and is subject to interpretation. Different execution semantics have emerged, which can affect the behaviour of the cyber-physical system \cite{cengic_executionsemantics}. Hence, migrating IEC~61499-based software to different run-time environments can introduce errors that may cause damage to operators or equipment. While the syntactic portability has been addressed \cite{Hopsu.2019,Testing_Midhun}, different execution behaviours cannot yet be detected (semi-)automatically. It is therefore crucial to thoroughly test IEC~61499 applications in the target platform before deployment. Existing testing mechanisms enable systematically evaluating the implemented execution semantics of IEC~61499 runtime environments \cite{Wiesmayr.2023,pfefferkorn,Testing_Midhun}, but a solution for porting test cases including their execution framework to different platforms is not yet available. We have presented our initial concept in \cite{biancaMidhunETFAwip}. 
+
+\subsection{Validating Control Software}
+Cengic and Akesson~\cite{cengic_executionsemantics} followed the approach of creating a formal semantics specification for each runtime environment. Subsequently, formal verification methods can be applied to identify errors in the code \cite{xavier2024framework}, which can enhance a system's reliability by checking various properties. Formal verification does not require access to any RTE, but a model of the execution behaviour is required. Sinha et al.~\cite{Sinha.2019} provide an overview of formal methods for IEC~61499. Formal verification may uncover errors that do not occur during simulations, thus, identifying certain undesirable situations \cite{lilli2023formal}. 
+Control software has to be continuously adapted to changing requirements. Research has therefore provided guidance on the correct evolution of control software developed in IEC~61499 \cite{faqrizal_guidedevolution}. 
+Verification and testing can complement each other \cite{Hussain.2006}. During development, tests provide early feedback, even if the model is still incomplete. Furthermore, errors that are introduced during the deployment may lead to issues encountered during runtime, but might not be revealed by formal methods \cite{ovsiannikova2023formal} \cite{xavier2023formal}. Hence, testing deployed software directly in the run-time environment remains valuable.
+
+Developers can apply various testing strategies, which we differentiate based on the involved software activities (e.g., unit tests or integration tests), the maturity of the software, and the degree of automation~\cite{softwareTesting}. 
+Unit testing is a fundamental approach to software testing, which evaluates the implementation of a piece of software \cite{softwareTesting} to ensure software reliability.
+In IEC~61499, the relevant units are individual Function Blocks (FBs) \cite{hametner2014}. Executing a test requires providing event and data signals. For control engineers who develop FBs, it can be challenging to manually create a test FB and the required test application, which derives and collects the test results. Model-based testing can reduce manual effort and also supports a ``test first and fail'' methodology, known as Test-Driven Development (TDD) \cite{hametner2014}, which is used in agile software engineering.  
+After developing the control program for the entire system, functional tests can be conducted. This involves evaluating the control system by providing input data and verifying the output against expected results.
+
+Tools should support engineers in specifying test cases to reduce the required software engineering knowledge and increase efficiency \cite{hametner2014}. Model-based testing involves automating at least part of the testing activities. For IEC~61499 FBs, service sequences are suitable for specifying tests \cite{hametner2014}. 
+A test runner can execute these tests in an RTE and automatically evaluate the results \cite{hametner2014}. Additionally, executing models directly can allow feedback without involving any RTE and is also feasible for service sequences \cite{wiesmayr2021}. The former approach requires specific tool support for a certain RTE, the latter cannot provide feedback regarding issues introduced in the deployment to an RTE. Our approach builds upon these works. 
+As an alternative to service sequences, UML models have been used as test specifications \cite{Hussain.2006}. From a state-based model, test cases can be derived using coverage-driven algorithms \cite{Hussain.2006}. Using an evolutionary algorithm, test cases with a high coverage were generated directly from the FB model in \cite{Buzhinsky.2015}. Test case generation can augment our approach, which focusses on executing tests of any source on multiple platforms. Additional tool support would be required to use other test specifications than service sequences.
+
+Two major problems are still associated with developing distributed control software that spans multiple platforms: 
+\begin{itemize}
+    \item The \emph{lack of automated tool support for RTE comparison} makes comparing the behaviour and performance of FBs across different RTEs a challenging task. Currently, manual comparison is time-consuming and error-prone. Dedicated tools should analyse and evaluate the behaviour of FBs in different RTEs to ensure an accurate comparison.
+    \item \emph{Software development for different RTEs} is challenging because the compatibility and portability of an FB across different RTEs cannot be assumed.
+\end{itemize}
+For example, if an FB is initially developed and tested on one RTE, such as SE EcoRT, there might be a need to reuse that FB in another project in a different RTE, such as 4diac FORTE. Differences in RTE behaviour, programming languages, and underlying architectures can cause compatibility issues and hinder the seamless transfer of FBs between different RTEs. 
+
+\subsection{Cross-Platform Tests of Control Software}
+Two main strategies are relevant for IEC~61499-based software. Firstly, \textbf{manually created test FBs} \cite{Testing_Midhun} can reveal the behaviour implemented in an RTE. Each test FB encompasses multiple test scenarios and embeds control logic. To indicate whether a test was successful, the expected result is compared with the result obtained from executing the control logic. The tests are implemented as a Basic FB with event and data pins. Each input event represents a test scenario linked to specific data inputs, while output events indicate the expected result and corresponding data outputs. When a test scenario is triggered, the state diagram (i.e., Execution Control Chart, ECC) executes an algorithm that assigns input values, generates outputs based on those values, and triggers the output event. The main purpose of these FBs was to identify differences between the execution behaviour in RTEs, not to test FB libraries. Similarly, small networks of FBs can further expand these test suites \cite{pfefferkorn,Wiesmayr.2023}. 
+As a second approach, \textbf{generating test code from a high-level test specification} has the potential to enable testing FB implementations \cite{biancaMidhunETFAwip}.
+
+\section{Running Example: Simple Calculation FB}
+\label{sec::running_example}
+As a running example, we use an FB that performs a simple calculation (Figure~\ref{fig:running_example}) based on the inputs according to the formula \texttt{DO1:=DI1+2*DI2}. It contains the following language elements:
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{MX_Papers/Paper10/Figures/RunningExample.png}
+    \caption{Running Example: FB performing simple calculation. FB interface defining the component, implementation as state diagram, and two usage scenarios modelled as service sequences.}
+    \label{fig:running_example}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{MX_Papers/Paper10/Figures/methodology_complete.png}
+	\caption{Overview of process for testing FBs across various software platforms. The seven-step process is partly automated with tools (blue boxes), partly it requires tool-assisted manual development. The test application can be ported to tools of various vendors and validate the expected behaviour of an FB directly in the target RTE, thus, possibly identifying differences in the execution semantics that affect the FB under test.}
+	\label{fig::methodology}
+\end{figure}
+
+\begin{itemize}
+   \item Input event \texttt{REQ} triggers the calculation.
+   \item Data inputs \texttt{DI1}, \texttt{DI2} receive values from other FBs and are used in the algorithm.
+   \item The data output \texttt{DO1} stores the result of the algorithm.
+   \item The output event \texttt{CNF} is issued to indicate that the algorithm was completed and that the output result is ready to be used by other FBs.
+   \item The algorithm \texttt{REQ} within the FB is executed whenever the input event \texttt{REQ} occurs. The algorithm assigns the result of the formula to the output variable DO1.
+\end{itemize}
+
+In our example, the FB performs the calculation if the values of \texttt{DI1} and \texttt{DI2} are between 1 and 1000 (cf. implementation of the state diagram in Figure~\ref{fig:running_example}). When triggering the \texttt{REQ} event with appropriate input values, the FB executes the algorithm and produces the respective output. Both cases are modelled as service sequences and serve as test scenarios for the running example.
+
+\section{Methodology for Testing FBs}
+\label{sec::methodology}
+Our proposed approach for cross-platform FB testing is suitable for a test-driven development process, as well as for testing existing implementations. It involves specifying tests, executing tests within an IDE, generating the portable test application, as well as executing these tests on all relevant RTEs. A test application that is compliant with IEC~61499 can be ported to RTEs of various vendors. The approach is visualised in Figure~\ref{fig::methodology} as a step-by-step approach using the generated test cases of our running example (Section~\ref{sec::running_example}). In the following, we describe each step of the process in detail. We describe the envisioned development process based on our running example.
+
+\subsection{Test-driven Development of FBs}
+The following steps describe a test-driven development process. For testing existing FB libraries, the process starts directly at step 4, as the implementation is already complete. In this case, test cases will be generated semi-automatically from the implementation to reduce the effort.
+
+\subsubsection{Creating a new Function Block type (FBT)}
+Reusable functionality should be encapsulated in an FB. This involves specifying the input/output events and data inputs/outputs. For the running example, this involves defining the interface of the calculation FB.
+
+\subsubsection{Specify test cases as service sequence models}
+Specification models are defined. In the running example, a service model with two sequences is provided to define the test scenarios for the FB (cf. Figure~\ref{fig::methodology}, step 2). The service model specifies the expected event occurrences, as well as the input values (\texttt{DI1} and \texttt{DI2}) and the expected output value (\texttt{DO1}) for each test case.  
+The scenario of \texttt{test1} is triggered upon arrival of an event at the input \texttt{REQ}. The purpose of \texttt{test1} is to describe the FB behaviour by checking whether it correctly returns 19 when given input values of 5 and 7. 
+Additionally, \texttt{test2} aims to evaluate the FB behaviour for an edge case, as one value will be out of range (i.e., \texttt{DI2:=INT\#1001}). We expect that no addition is performed, and no output events are sent (cf. second sequence in step 2). 
+Where output data values are expected, they are specified together with the output event.
+
+\subsubsection{Implement desired functionality of the FB type}
+When following a TDD process, the functionality of the FB is implemented at this stage. The specified tests can be used for iteratively evaluating the correctness. For instance, the implemented behavior of an FB can be analysed using model interpreters to receive rapid feedback on any changes. 
+For the running example, we assume that the limit check of DI2 was not yet implemented. This scenario is illustrated in step 3 of Figure~\ref{fig::methodology}. When the test cases are executed using a model interpreter \cite{wiesmayr2021}, the feedback shows that an unexpected event occurrence (i.e., CNF) has been output by the FB under test. 
+By comparing the actual output with the expected output for each test case, the implemented FB behaviour is evaluated automatically.
+As a result, the transition condition of the state diagram can be updated to include the missing check for \texttt{DI2<=1000}. Afterwards, evaluating the service sequence is successful.
+
+\subsection{Testing Implemented FBs}
+After an FB has been developed, it needs to be evaluated in an RTE. While manual testing is feasible on all existing RTEs, automating the process allows to reduce the development time and effort. Hence, the following steps describe the process of model-based testing by generating an IEC~61499-based test application from the test specification.
+
+\subsubsection{Defining (additional) test cases for the implemented FB}
+Especially when validating the behavior of an FB in different platforms, creating test cases for additional corner cases may be useful. Even when a test-driven development approach is followed, a comprehensive test suite may not be available. Using a model interpreter and its accompanying execution framework~\cite{wiesmayr2021} allows recording additional test cases based on specified events and/or data inputs. This also allows adding test suites to existing implementations.  Step 4 in Figure~\ref{fig::methodology} shows the dialogue for recording a service sequence where DI1 is out of range. The resulting graphical diagram is added to the FB type specification and is shown on the right. Developers have to manually check whether the result matches the expected behaviour of the developed FB. Recorded tests can serve as regression tests, as they capture the actual behaviour of an executed FB. This can ensure that an FB is evaluated comprehensively during model evolution.
+
+\subsubsection{Generate test application for specified test cases}
+Once the implementation has been completed, the correct real-time behavior of an FB has to be evaluated in a run-time environment. The test application ensures that developers do not need to manually interact with an FB and observe the outputs. Hence, various components are required for issuing test signals, which can be automatically generated. They are visualized in step 5 of Figure~\ref{fig::methodology} and described as follows:
+\begin{itemize}
+    \item \textbf{(A) Test signal generator:} This FB generates the input signals based on the service model and supplies the required events and data to the FB under test (REQ, DI1, DI2). It also notifies the test application of the expected output events (CNF or none). Additionally, it provides the expected output values (DO1), which are set in algorithms. 
+    \item \textbf{(B) Matcher:} This FB compares the execution results of the FB under test with the expected results that are provided by the test signal generator. 
+    \item \textbf{(C) Multiplexer: } The next FB forwards the result (ERROR, SUCCESS) of each test case (i.e., service sequence) to the output, together with the name of the executed test case. This helps developers to identify the faulty test case if there are any problems. 
+    \item \textbf{(D) Test application composite: } A composite FB encapsulate the test application so that it can be easily deployed to an RTE. All components are interconnected to provide a simple interface. Developers can run each test case by triggering the respective events. An additional event pin ``run\_all'' is provided to execute all test cases sequentially based on a single event trigger. This functionality is handled by an additional FB which initiates these further test cases. 
+\end{itemize}
+Some of the components (e.g., the matcher) also require a timer to wait for the results of the FB under test, thus, ensuring that no unexpected event outputs are detected. As a result, timer FBs are included in the test application.
+Note that the test signal generator, the FB under test, and the matcher are instantiated once per test case. This ensures that the internal state of these components does not affect further test cases. The FBs are guaranteed to initiate the execution from the START-state. As all FBs for the test application require an internal state, they are realized as Basic FBs. Although Figure~\ref{fig::methodology} visualizes the test environment for a Basic FB (i.e., the running example), any kind of FB can serve as the FB under test. Only the interface definition and the service model are required. This also means that application parts can be tested as long as they are integrated into an FB.
+
+Based on the results provided in \cite{Testing_Midhun,biancaMidhunETFAwip}, we derived transformation rules for creating test code from service models. We implemented these rules in Eclipse 4diac~\cite{eclipse4diac}, which provides an open source IDE for IEC 61499-based software.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=\linewidth]{MX_Papers/Paper10/Figures/generation_rules.png}
+    \caption{Test application generated for two service sequences of the running example. Relevant regions are highlighted including their relation to the service model.}
+    \label{fig::testapp}
+\end{figure}
+
+\begin{itemize}
+    \item  A \textbf{service model} serves as the test suite and includes one or more service sequences. A single test application is generated for the whole service model. 
+    
+    \item Each \textbf{service sequence} serves as one test case. We need one event input per test case in the test application FB, which will trigger the execution of this test. We include its name in the event pin to relate the parts of the test application with the respective service sequences. Once the service sequence was completed, an ERROR or SUCCESS event is issued, together with the name of the service sequence. A service sequence can consist of several service transactions, which define the flow of events along the sequence. 
+     
+     \item Each \textbf{service transaction} is comprised of an input primitive (ingoing arrow) and any number of output primitives (outgoing arrows). The service transactions are processed one after another. An event issued by the matcher (nextCase) indicates that a transaction has been completed.
+    
+    \item The \textbf{input primitive} describes the event that initiates a transaction. 
+    The test signal generator FB has to issue the input event specified in a transaction. They are supplied to the FB under test via the respective connections together with the associated data. As a result, the test signal generator FB requires one output pin (events and data) for each input pin of the FB under test. 
+    
+    \item The \textbf{output primitives} describe the event(s) that is/are caused by the input event.
+    The test signal generator FB issues an event indicating all output events that are part of a test sequence. They are supplied to the FB under test via the respective connections together with the associated data. As a result, the test signal generator FB requires one output pin (events and data) for each input pin of the FB under test. The matcher FB receives information about the expected events and data values from the signal generator FB. It compares them with the events and data received from the FB under test.
+\end{itemize}
+
+\subsubsection{Port test application to other platforms}
+The presented development approach is fully supported in 4diac~IDE~\cite{eclipse4diac}. Although service sequences are defined in the standard, they are not fully supported in other tools. Also the model execution framework for evaluating FBs is provided in 4diac~IDE. Hence, the test application is generated in 4diac~IDE following the notation of the IEC~61499 standard, and is then ported to other platforms. Manual effort may be required for importing FBs developed in one IDE to other vendors \cite{cheng_pang_portability}.
+
+\subsubsection{Execute Tests in All Relevant RTEs}
+The generated test application (i.e., the composite FB), is deployed to and executed on different RTEs. The behaviour and output results of the FB are evaluated manually in each RTE.
+
+\section{Implementation}
+\label{sec::implementation}
+Sophisticated tool support can automate a large part of the process, especially for the steps 4 to 6. The systematic approach ensures that FBs can be thoroughly tested for functionality and compatibility across various RTEs.
+Tool support for specifying service sequences and simulating their results is available in 4diac IDE from previous work \cite{wiesmayr2021}. We have extended the tool with a test FB generator, which uses the information provided in service models to create test code. Unlike the prototype presented in \cite{biancaMidhunETFAwip}, the current implementation fully automates the process of creating control code and supports all kinds of test cases that can be modeled in service sequences. The code is available open source on Github.\footnote{\url{https://github.com/eclipse-4diac/4diac-ide/tree/release/plugins/org.eclipse.fordiac.ide.fb.interpreter}}
+
+\subsection{Case Study: Processing Station}
+\label{sec::casestudy}
+\label{sec:drilling}
+ 
+The processing station (Figure~\ref{fig:ps}) is composed of several mechatronic components, including the table, tester,  and drill component. They are considered smart, i.e., each is equipped with its own control devices, implementing the provided operations. The table component undergoes rotation from one fixed position to another. A complete cycle is achieved when the table rotates six times. Whenever a material is positioned in the loading area, the table rotates to align it underneath the tester component. The tester then checks whether the material has been drilled. If necessary, the drill component is triggered to process the material as soon as its sensor detects it. 
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.5\linewidth,clip]{MX_Papers/Paper10/Figures/processingStation.jpg}
+		\caption{Processing station}
+		\label{fig:ps}	
+ \end{figure}
+
+The processing station system implemented in IEC~61499 is designed to control various mechatronic components through an integrated application. Each of these components is equipped with its own control device, which execute distinct control programs, i.e., the TableControl, TesterControl, and DrillControl programs. The application is implemented following the "Chain of Actions" design pattern \cite{Patil.2018}, which draws inspiration from the "Chain of Responsibility" design pattern. Each of the components is implemented as a FB network that is shown in Figure~\ref{fig:Application}. For the evaluation, three Basic FBs controlling the respective substations will be presented in detail.
+
+\subsubsection{Table Control: Rotation}
+The TableControl FB network (cf. Figure~\ref{fig:Application} \textit{top}) is responsible for rotating the table to position the material appropriately under the tester and drill components. The \texttt{WPdeliveryService} FB, a composite FB encapsulating another FB network, manages this rotation through the \texttt{TableDriver} FB and a pair of \texttt{E\_DELAY} FBs. The latter are part of the core FB library defined in the standard. Multiple instances of \texttt{WPdeliveryService} are included in the control application. 
+
+The \texttt{TableRotate} FB encapsulates the core control logic within the network, making it the primary focus for testing the component's features. Its interface and state diagram are shown in Figure~\ref{fig:TableRotate}. The FB controls the rotational movement of a table machine which can rotate to different positions as required by the system's operation through state transitions. The primary functions include starting the rotation, monitoring the rotation process, checking if the table is in the correct position, and handling timeouts. This FB ensures that the table's motion is accurately controlled and stops when the desired position is reached or if a timeout occurs. As shown in the FB interface, the main events are \texttt{ROTATE} and \texttt{TIMEOUT\_EXCEED}. The \texttt{inPosition} input variable signals that the table has reached its target position, while output events such as \texttt{DRIVE\_ON}, \texttt{DRIVE\_OFF}, and \texttt{DONE} manage the rotation process. The state diagram (i.e., ECC) initially has an active \texttt{START} state, moves to \texttt{ROTATE\_START} when the rotation begins, and transitions to \texttt{ROTATE\_CONTINUE} if a timeout occurs. Once the table is in position, the FB transitions to \texttt{DONE}, stops the rotation, and then returns to \texttt{START}, ensuring precise control of the table's movement. Two test scenarios for the timeout are included as service sequences in Figure~\ref{fig:TableRotate}. They show that the drive is switched off if the position has been reached. The scenarios ensure that the rotation is stopped even if the signal \texttt{inPosition} is not received correctly.
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.99\linewidth,clip]{MX_Papers/Paper10/Figures/TableRotate.png}
+            \includegraphics[width=0.99\linewidth]{MX_Papers/Paper10/Figures/tests_casestudy/Service-TableRotate_selected.png}
+        \caption{TableRotate: Interface, state diagram, and selected test cases.}
+		\label{fig:TableRotate}	
+ \end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.99\linewidth,clip]{MX_Papers/Paper10/Figures/FB_App.png}
+		\caption{Control applications for the three substations including input FBs for processing signals from the physical system, control blocks orchestrating the station, and output FBs for writing information to actuators.}
+		\label{fig:Application}	
+ \end{figure}
+
+\subsubsection{Tester Control: Inspection}
+The FB network for the Tester component, TesterControl, detects holes in the workpiece to prevent that a workpiece is drilled more than once and to verify that the workpiece has undergone drilling. The main component is the Composite FB \texttt{Test} which is comprised of a standard library FB (\texttt{E\_DELAY}) and the \texttt{TestCtrl} Basic FB. 
+
+Upon activation, the \texttt{TestCtrl} FB uses sensor data to check whether a hole is present in the workpiece. In this case, it confirms that drilling was complete. The FB manages the sequence of extending, checking, and retracting the probe, and handles timeouts in case the process takes too long. The interface and ECC of the FB are shown in Figure~\ref{fig:TestCtrl}. 
+The primary input event, \texttt{TRIGGER}, initiates the detection sequence, with \texttt{QI} qualifying this event and \texttt{QO} reflecting the detection result. The FB has four output events: \texttt{EXTEND} to extend the sensor, \texttt{RETRACT} to retract it, \texttt{DONE} to signal that the process was completed, and \texttt{TIMEOUT} to initiate a timer. The ECC transitions from \texttt{START} to \texttt{EXTEND} upon receiving \texttt{TRIGGER}, and if a timeout occurs, moves to \texttt{CHECK} to determine whether a hole was detected. It then transitions to \texttt{RETRACT} and finally to \texttt{DONE}. A test case that shows the behaviour in the case of a timeout is shown in Figure~\ref{fig:TestCtrl}.
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.99\linewidth,clip]{MX_Papers/Paper10/Figures/TestCtrl.png}
+            \includegraphics[width=0.99\linewidth]{MX_Papers/Paper10/Figures/tests_casestudy/Service-TestCtrl_timeout.png}
+		\caption{TestCtrl: Interface, state diagram and a selected test case.}
+		\label{fig:TestCtrl}	
+ \end{figure}
+ 
+\subsubsection{Drill Control: Processing}
+The FB network for the drill component, DrillControl, orchestrates the drilling process. The main FBs are \texttt{DrillingSequence} and \texttt{DrillDriver}. The \texttt{DrillingSequence} is a composite FB that uses two FBs, \texttt{DoubleActingCylinder} and \texttt{SingleActingAc\-tu\-a\-tor}. The former is responsible for controlling the vertical movement of the drill, while the latter controls the rotation of the drill motor. As the \texttt{DoubleActingCylinder} FB contains the core logic of the drilling process, it is shown in Figure~\ref{fig:DoubleActingCylinder}. It controls the bidirectional motion of a drill machine, specifically managing its upward and downward movements. This control is essential for operating machinery that uses linear actuators, such as hydraulic or pneumatic cylinders, to extend and retract, corresponding to the downstroke and upstroke of the drill. The FB handles initialization, execution requests, extension (downward movement), and retraction (upward movement), with input conditions determining the cylinder's state transitions and output commands controlling the actuators.
+Specifically, the cylinder movement is controlled via the events \texttt{EXTEND} and \texttt{RETRACT}. The input variables \texttt{atHome} and \texttt{atEnd} indicate the cylinder's position, while the output variables \texttt{extend} and \texttt{retract} command its motion. The ECC ensures that the cylinder moves correctly based on events and position feedback. The algorithms activate or stop the cylinder's movement, ensuring precise control for upward and downward motion.
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.99\linewidth,clip]{MX_Papers/Paper10/Figures/DoubleActingCylinderV2.png}
+            \includegraphics[width=0.99\linewidth]{MX_Papers/Paper10/Figures/Service-DoubleActingCylinder_selected.png}
+		\caption{Double Acting Cylinder: Interface, state diagram, and selected test cases}
+		\label{fig:DoubleActingCylinder}	
+ \end{figure}
+
+\section{Evaluation}
+We tested the main control FBs from the processing station, but also validated the implementation itself. Following our methodology, we imported any FBs from other tools into 4diac IDE. In 4diac IDE, we then generated the test application, which was executed in 4diac~FORTE and in EcoRT.
+
+\subsection{Evaluating the Generation Framework in Eclipse 4diac}
+Selected test cases defined as service sequences as shown in Figures~\ref{fig:TableRotate}, \ref{fig:TestCtrl} and \ref{fig:DoubleActingCylinder}. In total, 12 test cases were created which described both the expected interactions with an FB and deviations (such as events from the environment that occur in a reversed order). To additionally validate that the framework can successfully detect failed test cases, we intentionally defined five service sequences with unexpected behaviour. An example for the TableRotate FB is shown in Figure~\ref{fig:table_rotate_fail}. These experiments validate that the generated test application can indeed detect deviations between the implementation and the specification.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{MX_Papers/Paper10/Figures/tests_casestudy/Service-TableRotate_negative.png}
+    \caption{Service sequences that result in failed test cases for a correct implementation.}
+    \label{fig:table_rotate_fail}
+\end{figure}
+
+\subsection{Semantic Variants in Ported Software}
+All involved FBs were manually imported in a second tool environment to evaluate the behavior of a ported test application. Unfortunately, the testing of FBs on the EcoStruxure Automation Expert (EAE) revealed that certain test cases were failing when executed on the Tester Control. Modifications to the framework were required to compensate the variations in the implemented execution semantics.
+
+Upon thorough analysis, it was determined that these failures were attributed to a semantic execution issue inherent in the EAE. Unlike specified the IEC 61499 standard, EAE adopts a specific semantic execution model. This divergence in execution semantics implies that when a real-world application is ported from Eclipse 4diac to EAE, it may not function correctly, and in some cases, it may even result in system failures.
+
+EAE's semantic execution model operates such that when two or more identical events are used as a sequence of events to transition through multiple states, a single event trigger results in a direct transition to the final state. Specifically, when the event triggers once, the system bypasses intermediate states and directly reaches the final state. 
+To illustrate this issue, consider the ECC shown in Figure~\ref{fig:SemanticExexcissue} where the event \texttt{TIMEOUT\_EXCEEDED} is expected to facilitate a sequence of state transitions. According to the desired behavior, upon the first occurrence of the \texttt{TIMEOUT\_EXCEEDED} event, the system should transition to a state labeled \texttt{CHECK}. It should remain in this \texttt{CHECK} state, awaiting a subsequent \texttt{TIMEOUT\_EXCEEDED} event to be triggered before progressing to the final state labeled \texttt{DONE}. However, due to the semantic execution model employed by EAE, when the \texttt{TIMEOUT\_EXCEEDED} event is triggered only once, the system bypasses the \texttt{CHECK} state entirely and directly transitions to the \texttt{DONE} state. This behavior deviates from the intended design, leading to incorrect execution flow.
+
+To address this issue, the test case generation framework was modified to compensate the semantic execution differences. This algorithm modifies the \texttt{TIMEOUT\_EXCEEDED} event by setting its value to \texttt{FALSE}, ensuring that the system remains in the \texttt{CHECK} state after the initial trigger. Consequently, the system only moves to the next state when a subsequent \texttt{TIMEOUT\_EXCEEDED} event is triggered. This modification aligns the execution flow with the expected sequence, preventing premature transitions to the final state.
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=0.99\linewidth,clip]{MX_Papers/Paper10/Figures/SemanticExexcissue.png}
+		\caption{Semantic Execution issue}
+		\label{fig:SemanticExexcissue}	
+ \end{figure}
+
+\section{Results and Discussion}
+\label{sec::results}
+The semantic differences outlined in the previous section demonstrate the need for a cross-platform testing framework. While the semantic differences could be bridged within our implemented generators, transferring real-world FBs between execution environments can lead to undetected failures. In any portability scenario, this would mean that the distribution of software parts across various vendor's IDEs introduces bugs that are difficult to detect.
+
+It was observed that the control application for our demonstrator contained certain bugs after porting to Eclipse 4diac, which were uncovered during the execution of the test cases. These issues highlight the importance of recognizing the semantic execution differences between EAE and the IEC 61499 standard when porting applications. Addressing such discrepancies is crucial to ensure that applications function as intended within the EAE environment.
+
+The migration of Function Blocks (FBs) from Eclipse 4diac to EcoStruxure Automation Expert (EAE) presents several challenges. Initially, the FBs were imported into 4diac IDE, where tests were defined and test applications were generated. 
+These test applications were executed on the accompanying runtime environment, 4diac FORTE. However, when these test applications were ported to EcoStruxure and executed on the EcoRT runtime environment, portability issues arose. The following outlines the key challenges encountered during this migration process.
+
+One significant challenge involves the direct addition of a composite FB containing the \texttt{E\_DELAY} FB. The \texttt{E\_DELAY} FB is a standard function block that is pre-compiled into the vendor's runtime environment. Due to this pre-compiled nature, adding any standard FB directly is not possible. Standard FBs are already available within the vendor's IDE, which necessitates a replacement approach to ensure proper functionality. Consequently, when a composite FB that contains a standard FB is added, it becomes necessary to manually replace the standard FB with an equivalent vendor-provided standard FB within the vendor's IDE.
+
+Another issue encountered pertains to adapters and namespaces. In EAE, an adapter cannot be located unless the correct namespace is specified as \texttt{Main}. The definition of the appropriate namespace is essential; otherwise, the adapter will not be displayed. Correcting the namespace can resolve this particular issue. However, even after setting the correct namespace, the use of adapters in composite FBs poses additional problems. These problems require the removal and subsequent redrawing of connections, indicating that the mere correction of namespaces is insufficient when dealing with composite FBs involving adapters.
+
+Further challenges were identified while porting the test FBs in EAE, particularly in relation to the algorithm section within the \texttt{.fbt} file. It was observed that the \texttt{start\_algorithm} and \texttt{end\_algorithm} statements were repeated twice. This redundancy results in errors that must be rectified manually by removing the duplicate statements. Additionally, case sensitivity issues arise within the algorithms. For instance, Boolean variable values are written as \texttt{"false"} and \texttt{"true"} instead of the expected \texttt{"FALSE"} and \texttt{"TRUE"}. This discrepancy requires manual correction to conform to the syntax standards of the target environment.
+
+Another issue relates to the naming conventions used in algorithms. Algorithm names containing double underscores (\texttt{\_\_}) are not supported. As a result, any algorithm names with double underscores must be modified to eliminate this character sequence. This change is necessary to ensure that the algorithms are compatible with the EAE environment. These migration challenges highlight the need for some manual adjustments to ensure the successful transfer and execution of FBs within different automation environments.
+
+In summary, the proposed framework can reduce the effort of porting libraries because the test execution is automated rather than requiring manual labour.
+
+\section{Limitations}
+\label{sec::limitations}
+We have proposed and implemented a framework for generating cross-platform tests for IEC~61499-based software. We used two tool environments to evaluate the portability and built on previous results of known execution issues. Currently, no industrial-scale FB libraries are publicly available for testing our approach in practice. As described in the paper, service sequences can serve as test cases for IEC~61499 FBs. However, there is no possibility to specify timing information \cite{Wiesmayr_ifac}. Our approach mainly targets the event-based behaviour of IEC~61499 FBs, while other approaches can cover timing verification (c.f. \cite{Bruns.2023}).
+
+\section{Conclusion and Future Work}
+\label{sec::conclusions}
+In conclusion, the proposed testing methodology for IEC 61499 FBs offers systematic and reliable means to verify the correct behaviour of FBs across diverse RTEs. The generation of test FBs from a model-based specification, represented as a service sequence, was accomplished through semi-automated means. Engineers can manually create the test specification (e.g., for test-driven development), or derive it from an existing implementation via the IDE. Our created test FBs are portable across platforms to allow platform-independent testing. This paper presented the overall approach and a first proof-of-concept implementation. We provide an initial set of transformation rules and the corresponding tool support for automating part of the process.
+
+In future work, we aim to support all kinds of FB implementations, provide also the test applications automatically, and evaluate our approach based on a realistic use case to evaluate the scalability and feasibility of the approach in practice. Additionally, developing a runtime comparison tool to analyse and compare the behaviour and performance of FBs across different platforms would enable control engineers to identify and address discrepancies. Finally, integrating the testing approach with further model-based development techniques, such as formal methods or simulation, would provide a holistic approach to system verification and enhance the overall reliability of developed systems.
+
+\clearpage
+\putbib
+\end{bibunit} 

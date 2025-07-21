@@ -126,6 +126,31 @@ copy_bibliography_files() {
         print_success "Copied Paper5 bibliography"
     fi
     
+    if [ -f "MX_Papers/Paper6/ETFA2022.bib" ]; then
+        cp "MX_Papers/Paper6/ETFA2022.bib" "$AUX_DIR/"
+        print_success "Copied Paper6 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper7/bibliography/mybibfile.bib" ]; then
+        cp "MX_Papers/Paper7/bibliography/mybibfile.bib" "$AUX_DIR/"
+        print_success "Copied Paper7 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper8/conference.bib" ]; then
+        cp "MX_Papers/Paper8/conference.bib" "$AUX_DIR/"
+        print_success "Copied Paper8 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper9/refs.bib" ]; then
+        cp "MX_Papers/Paper9/refs.bib" "$AUX_DIR/"
+        print_success "Copied Paper9 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper10/bibliography/mybibfile.bib" ]; then
+        cp "MX_Papers/Paper10/bibliography/mybibfile.bib" "$AUX_DIR/"
+        print_success "Copied Paper10 bibliography"
+    fi
+    
     print_status "Bibliography files copied to auxiliary directory"
 }
 
