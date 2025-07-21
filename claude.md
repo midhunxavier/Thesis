@@ -167,6 +167,8 @@ For text changes only (no bibliography updates).
 - ✅ Bibliography files (.bbl) preserved during cleanup by default
 - ✅ Full cleanup option available with `--full` flag
 - ✅ Automatic bibliography regeneration after cleanup
+- ✅ Direct bibliography file references (no unnecessary copying)
+- ✅ Clean main directory (only `thesisreferences.bib` in root)
 
 ### Compilation Script Improvements
 - ✅ Automatic bibliography compilation for all papers
