@@ -35,7 +35,10 @@ echo "│   ├── paper6.tex         # Paper F: Controller transformation an
 echo "│   ├── paper7.tex         # Paper G: Conformance checking for IEC 61499 applications"
 echo "│   ├── paper8.tex         # Paper H: Blockchain-based control systems"
 echo "│   ├── paper9.tex         # Paper I: Test generation for IEC 61499 applications"
-echo "│   └── paper10.tex        # Paper J: Cross-platform development of distributed control software"
+echo "│   ├── paper10.tex        # Paper J: Cross-platform development of distributed control software"
+echo "│   ├── paper11.tex        # Paper K: [Paper 11 Title]"
+echo "│   ├── paper12.tex        # Paper L: [Paper 12 Title]"
+echo "│   └── paper13.tex        # Paper M: ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems"
 echo "├── MX_Papers/             # Original paper sources directory"
 echo "│   ├── Paper1/            # Original Paper 1 source files"
 echo "│   │   ├── Paper1.tex     # Original paper content"
@@ -81,6 +84,18 @@ echo "│       ├── Paper10.tex    # Original paper content"
 echo "│       ├── bibliography/  # Paper 10 bibliography directory"
 echo "│       │   └── mybibfile.bib # Paper 10 bibliography"
 echo "│       └── Figures/       # Paper 10 images"
+echo "│   ├── Paper11/           # Original Paper 11 source files"
+echo "│   │   ├── Paper11.tex    # Original paper content"
+echo "│   │   ├── conference.bib # Paper 11 bibliography"
+echo "│   │   └── images/        # Paper 11 images"
+echo "│   ├── Paper12/           # Original Paper 12 source files"
+echo "│   │   ├── Paper12.tex    # Original paper content"
+echo "│   │   ├── conference.bib # Paper 12 bibliography"
+echo "│   │   └── images/        # Paper 12 images"
+echo "│   └── Paper13/           # Original Paper 13 source files"
+echo "│       ├── Paper13.tex    # Original paper content"
+echo "│       ├── conference.bib # Paper 13 bibliography"
+echo "│       └── images/        # Paper 13 images"
 echo "├── scripts/               # Compilation scripts directory"
 echo "│   ├── compile_thesis.sh  # Full compilation script (updated)"
 echo "│   ├── quick_compile.sh   # Quick compilation script"
@@ -295,6 +310,60 @@ if [ -d "MX_Papers/Paper10/Figures" ]; then
     echo -e "${GREEN}✅ Paper 10 images: MX_Papers/Paper10/Figures/${NC}"
 else
     echo -e "${YELLOW}⚠️  Paper 10 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper11.tex" ]; then
+    echo -e "${GREEN}✅ Paper 11 integrated: papers/paper11.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 11 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper11/conference.bib" ]; then
+    echo -e "${GREEN}✅ Paper 11 bibliography: MX_Papers/Paper11/conference.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 11 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper11/images" ]; then
+    echo -e "${GREEN}✅ Paper 11 images: MX_Papers/Paper11/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 11 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper12.tex" ]; then
+    echo -e "${GREEN}✅ Paper 12 integrated: papers/paper12.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 12 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper12/conference.bib" ]; then
+    echo -e "${GREEN}✅ Paper 12 bibliography: MX_Papers/Paper12/conference.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 12 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper12/images" ]; then
+    echo -e "${GREEN}✅ Paper 12 images: MX_Papers/Paper12/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 12 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper13.tex" ]; then
+    echo -e "${GREEN}✅ Paper 13 integrated: papers/paper13.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 13 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper13/conference.bib" ]; then
+    echo -e "${GREEN}✅ Paper 13 bibliography: MX_Papers/Paper13/conference.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 13 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper13/images" ]; then
+    echo -e "${GREEN}✅ Paper 13 images: MX_Papers/Paper13/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 13 images directory not found${NC}"
 fi
 
 echo

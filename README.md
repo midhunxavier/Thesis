@@ -115,7 +115,10 @@ MX_Thesis/
 │   ├── paper7.tex         # Paper G: Conformance checking for IEC 61499 applications
 │   ├── paper8.tex         # Paper H: Blockchain-based control systems
 │   ├── paper9.tex         # Paper I: Test generation for IEC 61499 applications
-│   └── paper10.tex        # Paper J: Cross-platform development of distributed control software
+│   ├── paper10.tex        # Paper J: Cross-platform development of distributed control software
+│   ├── paper11.tex        # Paper K: [Paper 11 Title]
+│   ├── paper12.tex        # Paper L: [Paper 12 Title]
+│   └── paper13.tex        # Paper M: ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems
 ├── MX_Papers/             # Original paper sources directory
 │   ├── Paper1/            # Original Paper 1 source files
 │   │   ├── Paper1.tex     # Original paper content
@@ -161,6 +164,18 @@ MX_Thesis/
 │       ├── bibliography/  # Paper 10 bibliography directory
 │       │   └── mybibfile.bib # Paper 10 bibliography
 │       └── Figures/       # Paper 10 images
+│   ├── Paper11/           # Original Paper 11 source files
+│   │   ├── Paper11.tex    # Original paper content
+│   │   ├── conference.bib # Paper 11 bibliography
+│   │   └── images/        # Paper 11 images
+│   ├── Paper12/           # Original Paper 12 source files
+│   │   ├── Paper12.tex    # Original paper content
+│   │   ├── conference.bib # Paper 12 bibliography
+│   │   └── images/        # Paper 12 images
+│   └── Paper13/           # Original Paper 13 source files
+│       ├── Paper13.tex    # Original paper content
+│       ├── conference.bib # Paper 13 bibliography
+│       └── images/        # Paper 13 images
 ├── scripts/               # Compilation scripts directory
 │   ├── compile_thesis.sh  # Full compilation script (updated)
 │   ├── quick_compile.sh   # Quick compilation script
@@ -206,6 +221,9 @@ The thesis uses the `bibunits` package to handle multiple bibliographies:
 - **Paper 8**: Uses `MX_Papers/Paper8/conference.bib`
 - **Paper 9**: Uses `MX_Papers/Paper9/refs.bib`
 - **Paper 10**: Uses `MX_Papers/Paper10/bibliography/mybibfile.bib`
+- **Paper 11**: Uses `MX_Papers/Paper11/conference.bib`
+- **Paper 12**: Uses `MX_Papers/Paper12/conference.bib`
+- **Paper 13**: Uses `MX_Papers/Paper13/conference.bib`
 
 **Important**: Bibliography files are referenced directly from their original locations in `MX_Papers/` directories through the `\defaultbibliography` command in `MX_Thesis.tex`. No copying is needed.
 
@@ -315,6 +333,9 @@ If you encounter issues:
 - **Paper 8 Integration**: Blockchain-based control systems paper fully integrated
 - **Paper 9 Integration**: Test generation for IEC 61499 applications paper fully integrated
 - **Paper 10 Integration**: Cross-platform development of distributed control software paper fully integrated with proper bibliography and figure placement
+- **Paper 11 Integration**: [Paper 11 Title] paper fully integrated
+- **Paper 12 Integration**: [Paper 12 Title] paper fully integrated
+- **Paper 13 Integration**: ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems paper fully integrated with proper bibliography and figure placement
 - **Bibliography System**: Updated to handle multiple paper bibliographies automatically
 - **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
 - **File Organization**: Improved structure with clear separation between integrated papers and source files
