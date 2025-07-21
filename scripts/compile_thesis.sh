@@ -151,6 +151,11 @@ copy_bibliography_files() {
         print_success "Copied Paper10 bibliography"
     fi
     
+    if [ -f "MX_Papers/Paper11/conference.bib" ]; then
+        cp "MX_Papers/Paper11/conference.bib" "$AUX_DIR/"
+        print_success "Copied Paper11 bibliography"
+    fi
+    
     print_status "Bibliography files copied to auxiliary directory"
 }
 

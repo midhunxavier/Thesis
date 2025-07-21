@@ -26,7 +26,7 @@
 
 \begin{document}
 
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile}     %% Change this only.
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile,MX_Papers/Paper11/conference}     %% Change this only.
 \defaultbibliographystyle{plain}        %% Could be changed if you like 
                                            %% references typeset differently.
 %-------------------------------------------------------------------
@@ -337,6 +337,28 @@ appearing on the\\ chapter start page\label{ch2}}
 % The actual contents is imported by un-commenting the \input line below.
 % Make sure the file exist.
 \input{papers/paper10.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper K}
+\def\papertitle{Enhancing Traceability in Flexible Production System: A Blockchain-Powered Approach in IEC 61499 Multi-Agent Control System}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Emerging Technologies and Factory Automation (ETFA), 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper11.tex}
 
 
 
