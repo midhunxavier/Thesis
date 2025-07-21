@@ -10,13 +10,17 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
+% Additional packages for Paper 4
+\usepackage{float}
+\usepackage{tabularx}
+
 \makeglossaries
 
 \newacronym{nlp}{NLP}{Natural Language Processing}
 
 \begin{document}
 
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main}     %% Change this only.
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography}     %% Change this only.
 \defaultbibliographystyle{plain}        %% Could be changed if you like 
                                            %% references typeset differently.
 %-------------------------------------------------------------------
@@ -173,6 +177,28 @@ appearing on the\\ chapter start page\label{ch2}}
 % The actual contents is imported by un-commenting the \input line below.
 % Make sure the file exist.
 \input{papers/paper3.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper D}
+\def\papertitle{Formal Verification of the Control Software of a Radioactive Material Remote Handling System, based on IEC 61499}
+\def\paperauthorstring{Giordano Lilli, Midhun Xavier, Etienne Le Priol, Vincent Perret, Tatiana Liakh, Roberto Oboe, and Valeriy Vyatkin}
+\def\referencestring{IEEE Open Journal of the Industrial Electronics Society, 2023.}
+\def\copyrightstring{2023, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper4.tex}
 
 
 

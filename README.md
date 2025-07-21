@@ -106,16 +106,29 @@ MX_Thesis/
 │   ├── chapter2.tex       # Chapter 2: Running header
 │   └── chapter3.tex       # Chapter 3: Nonsense chapter
 ├── papers/                # Included papers directory
-│   ├── paper1.tex         # Paper A: The Title of the Papers...
+│   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems
 │   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification
-│   └── paper3.tex         # Paper C: Yet Another Sub-Optimal Estimator...
+│   ├── paper3.tex         # Paper C: Formal verification of observers supervising cyber-physical systems
+│   └── paper4.tex         # Paper D: Formal verification of IEC 61499 function block applications
 ├── MX_Papers/             # Original paper sources directory
 │   ├── Paper1/            # Original Paper 1 source files
+│   │   ├── Paper1.tex     # Original paper content
+│   │   ├── sns.bib        # Paper 1 bibliography
+│   │   ├── main.bib       # Paper 1 bibliography
+│   │   └── images/        # Paper 1 images
 │   ├── Paper2/            # Original Paper 2 source files
 │   │   ├── Paper2.tex     # Original paper content
 │   │   ├── INDIN2021.bib  # Paper 2 bibliography
 │   │   └── images/        # Paper 2 images
-│   └── Paper3/            # Original Paper 3 source files
+│   ├── Paper3/            # Original Paper 3 source files
+│   │   ├── Paper3.tex     # Original paper content
+│   │   ├── refrencias_sobraep.bib # Paper 3 bibliography
+│   │   └── pic/           # Paper 3 images
+│   └── Paper4/            # Original Paper 4 source files
+│       ├── Paper4.tex     # Original paper content
+│       ├── bibliography/  # Paper 4 bibliography directory
+│       │   └── Bibliography.bib # Paper 4 bibliography
+│       └── pictures/      # Paper 4 images
 ├── scripts/               # Compilation scripts directory
 │   ├── compile_thesis.sh  # Full compilation script (updated)
 │   ├── quick_compile.sh   # Quick compilation script
@@ -154,6 +167,7 @@ The thesis uses the `bibunits` package to handle multiple bibliographies:
 - **Paper 1**: Uses `MX_Papers/Paper1/sns.bib` and `MX_Papers/Paper1/main.bib`
 - **Paper 2**: Uses `MX_Papers/Paper2/INDIN2021.bib`
 - **Paper 3**: Uses `MX_Papers/Paper3/refrencias_sobraep.bib`
+- **Paper 4**: Uses `MX_Papers/Paper4/bibliography/Bibliography.bib`
 
 **Important**: Bibliography files are referenced directly from their original locations in `MX_Papers/` directories through the `\defaultbibliography` command in `MX_Thesis.tex`. No copying is needed.
 
@@ -256,6 +270,7 @@ If you encounter issues:
 - **Paper 1 Integration**: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems paper fully integrated
 - **Paper 2 Integration**: Cyber-Physical Systems Verification paper fully integrated
 - **Paper 3 Integration**: Formal verification of observers supervising cyber-physical systems paper fully integrated
+- **Paper 4 Integration**: Formal verification of IEC 61499 function block applications paper fully integrated with proper bibliography and figure placement
 - **Bibliography System**: Updated to handle multiple paper bibliographies automatically
 - **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
 - **File Organization**: Improved structure with clear separation between integrated papers and source files

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with Paper 2 (Cyber-Physical Systems Verification) fully integrated, including proper bibliography handling and image management.
+This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with all four papers fully integrated, including proper bibliography handling and image management. Paper 4 (Formal verification of IEC 61499 function block applications) was the most recent addition with complete bibliography and figure placement fixes.
 
 ## Key Features
 
@@ -27,16 +27,29 @@ MX_Thesis/
 │   ├── chapter2.tex           # Chapter 2: Running header
 │   └── chapter3.tex           # Chapter 3: Nonsense chapter
 ├── papers/                    # Integrated papers (for thesis inclusion)
-│   ├── paper1.tex             # Paper A: The Title of the Papers...
+│   ├── paper1.tex             # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems
 │   ├── paper2.tex             # Paper B: Cyber-Physical Systems Verification
-│   └── paper3.tex             # Paper C: Yet Another Sub-Optimal Estimator...
+│   ├── paper3.tex             # Paper C: Formal verification of observers supervising cyber-physical systems
+│   └── paper4.tex             # Paper D: Formal verification of IEC 61499 function block applications
 ├── MX_Papers/                 # Original paper sources
 │   ├── Paper1/                # Original Paper 1 source files
+│   │   ├── Paper1.tex         # Original paper content
+│   │   ├── sns.bib            # Paper 1 bibliography
+│   │   ├── main.bib           # Paper 1 bibliography
+│   │   └── images/            # Paper 1 images
 │   ├── Paper2/                # Original Paper 2 source files
 │   │   ├── Paper2.tex         # Original paper content
 │   │   ├── INDIN2021.bib      # Paper 2 bibliography
 │   │   └── images/            # Paper 2 images
-│   └── Paper3/                # Original Paper 3 source files
+│   ├── Paper3/                # Original Paper 3 source files
+│   │   ├── Paper3.tex         # Original paper content
+│   │   ├── refrencias_sobraep.bib # Paper 3 bibliography
+│   │   └── pic/               # Paper 3 images
+│   └── Paper4/                # Original Paper 4 source files
+│       ├── Paper4.tex         # Original paper content
+│       ├── bibliography/      # Paper 4 bibliography directory
+│       │   └── Bibliography.bib # Paper 4 bibliography
+│       └── pictures/          # Paper 4 images
 ├── scripts/                   # Compilation scripts
 │   ├── compile_thesis.sh      # Full compilation (updated)
 │   ├── quick_compile.sh       # Quick compilation
@@ -56,10 +69,11 @@ MX_Thesis/
 - **thesisreferences.bib**: Bibliography for chapters (not papers)
 
 ### Paper Integration
+- **papers/paper1.tex**: Integrated version of Paper 1 for thesis inclusion
 - **papers/paper2.tex**: Integrated version of Paper 2 for thesis inclusion
-- **MX_Papers/Paper2/Paper2.tex**: Original Paper 2 source
-- **MX_Papers/Paper2/INDIN2021.bib**: Paper 2 bibliography
-- **MX_Papers/Paper2/images/**: Paper 2 images
+- **papers/paper3.tex**: Integrated version of Paper 3 for thesis inclusion
+- **papers/paper4.tex**: Integrated version of Paper 4 for thesis inclusion
+- **MX_Papers/Paper*/**: Original paper sources with bibliographies and images
 
 ### Compilation Scripts
 - **scripts/compile_thesis.sh**: Handles full compilation including all bibliographies
@@ -87,7 +101,7 @@ MX_Thesis/
 \end{bibunit}
 
 % In main thesis
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021}
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography}
 ```
 
 ### Image References
@@ -107,7 +121,7 @@ This script:
 2. Compiles bibliography for all papers (bu1, bu2, bu3, bu4)
 3. Compiles glossary
 4. Organizes files in build directory
-5. Copies bibliography files to main directory
+5. Handles all bibunits automatically
 
 ### Quick Compilation
 ```bash
@@ -160,6 +174,14 @@ For text changes only (no bibliography updates).
 - ✅ Images correctly referenced from `MX_Papers/Paper3/pic/`
 - ✅ Compilation script handles all bibunits automatically
 - ✅ All references working correctly
+
+### Paper 4 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper4.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper4/bibliography/Bibliography.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper4/pictures/`
+- ✅ Figure placement fixed (figures now appear in content, not at end)
+- ✅ All references working correctly
+- ✅ Bibunit environment properly configured
 
 ### Bibliography Management (Enhanced)
 - ✅ Dedicated bibliography generation script: `scripts/generate_bibliography.sh`
