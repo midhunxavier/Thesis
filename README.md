@@ -46,6 +46,9 @@ export PATH=$PATH:/Library/TeX/texbin
    # Clean build directory (remove all generated files)
    ./scripts/clean_build.sh
    
+   # Generate bibliography files only
+   ./scripts/generate_bibliography.sh
+   
    # Show project structure
    ./scripts/show_structure.sh
    ```
@@ -116,7 +119,8 @@ MX_Thesis/
 ├── scripts/               # Compilation scripts directory
 │   ├── compile_thesis.sh  # Full compilation script (updated)
 │   ├── quick_compile.sh   # Quick compilation script
-│   ├── clean_build.sh     # Clean build script
+│   ├── clean_build.sh     # Clean build script (with bibliography preservation)
+│   ├── generate_bibliography.sh # Bibliography generation script
 │   └── show_structure.sh  # Project structure display
 ├── build/                 # Generated files (created after compilation)
 │   ├── auxiliary/         # Auxiliary files (.aux, .bbl, .blg, etc.)
@@ -142,6 +146,23 @@ Edit `MX_Thesis.tex` to update:
 2. **Cite in text** using `\cite{reference_key}`
 3. **Compile** using the full compilation script
 
+### Bibliography Management
+
+The thesis uses the `bibunits` package to handle multiple bibliographies:
+
+- **Main thesis**: Uses `thesisreferences.bib`
+- **Paper 1**: Uses `MX_Papers/Paper1/sns.bib` and `MX_Papers/Paper1/main.bib`
+- **Paper 2**: Uses `MX_Papers/Paper2/INDIN2021.bib`
+- **Paper 3**: Uses `MX_Papers/Paper3/refrencias_sobraep.bib`
+
+**Important**: Bibliography files are referenced directly from their original locations in `MX_Papers/` directories through the `\defaultbibliography` command in `MX_Thesis.tex`. No copying is needed.
+
+**Bibliography Generation Options**:
+- **Full compilation**: `./scripts/compile_thesis.sh` (includes bibliography generation)
+- **Bibliography only**: `./scripts/generate_bibliography.sh` (generates .bbl files)
+- **Clean with preservation**: `./scripts/clean_build.sh` (preserves bibliography files)
+- **Clean everything**: `./scripts/clean_build.sh --full` (removes all files)
+
 ### Adding Acronyms
 
 1. **Define acronyms** in `MX_Thesis.tex`:
@@ -166,8 +187,10 @@ Edit `MX_Thesis.tex` to update:
 
 2. **Bibliography not showing**
    - Run full compilation script (includes bibtex for all papers)
+   - Or run bibliography generation: `./scripts/generate_bibliography.sh`
    - Check bibliography files exist in `MX_Papers/Paper*/` directories
    - Verify citation syntax in your text
+   - If bibliography files were deleted, regenerate them
 
 3. **Glossary not working**
    - Install `glossaries` package: `sudo tlmgr install glossaries`
@@ -230,11 +253,13 @@ If you encounter issues:
 
 ## 🔄 Recent Updates
 
+- **Paper 1 Integration**: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems paper fully integrated
 - **Paper 2 Integration**: Cyber-Physical Systems Verification paper fully integrated
 - **Paper 3 Integration**: Formal verification of observers supervising cyber-physical systems paper fully integrated
 - **Bibliography System**: Updated to handle multiple paper bibliographies automatically
 - **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
 - **File Organization**: Improved structure with clear separation between integrated papers and source files
+- **Bibliography Management**: Added dedicated bibliography generation script and improved cleanup with bibliography preservation
 
 ---
 

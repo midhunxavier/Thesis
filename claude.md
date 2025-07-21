@@ -140,12 +140,33 @@ For text changes only (no bibliography updates).
 
 ## Recent Updates
 
+### Paper 1 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper1.tex`
+- ✅ Bibliography properly configured with `sns.bib` and `main.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper1/images/`
+- ✅ Compilation script handles all bibunits automatically
+- ✅ All references working correctly
+
 ### Paper 2 Integration (Completed)
 - ✅ Paper content integrated into `papers/paper2.tex`
 - ✅ Bibliography properly configured with `INDIN2021.bib`
 - ✅ Images correctly referenced from `MX_Papers/Paper2/images/`
 - ✅ Compilation script updated to handle bibunits
 - ✅ All references working correctly
+
+### Paper 3 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper3.tex`
+- ✅ Bibliography properly configured with `refrencias_sobraep.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper3/pic/`
+- ✅ Compilation script handles all bibunits automatically
+- ✅ All references working correctly
+
+### Bibliography Management (Enhanced)
+- ✅ Dedicated bibliography generation script: `scripts/generate_bibliography.sh`
+- ✅ Improved cleanup script with bibliography preservation options
+- ✅ Bibliography files (.bbl) preserved during cleanup by default
+- ✅ Full cleanup option available with `--full` flag
+- ✅ Automatic bibliography regeneration after cleanup
 
 ### Compilation Script Improvements
 - ✅ Automatic bibliography compilation for all papers

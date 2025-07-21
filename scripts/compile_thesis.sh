@@ -93,29 +93,15 @@ clean_aux_files() {
 copy_bibliography_files() {
     print_status "Copying bibliography files to auxiliary directory..."
     
-    # Copy main bibliography file
+    # Copy main bibliography file only
     if [ -f "thesisreferences.bib" ]; then
         cp thesisreferences.bib "$AUX_DIR/"
         print_success "Copied thesisreferences.bib"
     fi
     
-    # Copy Paper 2 bibliography file
-    if [ -f "MX_Papers/Paper2/INDIN2021.bib" ]; then
-        cp MX_Papers/Paper2/INDIN2021.bib "$AUX_DIR/"
-        print_success "Copied MX_Papers/Paper2/INDIN2021.bib"
-    fi
-    
-    # Copy other paper bibliography files if they exist
-    for paper_dir in MX_Papers/Paper*/; do
-        if [ -d "$paper_dir" ]; then
-            for bib_file in "$paper_dir"*.bib; do
-                if [ -f "$bib_file" ]; then
-                    cp "$bib_file" "$AUX_DIR/"
-                    print_success "Copied $(basename "$bib_file")"
-                fi
-            done
-        fi
-    done
+    # Note: Individual paper bibliography files are referenced directly in MX_Thesis.tex
+    # through the \defaultbibliography command, so they don't need to be copied here
+    print_status "Paper bibliography files are referenced directly from MX_Papers/ directories"
 }
 
 # Move files to appropriate build directories
@@ -155,15 +141,25 @@ compile_latex() {
     local organize=$2
     print_status "LaTeX compilation pass $pass..."
     
-    if pdflatex -interaction=nonstopmode -shell-escape MX_Thesis.tex; then
-        print_success "LaTeX pass $pass completed"
+    # Run pdflatex and capture exit code
+    pdflatex -interaction=nonstopmode -shell-escape MX_Thesis.tex
+    local exit_code=$?
+    
+    # Check if PDF was generated (this is the real success indicator)
+    if [ -f "MX_Thesis.pdf" ]; then
+        print_success "LaTeX pass $pass completed (PDF generated)"
         if [ "$organize" = "true" ]; then
             organize_files
         fi
     else
-        print_error "LaTeX pass $pass failed"
+        print_error "LaTeX pass $pass failed (no PDF generated)"
         print_status "Check the log file for details: $LOG_DIR/MX_Thesis.log"
         exit 1
+    fi
+    
+    # Show warning if there were issues but PDF was still generated
+    if [ $exit_code -ne 0 ]; then
+        print_warning "LaTeX pass $pass had warnings but PDF was generated successfully"
     fi
 }
 

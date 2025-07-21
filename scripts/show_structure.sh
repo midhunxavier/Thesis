@@ -72,6 +72,24 @@ fi
 
 echo
 echo -e "${YELLOW}📋 Paper Integration Status:${NC}"
+if [ -f "papers/paper1.tex" ]; then
+    echo -e "${GREEN}✅ Paper 1 integrated: papers/paper1.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 1 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper1/sns.bib" ] && [ -f "MX_Papers/Paper1/main.bib" ]; then
+    echo -e "${GREEN}✅ Paper 1 bibliography: MX_Papers/Paper1/sns.bib, main.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 1 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper1/images" ]; then
+    echo -e "${GREEN}✅ Paper 1 images: MX_Papers/Paper1/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 1 images directory not found${NC}"
+fi
+
 if [ -f "papers/paper2.tex" ]; then
     echo -e "${GREEN}✅ Paper 2 integrated: papers/paper2.tex${NC}"
 else
