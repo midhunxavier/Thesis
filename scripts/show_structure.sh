@@ -29,7 +29,8 @@ echo "├── papers/                # Integrated papers directory"
 echo "│   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems"
 echo "│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification"
 echo "│   ├── paper3.tex         # Paper C: Formal verification of observers supervising cyber-physical systems"
-echo "│   └── paper4.tex         # Paper D: Formal verification of IEC 61499 function block applications"
+echo "│   ├── paper4.tex         # Paper D: Formal verification of IEC 61499 function block applications"
+echo "│   └── paper5.tex         # Paper E: Process mining in industrial control systems"
 echo "├── MX_Papers/             # Original paper sources directory"
 echo "│   ├── Paper1/            # Original Paper 1 source files"
 echo "│   │   ├── Paper1.tex     # Original paper content"
@@ -49,6 +50,10 @@ echo "│       ├── Paper4.tex     # Original paper content"
 echo "│       ├── bibliography/  # Paper 4 bibliography directory"
 echo "│       │   └── Bibliography.bib # Paper 4 bibliography"
 echo "│       └── pictures/      # Paper 4 images"
+echo "│   └── Paper5/            # Original Paper 5 source files"
+echo "│       ├── Paper5.tex     # Original paper content"
+echo "│       ├── INDIN2022.bib  # Paper 5 bibliography"
+echo "│       └── images/        # Paper 5 images"
 echo "├── scripts/               # Compilation scripts directory"
 echo "│   ├── compile_thesis.sh  # Full compilation script (updated)"
 echo "│   ├── quick_compile.sh   # Quick compilation script"
@@ -155,6 +160,24 @@ if [ -d "MX_Papers/Paper4/pictures" ]; then
     echo -e "${GREEN}✅ Paper 4 images: MX_Papers/Paper4/pictures/${NC}"
 else
     echo -e "${YELLOW}⚠️  Paper 4 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper5.tex" ]; then
+    echo -e "${GREEN}✅ Paper 5 integrated: papers/paper5.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 5 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper5/INDIN2022.bib" ]; then
+    echo -e "${GREEN}✅ Paper 5 bibliography: MX_Papers/Paper5/INDIN2022.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 5 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper5/images" ]; then
+    echo -e "${GREEN}✅ Paper 5 images: MX_Papers/Paper5/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 5 images directory not found${NC}"
 fi
 
 echo

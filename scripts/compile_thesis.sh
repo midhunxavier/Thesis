@@ -116,6 +116,16 @@ copy_bibliography_files() {
         print_success "Copied Paper3 bibliography"
     fi
     
+    if [ -f "MX_Papers/Paper4/bibliography/Bibliography.bib" ]; then
+        cp "MX_Papers/Paper4/bibliography/Bibliography.bib" "$AUX_DIR/"
+        print_success "Copied Paper4 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper5/INDIN2022.bib" ]; then
+        cp "MX_Papers/Paper5/INDIN2022.bib" "$AUX_DIR/"
+        print_success "Copied Paper5 bibliography"
+    fi
+    
     print_status "Bibliography files copied to auxiliary directory"
 }
 
