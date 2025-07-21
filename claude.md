@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with all four papers fully integrated, including proper bibliography handling and image management. Paper 4 (Formal verification of IEC 61499 function block applications) was the most recent addition with complete bibliography and figure placement fixes.
+This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with all ten papers fully integrated, including proper bibliography handling and image management. Paper 10 (Cross-platform development of distributed control software) was the most recent addition with complete bibliography and figure placement fixes.
 
 ## Key Features
 
@@ -30,7 +30,13 @@ MX_Thesis/
 │   ├── paper1.tex             # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems
 │   ├── paper2.tex             # Paper B: Cyber-Physical Systems Verification
 │   ├── paper3.tex             # Paper C: Formal verification of observers supervising cyber-physical systems
-│   └── paper4.tex             # Paper D: Formal verification of IEC 61499 function block applications
+│   ├── paper4.tex             # Paper D: Formal verification of IEC 61499 function block applications
+│   ├── paper5.tex             # Paper E: Process mining in industrial control systems
+│   ├── paper6.tex             # Paper F: Controller transformation and verification
+│   ├── paper7.tex             # Paper G: Conformance checking for IEC 61499 applications
+│   ├── paper8.tex             # Paper H: Blockchain-based control systems
+│   ├── paper9.tex             # Paper I: Test generation for IEC 61499 applications
+│   └── paper10.tex            # Paper J: Cross-platform development of distributed control software
 ├── MX_Papers/                 # Original paper sources
 │   ├── Paper1/                # Original Paper 1 source files
 │   │   ├── Paper1.tex         # Original paper content
@@ -45,11 +51,37 @@ MX_Thesis/
 │   │   ├── Paper3.tex         # Original paper content
 │   │   ├── refrencias_sobraep.bib # Paper 3 bibliography
 │   │   └── pic/               # Paper 3 images
-│   └── Paper4/                # Original Paper 4 source files
-│       ├── Paper4.tex         # Original paper content
-│       ├── bibliography/      # Paper 4 bibliography directory
-│       │   └── Bibliography.bib # Paper 4 bibliography
-│       └── pictures/          # Paper 4 images
+│   ├── Paper4/                # Original Paper 4 source files
+│   │   ├── Paper4.tex         # Original paper content
+│   │   ├── bibliography/      # Paper 4 bibliography directory
+│   │   │   └── Bibliography.bib # Paper 4 bibliography
+│   │   └── pictures/          # Paper 4 images
+│   ├── Paper5/                # Original Paper 5 source files
+│   │   ├── Paper5.tex         # Original paper content
+│   │   ├── INDIN2022.bib      # Paper 5 bibliography
+│   │   └── images/            # Paper 5 images
+│   ├── Paper6/                # Original Paper 6 source files
+│   │   ├── Paper6.tex         # Original paper content
+│   │   ├── ETFA2022.bib       # Paper 6 bibliography
+│   │   └── images/            # Paper 6 images
+│   ├── Paper7/                # Original Paper 7 source files
+│   │   ├── Paper7.tex         # Original paper content
+│   │   ├── bibliography/      # Paper 7 bibliography directory
+│   │   │   └── mybibfile.bib  # Paper 7 bibliography
+│   │   └── images/            # Paper 7 images
+│   ├── Paper8/                # Original Paper 8 source files
+│   │   ├── Paper8.tex         # Original paper content
+│   │   ├── conference.bib     # Paper 8 bibliography
+│   │   └── Figures/           # Paper 8 images
+│   ├── Paper9/                # Original Paper 9 source files
+│   │   ├── Paper9.tex         # Original paper content
+│   │   ├── refs.bib           # Paper 9 bibliography
+│   │   └── Figures/           # Paper 9 images
+│   └── Paper10/               # Original Paper 10 source files
+│       ├── Paper10.tex        # Original paper content
+│       ├── bibliography/      # Paper 10 bibliography directory
+│       │   └── mybibfile.bib  # Paper 10 bibliography
+│       └── Figures/           # Paper 10 images
 ├── scripts/                   # Compilation scripts
 │   ├── compile_thesis.sh      # Full compilation (updated)
 │   ├── quick_compile.sh       # Quick compilation
@@ -73,6 +105,12 @@ MX_Thesis/
 - **papers/paper2.tex**: Integrated version of Paper 2 for thesis inclusion
 - **papers/paper3.tex**: Integrated version of Paper 3 for thesis inclusion
 - **papers/paper4.tex**: Integrated version of Paper 4 for thesis inclusion
+- **papers/paper5.tex**: Integrated version of Paper 5 for thesis inclusion
+- **papers/paper6.tex**: Integrated version of Paper 6 for thesis inclusion
+- **papers/paper7.tex**: Integrated version of Paper 7 for thesis inclusion
+- **papers/paper8.tex**: Integrated version of Paper 8 for thesis inclusion
+- **papers/paper9.tex**: Integrated version of Paper 9 for thesis inclusion
+- **papers/paper10.tex**: Integrated version of Paper 10 for thesis inclusion
 - **MX_Papers/Paper*/**: Original paper sources with bibliographies and images
 
 ### Compilation Scripts
@@ -101,7 +139,7 @@ MX_Thesis/
 \end{bibunit}
 
 % In main thesis
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography}
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile}
 ```
 
 ### Image References
@@ -118,7 +156,7 @@ MX_Thesis/
 ```
 This script:
 1. Compiles LaTeX multiple times
-2. Compiles bibliography for all papers (bu1, bu2, bu3, bu4)
+2. Compiles bibliography for all papers (bu1, bu2, bu3, bu4, bu5, bu6, bu7, bu8, bu9, bu10)
 3. Compiles glossary
 4. Organizes files in build directory
 5. Handles all bibunits automatically
@@ -179,6 +217,44 @@ For text changes only (no bibliography updates).
 - ✅ Paper content integrated into `papers/paper4.tex`
 - ✅ Bibliography properly configured with `MX_Papers/Paper4/bibliography/Bibliography.bib`
 - ✅ Images correctly referenced from `MX_Papers/Paper4/pictures/`
+- ✅ Figure placement fixed (figures now appear in content, not at end)
+- ✅ All references working correctly
+- ✅ Bibunit environment properly configured
+
+### Paper 5 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper5.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper5/INDIN2022.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper5/images/`
+- ✅ All references working correctly
+
+### Paper 6 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper6.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper6/ETFA2022.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper6/images/`
+- ✅ All references working correctly
+
+### Paper 7 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper7.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper7/bibliography/mybibfile.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper7/images/`
+- ✅ All references working correctly
+
+### Paper 8 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper8.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper8/conference.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper8/Figures/`
+- ✅ All references working correctly
+
+### Paper 9 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper9.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper9/refs.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper9/Figures/`
+- ✅ All references working correctly
+
+### Paper 10 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper10.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper10/bibliography/mybibfile.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper10/Figures/`
 - ✅ Figure placement fixed (figures now appear in content, not at end)
 - ✅ All references working correctly
 - ✅ Bibunit environment properly configured

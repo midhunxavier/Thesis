@@ -30,7 +30,12 @@ echo "│   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, 
 echo "│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification"
 echo "│   ├── paper3.tex         # Paper C: Formal verification of observers supervising cyber-physical systems"
 echo "│   ├── paper4.tex         # Paper D: Formal verification of IEC 61499 function block applications"
-echo "│   └── paper5.tex         # Paper E: Process mining in industrial control systems"
+echo "│   ├── paper5.tex         # Paper E: Process mining in industrial control systems"
+echo "│   ├── paper6.tex         # Paper F: Controller transformation and verification"
+echo "│   ├── paper7.tex         # Paper G: Conformance checking for IEC 61499 applications"
+echo "│   ├── paper8.tex         # Paper H: Blockchain-based control systems"
+echo "│   ├── paper9.tex         # Paper I: Test generation for IEC 61499 applications"
+echo "│   └── paper10.tex        # Paper J: Cross-platform development of distributed control software"
 echo "├── MX_Papers/             # Original paper sources directory"
 echo "│   ├── Paper1/            # Original Paper 1 source files"
 echo "│   │   ├── Paper1.tex     # Original paper content"
@@ -45,15 +50,37 @@ echo "│   ├── Paper3/            # Original Paper 3 source files"
 echo "│   │   ├── Paper3.tex     # Original paper content"
 echo "│   │   ├── refrencias_sobraep.bib # Paper 3 bibliography"
 echo "│   │   └── pic/           # Paper 3 images"
-echo "│   └── Paper4/            # Original Paper 4 source files"
-echo "│       ├── Paper4.tex     # Original paper content"
-echo "│       ├── bibliography/  # Paper 4 bibliography directory"
-echo "│       │   └── Bibliography.bib # Paper 4 bibliography"
-echo "│       └── pictures/      # Paper 4 images"
-echo "│   └── Paper5/            # Original Paper 5 source files"
-echo "│       ├── Paper5.tex     # Original paper content"
-echo "│       ├── INDIN2022.bib  # Paper 5 bibliography"
-echo "│       └── images/        # Paper 5 images"
+echo "│   ├── Paper4/            # Original Paper 4 source files"
+echo "│   │   ├── Paper4.tex     # Original paper content"
+echo "│   │   ├── bibliography/  # Paper 4 bibliography directory"
+echo "│   │   │   └── Bibliography.bib # Paper 4 bibliography"
+echo "│   │   └── pictures/      # Paper 4 images"
+echo "│   ├── Paper5/            # Original Paper 5 source files"
+echo "│   │   ├── Paper5.tex     # Original paper content"
+echo "│   │   ├── INDIN2022.bib  # Paper 5 bibliography"
+echo "│   │   └── images/        # Paper 5 images"
+echo "│   ├── Paper6/            # Original Paper 6 source files"
+echo "│   │   ├── Paper6.tex     # Original paper content"
+echo "│   │   ├── ETFA2022.bib   # Paper 6 bibliography"
+echo "│   │   └── images/        # Paper 6 images"
+echo "│   ├── Paper7/            # Original Paper 7 source files"
+echo "│   │   ├── Paper7.tex     # Original paper content"
+echo "│   │   ├── bibliography/  # Paper 7 bibliography directory"
+echo "│   │   │   └── mybibfile.bib # Paper 7 bibliography"
+echo "│   │   └── images/        # Paper 7 images"
+echo "│   ├── Paper8/            # Original Paper 8 source files"
+echo "│   │   ├── Paper8.tex     # Original paper content"
+echo "│   │   ├── conference.bib # Paper 8 bibliography"
+echo "│   │   └── Figures/       # Paper 8 images"
+echo "│   ├── Paper9/            # Original Paper 9 source files"
+echo "│   │   ├── Paper9.tex     # Original paper content"
+echo "│   │   ├── refs.bib       # Paper 9 bibliography"
+echo "│   │   └── Figures/       # Paper 9 images"
+echo "│   └── Paper10/           # Original Paper 10 source files"
+echo "│       ├── Paper10.tex    # Original paper content"
+echo "│       ├── bibliography/  # Paper 10 bibliography directory"
+echo "│       │   └── mybibfile.bib # Paper 10 bibliography"
+echo "│       └── Figures/       # Paper 10 images"
 echo "├── scripts/               # Compilation scripts directory"
 echo "│   ├── compile_thesis.sh  # Full compilation script (updated)"
 echo "│   ├── quick_compile.sh   # Quick compilation script"
@@ -178,6 +205,96 @@ if [ -d "MX_Papers/Paper5/images" ]; then
     echo -e "${GREEN}✅ Paper 5 images: MX_Papers/Paper5/images/${NC}"
 else
     echo -e "${YELLOW}⚠️  Paper 5 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper6.tex" ]; then
+    echo -e "${GREEN}✅ Paper 6 integrated: papers/paper6.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 6 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper6/ETFA2022.bib" ]; then
+    echo -e "${GREEN}✅ Paper 6 bibliography: MX_Papers/Paper6/ETFA2022.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 6 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper6/images" ]; then
+    echo -e "${GREEN}✅ Paper 6 images: MX_Papers/Paper6/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 6 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper7.tex" ]; then
+    echo -e "${GREEN}✅ Paper 7 integrated: papers/paper7.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 7 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper7/bibliography/mybibfile.bib" ]; then
+    echo -e "${GREEN}✅ Paper 7 bibliography: MX_Papers/Paper7/bibliography/mybibfile.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 7 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper7/images" ]; then
+    echo -e "${GREEN}✅ Paper 7 images: MX_Papers/Paper7/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 7 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper8.tex" ]; then
+    echo -e "${GREEN}✅ Paper 8 integrated: papers/paper8.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 8 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper8/conference.bib" ]; then
+    echo -e "${GREEN}✅ Paper 8 bibliography: MX_Papers/Paper8/conference.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 8 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper8/Figures" ]; then
+    echo -e "${GREEN}✅ Paper 8 images: MX_Papers/Paper8/Figures/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 8 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper9.tex" ]; then
+    echo -e "${GREEN}✅ Paper 9 integrated: papers/paper9.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 9 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper9/refs.bib" ]; then
+    echo -e "${GREEN}✅ Paper 9 bibliography: MX_Papers/Paper9/refs.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 9 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper9/Figures" ]; then
+    echo -e "${GREEN}✅ Paper 9 images: MX_Papers/Paper9/Figures/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 9 images directory not found${NC}"
+fi
+
+if [ -f "papers/paper10.tex" ]; then
+    echo -e "${GREEN}✅ Paper 10 integrated: papers/paper10.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 10 not found in papers/ directory${NC}"
+fi
+
+if [ -f "MX_Papers/Paper10/bibliography/mybibfile.bib" ]; then
+    echo -e "${GREEN}✅ Paper 10 bibliography: MX_Papers/Paper10/bibliography/mybibfile.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 10 bibliography not found${NC}"
+fi
+
+if [ -d "MX_Papers/Paper10/Figures" ]; then
+    echo -e "${GREEN}✅ Paper 10 images: MX_Papers/Paper10/Figures/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Paper 10 images directory not found${NC}"
 fi
 
 echo

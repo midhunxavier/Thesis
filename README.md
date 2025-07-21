@@ -110,7 +110,12 @@ MX_Thesis/
 │   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification
 │   ├── paper3.tex         # Paper C: Formal verification of observers supervising cyber-physical systems
 │   ├── paper4.tex         # Paper D: Formal verification of IEC 61499 function block applications
-│   └── paper5.tex         # Paper E: Process mining in industrial control systems
+│   ├── paper5.tex         # Paper E: Process mining in industrial control systems
+│   ├── paper6.tex         # Paper F: Controller transformation and verification
+│   ├── paper7.tex         # Paper G: Conformance checking for IEC 61499 applications
+│   ├── paper8.tex         # Paper H: Blockchain-based control systems
+│   ├── paper9.tex         # Paper I: Test generation for IEC 61499 applications
+│   └── paper10.tex        # Paper J: Cross-platform development of distributed control software
 ├── MX_Papers/             # Original paper sources directory
 │   ├── Paper1/            # Original Paper 1 source files
 │   │   ├── Paper1.tex     # Original paper content
@@ -130,10 +135,32 @@ MX_Thesis/
 │       ├── bibliography/  # Paper 4 bibliography directory
 │       │   └── Bibliography.bib # Paper 4 bibliography
 │       └── pictures/      # Paper 4 images
-│   └── Paper5/            # Original Paper 5 source files
-│       ├── Paper5.tex     # Original paper content
-│       ├── INDIN2022.bib  # Paper 5 bibliography
-│       └── images/        # Paper 5 images
+│   ├── Paper5/            # Original Paper 5 source files
+│   │   ├── Paper5.tex     # Original paper content
+│   │   ├── INDIN2022.bib  # Paper 5 bibliography
+│   │   └── images/        # Paper 5 images
+│   ├── Paper6/            # Original Paper 6 source files
+│   │   ├── Paper6.tex     # Original paper content
+│   │   ├── ETFA2022.bib   # Paper 6 bibliography
+│   │   └── images/        # Paper 6 images
+│   ├── Paper7/            # Original Paper 7 source files
+│   │   ├── Paper7.tex     # Original paper content
+│   │   ├── bibliography/  # Paper 7 bibliography directory
+│   │   │   └── mybibfile.bib # Paper 7 bibliography
+│   │   └── images/        # Paper 7 images
+│   ├── Paper8/            # Original Paper 8 source files
+│   │   ├── Paper8.tex     # Original paper content
+│   │   ├── conference.bib # Paper 8 bibliography
+│   │   └── Figures/       # Paper 8 images
+│   ├── Paper9/            # Original Paper 9 source files
+│   │   ├── Paper9.tex     # Original paper content
+│   │   ├── refs.bib       # Paper 9 bibliography
+│   │   └── Figures/       # Paper 9 images
+│   └── Paper10/           # Original Paper 10 source files
+│       ├── Paper10.tex    # Original paper content
+│       ├── bibliography/  # Paper 10 bibliography directory
+│       │   └── mybibfile.bib # Paper 10 bibliography
+│       └── Figures/       # Paper 10 images
 ├── scripts/               # Compilation scripts directory
 │   ├── compile_thesis.sh  # Full compilation script (updated)
 │   ├── quick_compile.sh   # Quick compilation script
@@ -174,6 +201,11 @@ The thesis uses the `bibunits` package to handle multiple bibliographies:
 - **Paper 3**: Uses `MX_Papers/Paper3/refrencias_sobraep.bib`
 - **Paper 4**: Uses `MX_Papers/Paper4/bibliography/Bibliography.bib`
 - **Paper 5**: Uses `MX_Papers/Paper5/INDIN2022.bib`
+- **Paper 6**: Uses `MX_Papers/Paper6/ETFA2022.bib`
+- **Paper 7**: Uses `MX_Papers/Paper7/bibliography/mybibfile.bib`
+- **Paper 8**: Uses `MX_Papers/Paper8/conference.bib`
+- **Paper 9**: Uses `MX_Papers/Paper9/refs.bib`
+- **Paper 10**: Uses `MX_Papers/Paper10/bibliography/mybibfile.bib`
 
 **Important**: Bibliography files are referenced directly from their original locations in `MX_Papers/` directories through the `\defaultbibliography` command in `MX_Thesis.tex`. No copying is needed.
 
@@ -278,6 +310,11 @@ If you encounter issues:
 - **Paper 3 Integration**: Formal verification of observers supervising cyber-physical systems paper fully integrated
 - **Paper 4 Integration**: Formal verification of IEC 61499 function block applications paper fully integrated with proper bibliography and figure placement
 - **Paper 5 Integration**: Process mining in industrial control systems paper fully integrated with proper bibliography and figure placement
+- **Paper 6 Integration**: Controller transformation and verification paper fully integrated
+- **Paper 7 Integration**: Conformance checking for IEC 61499 applications paper fully integrated
+- **Paper 8 Integration**: Blockchain-based control systems paper fully integrated
+- **Paper 9 Integration**: Test generation for IEC 61499 applications paper fully integrated
+- **Paper 10 Integration**: Cross-platform development of distributed control software paper fully integrated with proper bibliography and figure placement
 - **Bibliography System**: Updated to handle multiple paper bibliographies automatically
 - **Compilation Script**: Enhanced to properly compile all bibunits and handle file organization
 - **File Organization**: Improved structure with clear separation between integrated papers and source files
