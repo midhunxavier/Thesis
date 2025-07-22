@@ -24,7 +24,12 @@ echo "├── bg_wall.jpg            # Background image"
 echo "├── chapters/              # Thesis chapters directory"
 echo "│   ├── chapter1.tex       # Chapter 1: Thesis Introduction"
 echo "│   ├── chapter2.tex       # Chapter 2: Running header"
-echo "│   └── chapter3.tex       # Chapter 3: Nonsense chapter"
+echo "│   ├── chapter3.tex       # Chapter 3: Nonsense chapter"
+echo "│   ├── chapter4.tex       # Chapter 4: Additional chapter"
+echo "│   ├── chapter5.tex       # Chapter 5: Additional chapter"
+echo "│   ├── chapter6.tex       # Chapter 6: Additional chapter"
+echo "│   ├── chapterreferences.bib # Chapter bibliography"
+echo "│   └── images/            # Chapter images directory"
 echo "├── papers/                # Integrated papers directory"
 echo "│   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems"
 echo "│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification"
@@ -364,6 +369,56 @@ if [ -d "MX_Papers/Paper13/images" ]; then
     echo -e "${GREEN}✅ Paper 13 images: MX_Papers/Paper13/images/${NC}"
 else
     echo -e "${YELLOW}⚠️  Paper 13 images directory not found${NC}"
+fi
+
+echo
+echo -e "${YELLOW}📚 Chapter Status:${NC}"
+if [ -f "chapters/chapter1.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 1: chapters/chapter1.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 1 not found${NC}"
+fi
+
+if [ -f "chapters/chapter2.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 2: chapters/chapter2.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 2 not found${NC}"
+fi
+
+if [ -f "chapters/chapter3.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 3: chapters/chapter3.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 3 not found${NC}"
+fi
+
+if [ -f "chapters/chapter4.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 4: chapters/chapter4.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 4 not found${NC}"
+fi
+
+if [ -f "chapters/chapter5.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 5: chapters/chapter5.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 5 not found${NC}"
+fi
+
+if [ -f "chapters/chapter6.tex" ]; then
+    echo -e "${GREEN}✅ Chapter 6: chapters/chapter6.tex${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 6 not found${NC}"
+fi
+
+if [ -f "chapters/chapterreferences.bib" ]; then
+    echo -e "${GREEN}✅ Chapter bibliography: chapters/chapterreferences.bib${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter bibliography not found${NC}"
+fi
+
+if [ -d "chapters/images" ]; then
+    echo -e "${GREEN}✅ Chapter images: chapters/images/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter images directory not found${NC}"
 fi
 
 echo

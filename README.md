@@ -104,7 +104,12 @@ MX_Thesis/
 ├── chapters/              # Thesis chapters directory
 │   ├── chapter1.tex       # Chapter 1: Thesis Introduction
 │   ├── chapter2.tex       # Chapter 2: Running header
-│   └── chapter3.tex       # Chapter 3: Nonsense chapter
+│   ├── chapter3.tex       # Chapter 3: Nonsense chapter
+│   ├── chapter4.tex       # Chapter 4: Additional chapter
+│   ├── chapter5.tex       # Chapter 5: Additional chapter
+│   ├── chapter6.tex       # Chapter 6: Additional chapter
+│   ├── chapterreferences.bib # Chapter bibliography
+│   └── images/            # Chapter images directory
 ├── papers/                # Included papers directory
 │   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems
 │   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification
@@ -211,6 +216,7 @@ Edit `MX_Thesis.tex` to update:
 The thesis uses the `bibunits` package to handle multiple bibliographies:
 
 - **Main thesis**: Uses `thesisreferences.bib`
+- **Chapters**: Uses `chapters/chapterreferences.bib`
 - **Paper 1**: Uses `MX_Papers/Paper1/sns.bib` and `MX_Papers/Paper1/main.bib`
 - **Paper 2**: Uses `MX_Papers/Paper2/INDIN2021.bib`
 - **Paper 3**: Uses `MX_Papers/Paper3/refrencias_sobraep.bib`
