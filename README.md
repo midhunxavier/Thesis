@@ -74,7 +74,7 @@ pdflatex MX_Thesis.tex
 
 # Compile bibliography (main + bibunits)
 bibtex MX_Thesis
-bibtex bu1 bu2 bu3 bu4  # For individual papers
+bibtex bu1 bu2 bu3 bu4 bu5 bu6 bu7 bu8 bu9 bu10 bu11 bu12 bu13  # For individual papers
 
 # Compile glossary (if you have acronyms)
 makeglossaries MX_Thesis
@@ -97,20 +97,20 @@ Your thesis project is organized as follows:
 MX_Thesis/
 ├── MX_Thesis.tex          # Main thesis file
 ├── cseethesis.cls         # Custom document class
-├── thesisreferences.bib   # Bibliography database
+├── thesisreferences.bib   # Bibliography database (minimal, for chapters)
 ├── abstract.tex           # Abstract content
 ├── preface.tex            # Preface content
 ├── bg_wall.jpg            # Background image
 ├── chapters/              # Thesis chapters directory
 │   ├── chapter1.tex       # Chapter 1: Thesis Introduction
-│   ├── chapter2.tex       # Chapter 2: Running header
+│   ├── chapter2.tex       # Chapter 2: Model-Based Design Framework
 │   ├── chapter3.tex       # Chapter 3: Nonsense chapter
 │   ├── chapter4.tex       # Chapter 4: Additional chapter
 │   ├── chapter5.tex       # Chapter 5: Additional chapter
-│   ├── chapter6.tex       # Chapter 6: Additional chapter
-│   ├── chapterreferences.bib # Chapter bibliography
+│   ├── chapter6.tex       # Chapter 6: References (Bibliography for Part I)
 │   └── images/            # Chapter images directory
-├── papers/                # Included papers directory
+│       └── chapter2/      # Chapter 2 specific images
+├── papers/                # Integrated papers directory
 │   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems
 │   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification
 │   ├── paper3.tex         # Paper C: Formal verification of observers supervising cyber-physical systems
@@ -138,11 +138,11 @@ MX_Thesis/
 │   │   ├── Paper3.tex     # Original paper content
 │   │   ├── refrencias_sobraep.bib # Paper 3 bibliography
 │   │   └── pic/           # Paper 3 images
-│   └── Paper4/            # Original Paper 4 source files
-│       ├── Paper4.tex     # Original paper content
-│       ├── bibliography/  # Paper 4 bibliography directory
-│       │   └── Bibliography.bib # Paper 4 bibliography
-│       └── pictures/      # Paper 4 images
+│   ├── Paper4/            # Original Paper 4 source files
+│   │   ├── Paper4.tex     # Original paper content
+│   │   ├── bibliography/  # Paper 4 bibliography directory
+│   │   │   └── Bibliography.bib # Paper 4 bibliography
+│   │   └── pictures/      # Paper 4 images
 │   ├── Paper5/            # Original Paper 5 source files
 │   │   ├── Paper5.tex     # Original paper content
 │   │   ├── INDIN2022.bib  # Paper 5 bibliography
@@ -164,11 +164,11 @@ MX_Thesis/
 │   │   ├── Paper9.tex     # Original paper content
 │   │   ├── refs.bib       # Paper 9 bibliography
 │   │   └── Figures/       # Paper 9 images
-│   └── Paper10/           # Original Paper 10 source files
-│       ├── Paper10.tex    # Original paper content
-│       ├── bibliography/  # Paper 10 bibliography directory
-│       │   └── mybibfile.bib # Paper 10 bibliography
-│       └── Figures/       # Paper 10 images
+│   ├── Paper10/           # Original Paper 10 source files
+│   │   ├── Paper10.tex    # Original paper content
+│   │   ├── bibliography/  # Paper 10 bibliography directory
+│   │   │   └── mybibfile.bib # Paper 10 bibliography
+│   │   └── Figures/       # Paper 10 images
 │   ├── Paper11/           # Original Paper 11 source files
 │   │   ├── Paper11.tex    # Original paper content
 │   │   ├── conference.bib # Paper 11 bibliography
@@ -191,6 +191,8 @@ MX_Thesis/
 │   ├── auxiliary/         # Auxiliary files (.aux, .bbl, .blg, etc.)
 │   ├── logs/              # Log files (.log)
 │   └── output/            # Final PDF output
+├── .cursorrules           # Cursor AI rules and project guidelines
+├── claude.md              # AI assistant documentation
 └── README.md              # This documentation
 ```
 
@@ -215,8 +217,8 @@ Edit `MX_Thesis.tex` to update:
 
 The thesis uses the `bibunits` package to handle multiple bibliographies:
 
-- **Main thesis**: Uses `thesisreferences.bib`
-- **Chapters**: Uses `chapters/chapterreferences.bib`
+- **Main thesis**: Uses `thesisreferences.bib` (minimal, for chapters)
+
 - **Paper 1**: Uses `MX_Papers/Paper1/sns.bib` and `MX_Papers/Paper1/main.bib`
 - **Paper 2**: Uses `MX_Papers/Paper2/INDIN2021.bib`
 - **Paper 3**: Uses `MX_Papers/Paper3/refrencias_sobraep.bib`
@@ -326,9 +328,14 @@ If you encounter issues:
 - The template supports both chapters and included papers
 - Multiple compilation passes are needed for proper cross-references
 - The compilation script automatically handles bibliography compilation for all papers
+- Chapter 2 has been updated with a comprehensive framework for model-based design and formal verification
+- Bibliography for Part I (chapters) appears at the end of Chapter 6
 
 ## 🔄 Recent Updates
 
+- **Chapter 2 Implementation**: Complete framework for model-based design and formal verification of component-based industrial automation systems
+- **Bibliography Cleanup**: Removed duplicate references and cleaned up bibliography management
+- **Chapter 2 Images**: Added dedicated image directory for Chapter 2 with proper figure placement
 - **Paper 1 Integration**: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems paper fully integrated
 - **Paper 2 Integration**: Cyber-Physical Systems Verification paper fully integrated
 - **Paper 3 Integration**: Formal verification of observers supervising cyber-physical systems paper fully integrated

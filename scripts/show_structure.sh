@@ -17,19 +17,19 @@ echo
 echo -e "${GREEN}📁 Main Directory:${NC}"
 echo "├── MX_Thesis.tex          # Main thesis file"
 echo "├── cseethesis.cls         # Custom document class"
-echo "├── thesisreferences.bib   # Bibliography database"
+echo "├── thesisreferences.bib   # Bibliography database (minimal, for chapters)"
 echo "├── abstract.tex           # Abstract content"
 echo "├── preface.tex            # Preface content"
 echo "├── bg_wall.jpg            # Background image"
 echo "├── chapters/              # Thesis chapters directory"
 echo "│   ├── chapter1.tex       # Chapter 1: Thesis Introduction"
-echo "│   ├── chapter2.tex       # Chapter 2: Running header"
+echo "│   ├── chapter2.tex       # Chapter 2: Model-Based Design Framework"
 echo "│   ├── chapter3.tex       # Chapter 3: Nonsense chapter"
 echo "│   ├── chapter4.tex       # Chapter 4: Additional chapter"
 echo "│   ├── chapter5.tex       # Chapter 5: Additional chapter"
-echo "│   ├── chapter6.tex       # Chapter 6: Additional chapter"
-echo "│   ├── chapterreferences.bib # Chapter bibliography"
+echo "│   ├── chapter6.tex       # Chapter 6: References (Bibliography for Part I)"
 echo "│   └── images/            # Chapter images directory"
+echo "│       └── chapter2/      # Chapter 2 specific images"
 echo "├── papers/                # Integrated papers directory"
 echo "│   ├── paper1.tex         # Paper A: Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems"
 echo "│   ├── paper2.tex         # Paper B: Cyber-Physical Systems Verification"
@@ -84,11 +84,11 @@ echo "│   ├── Paper9/            # Original Paper 9 source files"
 echo "│   │   ├── Paper9.tex     # Original paper content"
 echo "│   │   ├── refs.bib       # Paper 9 bibliography"
 echo "│   │   └── Figures/       # Paper 9 images"
-echo "│   └── Paper10/           # Original Paper 10 source files"
-echo "│       ├── Paper10.tex    # Original paper content"
-echo "│       ├── bibliography/  # Paper 10 bibliography directory"
-echo "│       │   └── mybibfile.bib # Paper 10 bibliography"
-echo "│       └── Figures/       # Paper 10 images"
+echo "│   ├── Paper10/           # Original Paper 10 source files"
+echo "│   │   ├── Paper10.tex    # Original paper content"
+echo "│   │   ├── bibliography/  # Paper 10 bibliography directory"
+echo "│   │   │   └── mybibfile.bib # Paper 10 bibliography"
+echo "│   │   └── Figures/       # Paper 10 images"
 echo "│   ├── Paper11/           # Original Paper 11 source files"
 echo "│   │   ├── Paper11.tex    # Original paper content"
 echo "│   │   ├── conference.bib # Paper 11 bibliography"
@@ -105,6 +105,7 @@ echo "├── scripts/               # Compilation scripts directory"
 echo "│   ├── compile_thesis.sh  # Full compilation script (updated)"
 echo "│   ├── quick_compile.sh   # Quick compilation script"
 echo "│   ├── clean_build.sh     # Clean build script"
+echo "│   ├── generate_bibliography.sh # Bibliography generation script"
 echo "│   └── show_structure.sh  # This script"
 echo "├── build/                 # Generated files (created after compilation)"
 echo "│   ├── auxiliary/         # Auxiliary files (.aux, .bbl, .blg, etc.)"
@@ -380,9 +381,15 @@ else
 fi
 
 if [ -f "chapters/chapter2.tex" ]; then
-    echo -e "${GREEN}✅ Chapter 2: chapters/chapter2.tex${NC}"
+    echo -e "${GREEN}✅ Chapter 2: chapters/chapter2.tex (Model-Based Design Framework)${NC}"
 else
     echo -e "${YELLOW}⚠️  Chapter 2 not found${NC}"
+fi
+
+if [ -d "chapters/images/chapter2" ]; then
+    echo -e "${GREEN}✅ Chapter 2 images: chapters/images/chapter2/${NC}"
+else
+    echo -e "${YELLOW}⚠️  Chapter 2 images directory not found${NC}"
 fi
 
 if [ -f "chapters/chapter3.tex" ]; then
@@ -404,21 +411,25 @@ else
 fi
 
 if [ -f "chapters/chapter6.tex" ]; then
-    echo -e "${GREEN}✅ Chapter 6: chapters/chapter6.tex${NC}"
+    echo -e "${GREEN}✅ Chapter 6: chapters/chapter6.tex (References for Part I)${NC}"
 else
     echo -e "${YELLOW}⚠️  Chapter 6 not found${NC}"
 fi
 
-if [ -f "chapters/chapterreferences.bib" ]; then
-    echo -e "${GREEN}✅ Chapter bibliography: chapters/chapterreferences.bib${NC}"
-else
-    echo -e "${YELLOW}⚠️  Chapter bibliography not found${NC}"
-fi
+
 
 if [ -d "chapters/images" ]; then
     echo -e "${GREEN}✅ Chapter images: chapters/images/${NC}"
 else
     echo -e "${YELLOW}⚠️  Chapter images directory not found${NC}"
+fi
+
+echo
+echo -e "${YELLOW}📖 Bibliography Status:${NC}"
+if [ -f "thesisreferences.bib" ]; then
+    echo -e "${GREEN}✅ Main bibliography: thesisreferences.bib (minimal, for chapters)${NC}"
+else
+    echo -e "${YELLOW}⚠️  Main bibliography not found${NC}"
 fi
 
 echo
