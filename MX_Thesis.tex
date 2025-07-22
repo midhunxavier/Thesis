@@ -41,20 +41,17 @@
 %-------------------------------------------------------------------
 % Define title, author, etc.
 %-------------------------------------------------------------------
-\def\thesistitle{Example Thesis updated by Tosin Adewumi}
-
-\begin{figure}[h]
- \centering
- \includegraphics[width=0.5\textwidth]{bg_wall.jpg}
-\end{figure}
-
-\def\theauthor{Johan E.\ Carlson}
+\def\thesistitle{Enabling dependable flexibility in industrial automation with formal methods integrated to development toolchains}
+\def\theauthor{Midhun Xavier}
 \def\theaddress{Dept.\ of Computer Science, Electrical and Space Engineering\\
 Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 
-\def\supervisors{Name of your supervisor(s)}
-\def\supervisorstring{Supervisors:} % Edit here if you have only one supervisor
-\def\dedication{To my surprise...}
+\def\supervisors{supervisors}
+\def\supervisorstring{Valeriy Vyatkin and Sandeep Patil} % Edit here if you have only one supervisor
+
+\def\dedication{"Formal methods don't guarantee correctness, but they guarantee that we know what we're building."\\\\
+— Tony Hoare\\\\[0.5cm]
+To the clarity and confidence that formal verification brings to industrial automation.}
 
 % Read abstract and preface from separate files.
 % Make sure these exist. See example files.
@@ -70,6 +67,13 @@ Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 % The definitions above could be put directly in the function call below,
 % but is here defined explicitly, for the purpose of clarity.
 
+% Create cover page with title, author name, and image
+\makecoverpage
+  {\thesistitle}
+  {\theauthor}
+  {\includegraphics[width=0.5\textwidth]{bg_wall.jpg}}
+
+% Create title page with author information
 \startpreamble
   {\thesistitle}
   {\theauthor}
