@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with all ten papers fully integrated, including proper bibliography handling and image management. Paper 10 (Cross-platform development of distributed control software) was the most recent addition with complete bibliography and figure placement fixes.
+This is a PhD thesis project written in LaTeX that combines original chapters with published papers. The project has been recently updated with all thirteen papers fully integrated, including proper bibliography handling and image management. Paper 13 (ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems) was the most recent addition with complete bibliography and figure placement fixes.
 
 ## Key Features
 
@@ -36,7 +36,10 @@ MX_Thesis/
 │   ├── paper7.tex             # Paper G: Conformance checking for IEC 61499 applications
 │   ├── paper8.tex             # Paper H: Blockchain-based control systems
 │   ├── paper9.tex             # Paper I: Test generation for IEC 61499 applications
-│   └── paper10.tex            # Paper J: Cross-platform development of distributed control software
+│   ├── paper10.tex            # Paper J: Cross-platform development of distributed control software
+│   ├── paper11.tex            # Paper K: [Paper 11 Title]
+│   ├── paper12.tex            # Paper L: [Paper 12 Title]
+│   └── paper13.tex            # Paper M: ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems
 ├── MX_Papers/                 # Original paper sources
 │   ├── Paper1/                # Original Paper 1 source files
 │   │   ├── Paper1.tex         # Original paper content
@@ -82,6 +85,18 @@ MX_Thesis/
 │       ├── bibliography/      # Paper 10 bibliography directory
 │       │   └── mybibfile.bib  # Paper 10 bibliography
 │       └── Figures/           # Paper 10 images
+│   ├── Paper11/               # Original Paper 11 source files
+│   │   ├── Paper11.tex        # Original paper content
+│   │   ├── conference.bib     # Paper 11 bibliography
+│   │   └── images/            # Paper 11 images
+│   ├── Paper12/               # Original Paper 12 source files
+│   │   ├── Paper12.tex        # Original paper content
+│   │   ├── conference.bib     # Paper 12 bibliography
+│   │   └── images/            # Paper 12 images
+│   └── Paper13/               # Original Paper 13 source files
+│       ├── Paper13.tex        # Original paper content
+│       ├── conference.bib     # Paper 13 bibliography
+│       └── images/            # Paper 13 images
 ├── scripts/                   # Compilation scripts
 │   ├── compile_thesis.sh      # Full compilation (updated)
 │   ├── quick_compile.sh       # Quick compilation
@@ -111,6 +126,9 @@ MX_Thesis/
 - **papers/paper8.tex**: Integrated version of Paper 8 for thesis inclusion
 - **papers/paper9.tex**: Integrated version of Paper 9 for thesis inclusion
 - **papers/paper10.tex**: Integrated version of Paper 10 for thesis inclusion
+- **papers/paper11.tex**: Integrated version of Paper 11 for thesis inclusion
+- **papers/paper12.tex**: Integrated version of Paper 12 for thesis inclusion
+- **papers/paper13.tex**: Integrated version of Paper 13 for thesis inclusion
 - **MX_Papers/Paper*/**: Original paper sources with bibliographies and images
 
 ### Compilation Scripts
@@ -139,7 +157,7 @@ MX_Thesis/
 \end{bibunit}
 
 % In main thesis
-\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile}
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile,MX_Papers/Paper11/conference,MX_Papers/Paper12/conference,MX_Papers/Paper13/conference}
 ```
 
 ### Image References
@@ -156,7 +174,7 @@ MX_Thesis/
 ```
 This script:
 1. Compiles LaTeX multiple times
-2. Compiles bibliography for all papers (bu1, bu2, bu3, bu4, bu5, bu6, bu7, bu8, bu9, bu10)
+2. Compiles bibliography for all papers (bu1, bu2, bu3, bu4, bu5, bu6, bu7, bu8, bu9, bu10, bu11, bu12, bu13)
 3. Compiles glossary
 4. Organizes files in build directory
 5. Handles all bibunits automatically
@@ -255,6 +273,26 @@ For text changes only (no bibliography updates).
 - ✅ Paper content integrated into `papers/paper10.tex`
 - ✅ Bibliography properly configured with `MX_Papers/Paper10/bibliography/mybibfile.bib`
 - ✅ Images correctly referenced from `MX_Papers/Paper10/Figures/`
+- ✅ Figure placement fixed (figures now appear in content, not at end)
+- ✅ All references working correctly
+- ✅ Bibunit environment properly configured
+
+### Paper 11 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper11.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper11/conference.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper11/images/`
+- ✅ All references working correctly
+
+### Paper 12 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper12.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper12/conference.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper12/images/`
+- ✅ All references working correctly
+
+### Paper 13 Integration (Completed)
+- ✅ Paper content integrated into `papers/paper13.tex`
+- ✅ Bibliography properly configured with `MX_Papers/Paper13/conference.bib`
+- ✅ Images correctly referenced from `MX_Papers/Paper13/images/`
 - ✅ Figure placement fixed (figures now appear in content, not at end)
 - ✅ All references working correctly
 - ✅ Bibunit environment properly configured
