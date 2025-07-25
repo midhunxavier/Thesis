@@ -104,9 +104,9 @@ MX_Thesis/
 ├── chapters/              # Thesis chapters directory
 │   ├── chapter1.tex       # Chapter 1: Thesis Introduction
 │   ├── chapter2.tex       # Chapter 2: Model-Based Design Framework
-│   ├── chapter3.tex       # Chapter 3: Nonsense chapter
-│   ├── chapter4.tex       # Chapter 4: Additional chapter
-│   ├── chapter5.tex       # Chapter 5: Additional chapter
+│   ├── chapter3.tex       # Chapter 3: Process Mining in Industrial Control Systems
+│   ├── chapter4.tex       # Chapter 4: Cross-Platform Testing and Portability Validation for IEC 61499 Function Blocks
+│   ├── chapter5.tex       # Chapter 5: [Removed - not implemented]
 │   ├── chapter6.tex       # Chapter 6: References (Bibliography for Part I)
 │   └── images/            # Chapter images directory
 │       └── chapter2/      # Chapter 2 specific images

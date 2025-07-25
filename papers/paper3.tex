@@ -6,7 +6,7 @@ A rigorous check is a significant phase in the design process of control program
 
 In this work, we consider attaching monitors implemented as basic function blocks to the interface of the controller, thus having a property being monitored represented in the form of a state machine. Now, monitors make the system safer only if their quality is also ensured. Since their complexity is far lower than the complexity of the controller, they can be model checked, however, in the case of IEC~61499 function blocks, open-loop model checking will produce spurious counterexamples as it will allow combinations that are not possible according to the IEC~61499 function blocks semantics (e.g., data transferred without firing the event). The current work addresses this issue and proposes a method for close-loop model checking of monitors, using the non-deterministic twin of a controller under supervision. We present our approach using the system of two orthogonal pneumatic cylinders.
 
-\section{\textsc{Introduction}}
+\section{Introduction}
 %\PO{Continuing the topic of monitors in 61499 systems and their verification started in (Pranay, Monitoring design pattern for distributed automation systems in IEC 61499 and its formal modelling )}
 
 %\PO{oflfine (static) verification of online (runtime) means for ensuring safety. }
@@ -29,7 +29,7 @@ We address this by modeling a non-deterministic twin of the controller and verif
 
 The remainder of this paper is structured as follows. Section~\ref{sec:prelim} gives an overview of IEC~61499 standard and the verification methods of FBDs implemented according to it. Section~\ref{sec:method} describes a methodology for designing a supervised system, which is described in detail on a run-through example in Section~\ref{sec:methodappl}. Section~\ref{sec:concl} concludes the paper.
 
-\section{\textsc{Preliminaries}}
+\section{Preliminaries}
 \label{sec:prelim}
 \subsection{IEC~61499}
 IEC~61499 defines a design paradigm for distributed automation and control systems. The systems are implemented using the graphical language of function block diagrams~(FBDs). An FBD is a set of various interconnected FBs that can be of a basic, complex, or service interface type. In this work, we do not consider the latter. All FBs have their data and event input and output interfaces. The bricks of an FBD are basic FBs that represent atomic functional units. The logic of a basic FB is defined by an execution control chart~(ECC), which essentially is a Moore state machine and consists of states, transitions, and actions. In each state, an algorithm can be executed and/or an event (defined in the output interface of the FB) emitted. Complex FBs are nets of interconnected FBs of any type. The final FBD is assembled using the available FBs.
