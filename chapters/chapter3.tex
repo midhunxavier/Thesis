@@ -16,12 +16,7 @@ Process mining in industrial control systems differs fundamentally from its busi
 
 The process mining workflow in industrial contexts typically involves three main phases: process discovery, conformance checking, and process enhancement. Process discovery algorithms analyze event logs to generate process models in various formalisms, most commonly Petri nets, which provide a mathematical foundation for representing concurrent and sequential behaviors. Conformance checking compares observed behavior against expected models to identify deviations, while process enhancement focuses on improving existing models based on new observations.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper5/images/structure.PNG}
-    \caption{Gripper and conveyor system structure showing the integration of sensors and actuators in a typical industrial automation setup}
-    \label{fig:gripper_conveyor_structure}
-\end{figure}
+
 
 The selection of appropriate process discovery algorithms is crucial for effective model extraction. Alpha algorithm, as a representative of abstraction-based methods, generates models by analyzing ordering relations between events in the log. This algorithm creates dependency graphs based on the sequence of events, making it suitable for systems with well-defined, deterministic behaviors. However, its sensitivity to noise in event logs can lead to overly complex models when dealing with systems that exhibit significant variability.
 
@@ -33,12 +28,6 @@ The quality and structure of event logs significantly influence the effectivenes
 
 Event log preprocessing is essential for ensuring model quality and accuracy. This includes data cleaning to remove irrelevant events, format conversion to ensure compatibility with process mining tools, and attribute selection to focus on the most relevant information for the analysis. The conversion from CSV format to eXtensible Event Stream (XES) format is particularly important, as most process discovery algorithms require XES input.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{MX_Papers/Paper5/images/EL.PNG}
-    \caption{Event log structure showing the organization of case identifiers, timestamps, components, signals, and values in industrial control system data}
-    \label{fig:event_log_structure}
-\end{figure}
 
 The preprocessing phase also involves mapping standard XES attributes to the industrial context. Case columns typically correspond to process execution identifiers, while event columns combine component, signal, and value information to create meaningful activity descriptions. This mapping ensures that the process mining algorithms can correctly interpret the industrial data and generate appropriate models.
 
@@ -50,12 +39,6 @@ The conformance checking process involves comparing observed event logs against 
 
 Token-based replay offers a more detailed analysis by simulating the execution of event traces on the reference model. This approach tracks missing and remaining tokens after each transition, providing quantitative measures of conformance. While effective, token replay has limitations when dealing with non-uniquely labeled transitions and can suffer from token flooding in complex models.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{MX_Papers/Paper5/images/stat1.PNG}
-    \caption{Conformance checking results showing deviation analysis and fitness metrics for process model validation}
-    \label{fig:conformance_checking_results}
-\end{figure}
 
 Alignment-based methods provide the most sophisticated approach to conformance checking, offering optimal alignment between observed and modeled behavior using user-defined cost functions. These methods are independent of process model notation and can handle complex scenarios that challenge other approaches. The alignment process identifies the optimal sequence of moves that transforms the observed trace into one that conforms to the model, providing detailed insights into the nature and location of deviations.
 
@@ -71,12 +54,7 @@ The foundation of interactive learning lies in the systematic recording of syste
 
 The simulation environment provides a controlled setting where actuator signals can be manually triggered in appropriate sequences to generate desired process scenarios. Each interaction with the simulation model produces events that are recorded in chronological order, creating comprehensive behavioral traces that capture the complete system dynamics. This approach enables the generation of diverse process scenarios that might be difficult or dangerous to create in physical systems.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{MX_Papers/Paper6/images/simulation.png}
-    \caption{3D simulation environment showing the production system with conveyor sections, gripper, and autonomous guided vehicle for interactive learning}
-    \label{fig:simulation_environment}
-\end{figure}
+
 
 The recorded event logs capture the complete interaction between the simulation model and the operator, including sensor readings, actuator commands, and system state information. This comprehensive data collection ensures that the generated control logic accurately reflects the intended system behavior and can handle the full range of operational scenarios.
 
@@ -88,12 +66,6 @@ The transformation from recorded event logs to executable control logic involves
 
 The generated Petri nets capture the causal relationships between events, representing the system's state transitions and control flow. These models provide a formal foundation for understanding system behavior and serve as the basis for controller generation. The Petri net representation is particularly valuable because it can handle concurrent activities, sequential dependencies, and complex synchronization requirements that are common in industrial automation systems.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper6/images/PN2ControllerFlow.png}
-    \caption{Methodology flow showing the transformation from event logs through Petri nets to IEC 61499 function blocks}
-    \label{fig:methodology_flow}
-\end{figure}
 
 The Petri net generation process includes several important considerations. First, the addition of supplementary transitions, such as "Repeat" transitions, enables cyclic operation that is typical in manufacturing processes. Second, the stepwise simulation of the Petri net validates the model's correctness and ensures that it accurately represents the intended system behavior. Third, the conversion to reachability graphs provides a finite state machine representation that can be directly implemented in control systems.
 
@@ -105,23 +77,11 @@ The final step in the interactive learning process involves transforming the for
 
 The transformation process begins with the conversion of the reachability graph to a deterministic finite state machine (FSM). This conversion involves handling non-deterministic transitions, often represented as spontaneous or lambda transitions in the original Petri net. The determinization process ensures that the resulting FSM has unique transitions for each input combination, making it suitable for implementation in control systems.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{MX_Papers/Paper6/images/UpdatedControllerConversionrules.png}
-    \caption{FSM to ECC transformation rules showing the conversion from finite state machine to execution control chart}
-    \label{fig:fsm_to_ecc_transformation}
-\end{figure}
 
 The transformation from FSM to IEC 61499 function blocks involves several key steps. First, the FSM states are mapped to ECC states in the function block. Second, the FSM transitions are converted to ECC transitions with appropriate conditions and actions. Third, the input and output events are defined based on the sensor and actuator signals identified in the original event log.
 
 The resulting function block interface includes input events for all sensor signals and output events for all actuator signals. The ECC implements the control logic by defining state transitions that respond to sensor inputs and generate appropriate actuator outputs. This implementation ensures that the generated controller behaves exactly as recorded during the interactive learning process.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper6/images/FB.PNG}
-    \caption{Generated IEC 61499 function block showing interface and ECC representation of the controller}
-    \label{fig:generated_function_block}
-\end{figure}
 
 The interactive learning approach provides several significant advantages for controller development. First, it reduces development time by automating the transformation from behavioral requirements to executable code. Second, it improves system reliability by ensuring that the controller logic is consistent with observed system behavior. Third, it enables rapid prototyping and testing of different control strategies without extensive programming effort.
 
@@ -135,12 +95,7 @@ The foundation of automatic plant model generation lies in the Reference Model o
 
 The RMCSES provides a condensed representation of vast event logs, encompassing all possible signals from all system components. Conceptually, if the event log represents a collection of sentences describing system behavior, then RMCSES functions as a sentence generator for this formal language. This representation enables the model to be readily implemented in software or hardware, making it suitable for real-time applications.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper7/images/workflow1.png}
-    \caption{Workflow and use cases showing the transformation from event logs to monitor, plant model, control model, and control program}
-    \label{fig:workflow_use_cases}
-\end{figure}
+
 
 The RMCSES interface focuses exclusively on control signals originating from the controller and informative signals originating from sensors, representing the interface between the controller and the plant. Internal signals circulating within the control system and plant are not considered, though control signals from external sources such as operators can be included. This focus on the controller-plant interface makes the model particularly suitable for closed-loop system analysis and verification.
 
@@ -152,12 +107,7 @@ The transformation from event logs to plant models involves several sophisticate
 
 The Petri net decomposition process utilizes reachability graph methods to identify subsets of states and transitions, facilitating the partitioning of complex Petri nets into manageable modules. This approach provides a structured and systematic method for exploring all reachable states and transitions within the system, ensuring completeness in capturing all potential behaviors.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper7/images/PN2FSM.png}
-    \caption{Transformation of Petri net to FSM showing the decomposition process and state machine generation}
-    \label{fig:petri_net_to_fsm}
-\end{figure}
+
 
 The reachability graph method, while comprehensive, can suffer from state space explosion in complex systems. To address this challenge, several strategies are employed: state space reduction using symbolic representations such as Binary Decision Diagrams (BDDs), abstraction and aggregation methods that focus on essential behavioral properties, partial order reduction techniques that avoid redundant interleavings, and on-the-fly exploration that generates states as needed.
 
@@ -169,12 +119,7 @@ The automatic generation of monitors represents a critical application of the RM
 
 The monitor implementation involves transforming the RMCSES into a function block that receives input signals from both controller and sensor components. The monitor's ECC is generated using transformation rules that map FSM states and transitions to appropriate ECC states and transitions. When the monitor detects a valid transition, it generates an "OK" output indicating successful operation. If an unexpected event occurs, the monitor transitions to an error state and produces an "ERROR" event with details about the event that caused the error.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper7/images/ConformaceCheckingApp.jpg}
-    \caption{Application for conformance checking showing the integration of monitor with closed-loop system}
-    \label{fig:conformance_checking_app}
-\end{figure}
+
 
 The monitor's error detection capabilities are comprehensive, covering all possible input events from each state. For each state in the FSM, the monitor defines transitions to error states for all input events that are not specified in the reference model. This complete coverage ensures that any deviation from expected behavior is detected immediately, providing robust protection against system malfunctions and unauthorized operations.
 
@@ -186,12 +131,7 @@ The automatic generation of plant models extends the capabilities of process min
 
 The plant model generation process involves extracting the uncontrolled plant behavior from the overall system model represented by the RMCSES. This extraction requires careful analysis to distinguish between control-driven and sensor-driven transitions, as the plant model should only respond to control signals and generate sensor signals based on its internal state.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper7/images/VerificationApp1.png}
-    \caption{Application for verification showing the integration of plant model with controller for formal analysis}
-    \label{fig:verification_app}
-\end{figure}
+
 
 The transformation from FSM to plant model involves specific rules for handling sensor and control signals. Transitions triggered by sensor signals are replaced with non-deterministic transitions (NDT) that can fire at arbitrary time intervals, with the output of the next state serving as a sensor event signal. Control signal transitions remain unchanged, as the plant should respond directly to control inputs.
 
@@ -221,12 +161,7 @@ The interactive learning case study demonstrates the application of simulation-b
 
 The pneumatic cylinder case study illustrates the application of automatic plant model generation and real-time monitoring. This case study shows how the approach can be used for formal verification of safety-critical systems and real-time monitoring of operational compliance.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper7/images/CLMC.PNG}
-    \caption{Closed-loop system integration showing plant model, controller, and monitor working together for comprehensive system analysis}
-    \label{fig:closed_loop_integration}
-\end{figure}
+
 
 These case studies demonstrate the versatility of the presented approaches and their applicability to a wide range of industrial applications. The approaches can be adapted to different system types, from simple single-component systems to complex multi-component manufacturing lines, providing flexible solutions for various industrial automation challenges.
 
