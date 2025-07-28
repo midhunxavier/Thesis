@@ -8,7 +8,7 @@ These methodologies collectively address critical challenges in modern industria
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=0.9\textwidth]{chapters/images/chapter4/workflow1.png}
+	\includegraphics[width=0.9\textwidth]{chapters/images/chapter3/workflow1.png}
 	\caption{Workflow and use cases for process mining applications in industrial control systems. The workflow illustrates the transformation from recorded event logs to various applications including monitor generation (D1), plant model generation (D2), control model generation (D3), and control program generation (D4).}
 	\label{workflowUsecase}
 \end{figure*}
@@ -33,7 +33,7 @@ Heuristic-based algorithms, such as the fuzzy miner, offer an alternative approa
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=0.4\textwidth]{chapters/images/chapter4/Methodology.png}
+	\includegraphics[width=0.4\textwidth]{chapters/images/chapter3/Methodology.png}
 	\caption{Tool chain and data flow for generating FSMs from Event Logs and their implementation in the form of IEC 61499 FBs. The process involves preprocessing event logs, applying process discovery algorithms, generating Petri nets, decomposing into state machine components, and finally implementing as IEC 61499 function blocks.}
 	\label{monitorFlowchart}
 \end{figure}
@@ -67,7 +67,7 @@ The implementation of monitors for real-time conformance checking represents a c
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=1\textwidth]{chapters/images/chapter4/ConformaceCheckingApp.jpg}
+	\includegraphics[width=1\textwidth]{chapters/images/chapter3/ConformaceCheckingApp.jpg}
 	\caption{Application for conformance checking. The structure shows a closed-loop system consisting of a plant and controller, with the RMCSES (Reference Model of Control/Sensor Events Sequencing) connected for conformance checking. The monitor function block receives input signals from both controller and sensor components and generates OK/ERROR outputs based on conformance to the reference model.}
 	\label{conformanceCheckingApp}
 \end{figure*}
@@ -207,7 +207,7 @@ The transformation from finite state machines to plant model ECCs represents a c
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=0.9\textwidth]{chapters/images/chapter4/VerificationApp1.png}
+	\includegraphics[width=0.9\textwidth]{chapters/images/chapter3/VerificationApp1.png}
 	\caption{Application for verification. The structure shows a closed-loop system formed by connecting a plant model obtained from the RMCSES with either a new or existing controller. The plant model interface comprises control signals and non-deterministic transitions (NDT) as input signals, while sensor signals are designated as output signals. This configuration enables formal verification using tools such as NuSMV with CTL/LTL specifications.}
 	\label{verificationApp}
 \end{figure*}
@@ -327,7 +327,7 @@ The pneumatic cylinder case study illustrates the application of automatic plant
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=1\textwidth]{chapters/images/chapter4/CLMC.PNG}
+	\includegraphics[width=1\textwidth]{chapters/images/chapter3/CLMC.PNG}
 	\caption{Closed-loop system of plant and controller model with the monitor. The figure shows the integration of a plant model, controller, and monitor in a closed-loop configuration. The monitor function block receives input signals from both controller and sensor components, generating OK/ERROR outputs based on conformance to the reference model. The ECC diagrams illustrate the internal logic of both the plant model and monitor function blocks.}
 	\label{CL_plant_controller_monitor}
 \end{figure*}
