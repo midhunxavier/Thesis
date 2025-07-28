@@ -1,10 +1,10 @@
 \section{Process Mining Applications in Industrial Control Systems}
 
-The integration of process mining techniques into industrial control systems represents a significant advancement in the field of cyber-physical systems, offering novel approaches to system modeling, verification, and control generation. Process mining, traditionally applied in business process management, has evolved to address the unique challenges of industrial automation, providing data-driven methods for understanding complex system behaviors and generating formal models from recorded event traces.
+The integration of process mining techniques into industrial control systems represents a significant advancement in the field of cyber-physical systems, offering novel approaches to system modeling, verification, and control generation. Process mining, traditionally applied in business process management \cite{van2012process1}, has evolved to address the unique challenges of industrial automation, providing data-driven methods for understanding complex system behaviors and generating formal models from recorded event traces \cite{van2016process}.
 
-This chapter presents three complementary approaches that demonstrate the versatility and effectiveness of process mining in industrial control systems. The first approach focuses on process model extraction and conformance checking for anomaly detection and system monitoring. The second approach introduces an interactive learning methodology for automatic controller generation through simulation-based event recording. The third approach extends these capabilities to automatic plant model generation and real-time monitoring for formal verification.
+This chapter presents three complementary approaches that demonstrate the versatility and effectiveness of process mining in industrial control systems. The first approach focuses on process model extraction and conformance checking for anomaly detection and system monitoring \cite{paper2}. The second approach introduces an interactive learning methodology for automatic controller generation through simulation-based event recording \cite{xavier2022interactive}. The third approach extends these capabilities to automatic plant model generation and real-time monitoring for formal verification \cite{xavier2021plant}.
 
-These methodologies collectively address critical challenges in modern industrial automation: the need for automated system understanding, the complexity of controller development, and the requirement for formal verification in safety-critical applications. By leveraging process mining algorithms and the IEC 61499 standard, these approaches provide systematic methods for transforming recorded behavioral traces into formal models that can be used for system analysis, control generation, and verification.
+These methodologies collectively address critical challenges in modern industrial automation: the need for automated system understanding, the complexity of controller development, and the requirement for formal verification in safety-critical applications. By leveraging process mining algorithms and the IEC 61499 standard \cite{iec61499part12012}, these approaches provide systematic methods for transforming recorded behavioral traces into formal models that can be used for system analysis, control generation, and verification.
 
 \begin{figure*}[!t]
 	\centering
@@ -17,19 +17,19 @@ Figure \ref{workflowUsecase} illustrates the comprehensive workflow and potentia
 
 \section{Process Model Extraction and Conformance Analysis}
 
-The application of process mining techniques in industrial control systems begins with the fundamental challenge of understanding system behavior through recorded event logs. This approach leverages the inherent data-rich nature of modern automation systems to extract meaningful process models that can be used for system analysis, anomaly detection, and performance optimization.
+The application of process mining techniques in industrial control systems begins with the fundamental challenge of understanding system behavior through recorded event logs \cite{van2004workflow}. This approach leverages the inherent data-rich nature of modern automation systems to extract meaningful process models that can be used for system analysis, anomaly detection, and performance optimization.
 
 \subsection{Process Mining Fundamentals in Industrial Contexts}
 
-Process mining in industrial control systems differs fundamentally from its business process applications by focusing on the temporal and causal relationships between sensor and actuator signals rather than human activities. The core principle involves analyzing event logs that capture the sequence of control and sensor events occurring during system operation, then applying discovery algorithms to extract formal process models that represent the system's behavioral patterns.
+Process mining in industrial control systems differs fundamentally from its business process applications by focusing on the temporal and causal relationships between sensor and actuator signals rather than human activities \cite{paper1}. The core principle involves analyzing event logs that capture the sequence of control and sensor events occurring during system operation, then applying discovery algorithms to extract formal process models that represent the system's behavioral patterns.
 
-The process mining workflow in industrial contexts typically involves three main phases: process discovery, conformance checking, and process enhancement. Process discovery algorithms analyze event logs to generate process models in various formalisms, most commonly Petri nets, which provide a mathematical foundation for representing concurrent and sequential behaviors. Conformance checking compares observed behavior against expected models to identify deviations, while process enhancement focuses on improving existing models based on new observations.
+The process mining workflow in industrial contexts typically involves three main phases: process discovery, conformance checking, and process enhancement \cite{van2012process2}. Process discovery algorithms analyze event logs to generate process models in various formalisms, most commonly Petri nets \cite{petri1962}, which provide a mathematical foundation for representing concurrent and sequential behaviors. Conformance checking compares observed behavior against expected models to identify deviations, while process enhancement focuses on improving existing models based on new observations.
 
 
 
-The selection of appropriate process discovery algorithms is crucial for effective model extraction. Alpha algorithm, as a representative of abstraction-based methods, generates models by analyzing ordering relations between events in the log. This algorithm creates dependency graphs based on the sequence of events, making it suitable for systems with well-defined, deterministic behaviors. However, its sensitivity to noise in event logs can lead to overly complex models when dealing with systems that exhibit significant variability.
+The selection of appropriate process discovery algorithms is crucial for effective model extraction. Alpha algorithm \cite{van2004workflow}, as a representative of abstraction-based methods, generates models by analyzing ordering relations between events in the log. This algorithm creates dependency graphs based on the sequence of events, making it suitable for systems with well-defined, deterministic behaviors. However, its sensitivity to noise in event logs can lead to overly complex models when dealing with systems that exhibit significant variability.
 
-Heuristic-based algorithms, such as the fuzzy miner, offer an alternative approach that considers the frequency of event occurrences. These algorithms generate models based on the relative importance of activities and the strength of their relationships, making them more robust to noise and better suited for systems with complex, variable behaviors. The fuzzy miner, in particular, provides interactive representations that help understand system behavior in complex logs, though it may be more challenging to convert to other process modeling languages.
+Heuristic-based algorithms, such as the fuzzy miner \cite{van2004workflow}, offer an alternative approach that considers the frequency of event occurrences. These algorithms generate models based on the relative importance of activities and the strength of their relationships, making them more robust to noise and better suited for systems with complex, variable behaviors. The fuzzy miner, in particular, provides interactive representations that help understand system behavior in complex logs, though it may be more challenging to convert to other process modeling languages.
 
 \begin{figure}[!t]
 	\centering
@@ -42,18 +42,18 @@ The process of generating formal models from event logs involves several systema
 
 \subsection{Event Log Structure and Preprocessing}
 
-The quality and structure of event logs significantly influence the effectiveness of process mining applications. Industrial control systems generate event logs that typically include case identifiers, timestamps, component information, signal names, and signal values. The case identifier represents unique process executions, often corresponding to complete operational cycles in cyclic manufacturing processes.
+The quality and structure of event logs significantly influence the effectiveness of process mining applications \cite{paper2}. Industrial control systems generate event logs that typically include case identifiers, timestamps, component information, signal names, and signal values. The case identifier represents unique process executions, often corresponding to complete operational cycles in cyclic manufacturing processes.
 
-Event log preprocessing is essential for ensuring model quality and accuracy. This includes data cleaning to remove irrelevant events, format conversion to ensure compatibility with process mining tools, and attribute selection to focus on the most relevant information for the analysis. The conversion from CSV format to eXtensible Event Stream (XES) format is particularly important, as most process discovery algorithms require XES input.
+Event log preprocessing is essential for ensuring model quality and accuracy \cite{van2005prom}. This includes data cleaning to remove irrelevant events, format conversion to ensure compatibility with process mining tools, and attribute selection to focus on the most relevant information for the analysis. The conversion from CSV format to eXtensible Event Stream (XES) format is particularly important, as most process discovery algorithms require XES input.
 
 
 The preprocessing phase also involves mapping standard XES attributes to the industrial context. Case columns typically correspond to process execution identifiers, while event columns combine component, signal, and value information to create meaningful activity descriptions. This mapping ensures that the process mining algorithms can correctly interpret the industrial data and generate appropriate models.
 
 \subsection{Conformance Checking and Anomaly Detection}
 
-Conformance checking represents one of the most valuable applications of process mining in industrial control systems, providing systematic methods for detecting deviations from expected behavior. This capability is particularly important for anomaly detection, cyber-attack identification, and quality assurance in safety-critical applications.
+Conformance checking represents one of the most valuable applications of process mining in industrial control systems \cite{dunzer2019conformance}, providing systematic methods for detecting deviations from expected behavior. This capability is particularly important for anomaly detection, cyber-attack identification, and quality assurance in safety-critical applications.
 
-The conformance checking process involves comparing observed event logs against reference process models to identify discrepancies. Several algorithms support this analysis, including causal footprint checking, token-based replay, and alignment-based methods. Causal footprint checking compares dependency matrices between the event log and reference model, providing a quick assessment of model fitness. However, this method does not consider event frequencies and may miss subtle deviations.
+The conformance checking process involves comparing observed event logs against reference process models to identify discrepancies \cite{van2012replaying}. Several algorithms support this analysis, including causal footprint checking, token-based replay, and alignment-based methods. Causal footprint checking compares dependency matrices between the event log and reference model, providing a quick assessment of model fitness. However, this method does not consider event frequencies and may miss subtle deviations.
 
 Token-based replay offers a more detailed analysis by simulating the execution of event traces on the reference model. This approach tracks missing and remaining tokens after each transition, providing quantitative measures of conformance. While effective, token replay has limitations when dealing with non-uniquely labeled transitions and can suffer from token flooding in complex models.
 
@@ -138,11 +138,11 @@ The monitor continues operation until the first error is detected, after which i
 
 \section{Interactive Learning for Automatic Controller Generation}
 
-The development of control logic for industrial automation systems traditionally requires significant domain expertise and manual programming effort. The interactive learning approach addresses this challenge by leveraging process mining techniques to automatically generate controllers from recorded behavioral traces, significantly reducing development time and improving system reliability.
+The development of control logic for industrial automation systems traditionally requires significant domain expertise and manual programming effort \cite{lewis2001modelling}. The interactive learning approach addresses this challenge by leveraging process mining techniques to automatically generate controllers from recorded behavioral traces, significantly reducing development time and improving system reliability.
 
 \subsection{Simulation-Based Event Recording}
 
-The foundation of interactive learning lies in the systematic recording of system behavior through simulation models. This approach uses 3D simulation environments, such as Visual Components, to create virtual representations of industrial systems that can be manipulated and observed without the risks and costs associated with physical experimentation.
+The foundation of interactive learning lies in the systematic recording of system behavior through simulation models \cite{hegny2010iec}. This approach uses 3D simulation environments, such as Visual Components \cite{visualcomponent}, to create virtual representations of industrial systems that can be manipulated and observed without the risks and costs associated with physical experimentation.
 
 The simulation environment provides a controlled setting where actuator signals can be manually triggered in appropriate sequences to generate desired process scenarios. Each interaction with the simulation model produces events that are recorded in chronological order, creating comprehensive behavioral traces that capture the complete system dynamics. This approach enables the generation of diverse process scenarios that might be difficult or dangerous to create in physical systems.
 
@@ -154,7 +154,7 @@ The simulation-based approach offers several advantages over traditional control
 
 \subsection{Process Discovery and Petri Net Generation}
 
-The transformation from recorded event logs to executable control logic involves several systematic steps, beginning with process discovery to extract formal models from the behavioral traces. The alpha algorithm serves as the primary process discovery method, generating Petri nets that represent the system's behavioral patterns in a mathematically rigorous format.
+The transformation from recorded event logs to executable control logic involves several systematic steps, beginning with process discovery to extract formal models from the behavioral traces \cite{van2013discovering}. The alpha algorithm serves as the primary process discovery method, generating Petri nets that represent the system's behavioral patterns in a mathematically rigorous format.
 
 The generated Petri nets capture the causal relationships between events, representing the system's state transitions and control flow. These models provide a formal foundation for understanding system behavior and serve as the basis for controller generation. The Petri net representation is particularly valuable because it can handle concurrent activities, sequential dependencies, and complex synchronization requirements that are common in industrial automation systems.
 
@@ -179,11 +179,11 @@ The interactive learning approach provides several significant advantages for co
 
 \section{Automatic Plant Model Generation and Real-Time Monitoring}
 
-The extension of process mining techniques to automatic plant model generation represents a significant advancement in formal verification capabilities for industrial control systems. This approach addresses the critical challenge of creating accurate plant models for closed-loop system verification, enabling comprehensive analysis of system behavior and real-time monitoring of operational compliance.
+The extension of process mining techniques to automatic plant model generation represents a significant advancement in formal verification capabilities for industrial control systems \cite{xavier2021plant}. This approach addresses the critical challenge of creating accurate plant models for closed-loop system verification, enabling comprehensive analysis of system behavior and real-time monitoring of operational compliance.
 
 \subsection{Reference Model of Control/Sensor Events Sequencing}
 
-The foundation of automatic plant model generation lies in the Reference Model of Control/Sensor Events Sequencing (RMCSES), a formal model that represents the complete behavior of a closed-loop industrial automation system. This model is derived from process mining of event logs recorded during error-free system operation over extended periods.
+The foundation of automatic plant model generation lies in the Reference Model of Control/Sensor Events Sequencing (RMCSES), a formal model that represents the complete behavior of a closed-loop industrial automation system \cite{vyatkin2008closed}. This model is derived from process mining of event logs recorded during error-free system operation over extended periods.
 
 The RMCSES provides a condensed representation of vast event logs, encompassing all possible signals from all system components. Conceptually, if the event log represents a collection of sentences describing system behavior, then RMCSES functions as a sentence generator for this formal language. This representation enables the model to be readily implemented in software or hardware, making it suitable for real-time applications.
 
@@ -193,9 +193,9 @@ The model assumes that each component in the system operates in a cyclical, mean
 
 \subsection{Petri Net Decomposition and State Machine Generation}
 
-The transformation from event logs to plant models involves several sophisticated steps, beginning with Petri net construction and proceeding through decomposition and state machine generation. This process addresses the complexity of industrial systems by breaking down complex behaviors into manageable components while preserving essential behavioral characteristics.
+The transformation from event logs to plant models involves several sophisticated steps, beginning with Petri net construction and proceeding through decomposition and state machine generation \cite{van2013discovering}. This process addresses the complexity of industrial systems by breaking down complex behaviors into manageable components while preserving essential behavioral characteristics.
 
-The Petri net decomposition process utilizes reachability graph methods to identify subsets of states and transitions, facilitating the partitioning of complex Petri nets into manageable modules. This approach provides a structured and systematic method for exploring all reachable states and transitions within the system, ensuring completeness in capturing all potential behaviors.
+The Petri net decomposition process utilizes reachability graph methods to identify subsets of states and transitions, facilitating the partitioning of complex Petri nets into manageable modules \cite{buchholz2002hierarchical}. This approach provides a structured and systematic method for exploring all reachable states and transitions within the system, ensuring completeness in capturing all potential behaviors.
 
 The reachability graph method, while comprehensive, can suffer from state space explosion in complex systems. To address this challenge, several strategies are employed: state space reduction using symbolic representations such as Binary Decision Diagrams (BDDs), abstraction and aggregation methods that focus on essential behavioral properties, partial order reduction techniques that avoid redundant interleavings, and on-the-fly exploration that generates states as needed.
 
@@ -203,7 +203,7 @@ The composition of State Machine Components (SMCs) into a cohesive FSM requires 
 
 \subsection{Plant Model Transformation and Implementation}
 
-The transformation from finite state machines to plant model ECCs represents a critical step in the automatic plant model generation process. This transformation requires careful handling of the different types of signals and transitions that characterize plant behavior in industrial control systems.
+The transformation from finite state machines to plant model ECCs represents a critical step in the automatic plant model generation process \cite{patil2015formal}. This transformation requires careful handling of the different types of signals and transitions that characterize plant behavior in industrial control systems.
 
 \begin{figure*}[!t]
 	\centering
@@ -283,7 +283,7 @@ This algorithmic approach ensures that the generated plant model accurately repr
 
 \subsection{Monitor Implementation for Real-Time Conformance Checking}
 
-The automatic generation of monitors represents a critical application of the RMCSES, enabling real-time detection of deviations from expected system behavior. These monitors are implemented as IEC 61499 function blocks that can be deployed in operational systems to provide continuous monitoring and early warning of potential issues.
+The automatic generation of monitors represents a critical application of the RMCSES, enabling real-time detection of deviations from expected system behavior \cite{wenger2015behavioral}. These monitors are implemented as IEC 61499 function blocks that can be deployed in operational systems to provide continuous monitoring and early warning of potential issues.
 
 The monitor implementation involves transforming the RMCSES into a function block that receives input signals from both controller and sensor components. The monitor's ECC is generated using transformation rules that map FSM states and transitions to appropriate ECC states and transitions. When the monitor detects a valid transition, it generates an "OK" output indicating successful operation. If an unexpected event occurs, the monitor transitions to an error state and produces an "ERROR" event with details about the event that caused the error.
 
@@ -293,7 +293,7 @@ The monitor implementation includes several important features. First, it provid
 
 \subsection{Plant Model Generation for Formal Verification}
 
-The automatic generation of plant models extends the capabilities of process mining to formal verification applications. These plant models represent the uncontrolled behavior of the physical system and can be integrated with control models to create complete closed-loop system representations suitable for formal analysis.
+The automatic generation of plant models extends the capabilities of process mining to formal verification applications \cite{xavier2021cyber}. These plant models represent the uncontrolled behavior of the physical system and can be integrated with control models to create complete closed-loop system representations suitable for formal analysis.
 
 The plant model generation process involves extracting the uncontrolled plant behavior from the overall system model represented by the RMCSES. This extraction requires careful analysis to distinguish between control-driven and sensor-driven transitions, as the plant model should only respond to control signals and generate sensor signals based on its internal state.
 
@@ -305,7 +305,7 @@ The generated plant model can be used for formal verification using tools such a
 
 \section{Integration and Applications}
 
-The three approaches presented in this chapter represent complementary aspects of process mining applications in industrial control systems, each addressing different challenges in system understanding, control generation, and verification. Their integration provides a comprehensive framework for addressing the complex requirements of modern industrial automation.
+The three approaches presented in this chapter represent complementary aspects of process mining applications in industrial control systems, each addressing different challenges in system understanding, control generation, and verification \cite{sinha2019survey}. Their integration provides a comprehensive framework for addressing the complex requirements of modern industrial automation.
 
 \subsection{Comprehensive System Analysis Framework}
 
