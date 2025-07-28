@@ -38,6 +38,8 @@ The foundation of any IEC 61499 testing framework lies in the comprehensive vali
     \label{fig:bitstring_test}
 \end{figure}
 
+Figure~\ref{fig:bitstring_test} shows the BitStringDataType function block interface, execution control chart, and algorithms designed for comprehensive testing of bit string data type support across different IEC 61499 platforms, ensuring consistent handling of BOOL, BYTE, WORD, DWORD, and LWORD data types.
+
 The BitStringDataType function block serves as a comprehensive testing tool for validating bit string data type support. This function block implements a systematic testing procedure involving two primary events: INIT and REQ. When the INIT event is triggered, the function block sets output values to predefined constants, allowing verification that the platform correctly handles each supported bit string data type. The REQ event, on the other hand, tests the dynamic processing of input data by ensuring that output values correspond exactly to input values, with the CNF event confirming successful completion.
 
 Similarly, the IntegerDataType function block validates support for all integer data types defined in the IEC 61499 standard. This function block tests both the initialization of integer values and the dynamic processing of integer data, ensuring that platforms correctly handle signed and unsigned integers of various bit lengths. The testing procedure verifies that output values match expected results for both predefined constants and dynamic input values.
@@ -48,6 +50,8 @@ Similarly, the IntegerDataType function block validates support for all integer 
     \caption{IntegerDataType Function Block: Comprehensive testing of integer data type support including signed and unsigned variants across different bit lengths.}
     \label{fig:integer_test}
 \end{figure}
+
+Figure~\ref{fig:integer_test} illustrates the IntegerDataType function block designed for comprehensive testing of integer data type support, including both signed (SINT, INT, DINT, LINT) and unsigned (USINT, UINT, UDINT, ULINT) variants across different bit lengths, ensuring platform compatibility for numerical operations.
 
 The RealDataType function block focuses on validating floating-point number handling, which is critical for many industrial control applications. This function block tests both REAL and LREAL data types, ensuring that platforms correctly handle precision and range requirements for floating-point arithmetic operations.
 
@@ -66,6 +70,8 @@ Beyond basic data type support, it is crucial to validate how platforms handle b
     \label{fig:boundary_test}
 \end{figure}
 
+Figure~\ref{fig:boundary_test} presents the BoundCheckTest function block interface and execution control chart, demonstrating the systematic approach to validating boundary conditions and extreme values across all IEC 61499 data types, which is crucial for ensuring robust handling of edge cases in industrial control applications.
+
 This function block tests the maximum and minimum values for each data type, ensuring that platforms can handle extreme values without errors or unexpected behavior. The testing procedure involves providing input values at the boundaries of each data type's range and verifying that the platform correctly processes these values and produces expected output results.
 
 Boundary condition testing is particularly important for industrial control applications where sensor readings or control outputs may reach extreme values. Proper handling of these conditions is essential for system reliability and safety.
@@ -81,6 +87,8 @@ The StandardFunctionTest function block evaluates support for IEC 61499 standard
     \label{fig:composite_test}
 \end{figure}
 
+Figure~\ref{fig:composite_test} shows the composite function block testing framework, including the interface design, connection diagram, and algorithms for validating composite function block support across different IEC 61499 platforms, ensuring that complex control applications can be reliably ported between systems.
+
 For example, the Multiplexer (MUX) function can be tested by triggering the MUX\_Func event and verifying that the output value matches the expected result. This function is used to select one of several input signals based on an index value, and proper implementation is crucial for many control applications.
 
 The CompositeBlockTest function block validates the functionality of composite function block support, which is essential for building complex control applications. This function block tests the initialization and execution of composite blocks, ensuring that they correctly handle input/output relationships and event processing.
@@ -95,6 +103,8 @@ Adapter support is a critical aspect of IEC 61499 portability, as adapters enabl
     \caption{Adapter Testing Framework: Function block interface and structure for validating adapter support and interface compatibility across IEC 61499 platforms.}
     \label{fig:adapter_test}
 \end{figure}
+
+Figure~\ref{fig:adapter_test} illustrates the adapter testing framework, showing the function block interface and structure designed for validating adapter support and interface compatibility across IEC 61499 platforms, which is essential for ensuring seamless communication between function blocks developed by different vendors or teams.
 
 This function block consists of two basic function blocks (AdapterBFB1 and AdapterBFB2) connected through an adapter. The testing procedure validates that input values from one function block are correctly transferred to the other through the adapter interface, ensuring that adapter functionality works consistently across different platforms.
 
@@ -114,6 +124,8 @@ Service sequence models provide a standardized way to specify the expected input
     \caption{Service Sequence Model Example: Function block interface, state diagram, and service sequences defining test scenarios for a simple calculation function block.}
     \label{fig:service_sequence}
 \end{figure}
+
+Figure~\ref{fig:service_sequence} demonstrates a service sequence model example, showing the function block interface, state diagram, and service sequences that define comprehensive test scenarios for a simple calculation function block, illustrating how standardized test specifications can be created for automated validation.
 
 Service sequences can be specified manually for test-driven development or derived from existing implementations using model execution frameworks. This flexibility allows developers to create comprehensive test suites that cover both normal operation and edge cases.
 
@@ -142,6 +154,8 @@ This approach helps identify implementation issues early in the development proc
     \label{fig:tdd_process}
 \end{figure}
 
+Figure~\ref{fig:tdd_process} provides an overview of the test-driven development process, illustrating the systematic approach for testing function blocks across various software platforms using service sequence models, which helps ensure consistent behavior and early identification of implementation issues.
+
 \subsection{Automated Test Generation from Specifications}
 
 The transformation of service sequence models into executable test applications is a key component of model-based testing methodologies. This process involves the application of transformation rules that convert high-level test specifications into IEC 61499-compliant test function blocks.
@@ -152,6 +166,8 @@ The transformation of service sequence models into executable test applications 
     \caption{Automated Test Generation: Creating test function blocks from service sequence models using transformation rules and automated code generation.}
     \label{fig:test_generation}
 \end{figure}
+
+Figure~\ref{fig:test_generation} illustrates the automated test generation process, showing how test function blocks are created from service sequence models using transformation rules and automated code generation, significantly reducing manual effort while ensuring consistency and completeness of test coverage.
 
 The transformation rules ensure that each service sequence results in a corresponding input event, output events are properly mapped to function block interfaces, data values are set according to service specifications, state diagrams reflect the expected behavior, and test results are properly captured and reported.
 
@@ -194,6 +210,8 @@ The core of any cross-platform test application is the test signal generator, wh
     \label{fig:composite_test_app}
 \end{figure}
 
+Figure~\ref{fig:composite_test_app} shows the composite test application architecture, demonstrating how the test application is encapsulated as a function block with connections between the test signal generator, function block under test, and result validation components, ensuring portability across different IEC 61499 platforms.
+
 The test signal generator must generate appropriate input events based on service sequence specifications, provide correct data values for each test scenario, and notify the test application of expected output events.
     \item Supply expected output values for result comparison
     \item Handle timing requirements for test execution
@@ -220,6 +238,8 @@ The test application is realized as a composite function block that encapsulates
     \label{fig:cross_platform_methodology}
 \end{figure}
 
+Figure~\ref{fig:cross_platform_methodology} presents the comprehensive cross-platform testing methodology, outlining the seven-step process for testing function blocks across various software platforms, including both automated and manual development phases that ensure thorough validation of IEC 61499 applications.
+
 The composite function block design provides several advantages including portability, where the entire test application can be moved between platforms; encapsulation, where all testing logic is contained within a single function block; simplicity, where the interface is simplified to basic event triggers; flexibility, where individual test cases can be executed separately or in sequence; and reliability, where the internal state is managed consistently across platforms.
 
 The test application includes an additional event pin "run\_all" that allows execution of all test cases sequentially based on a single event trigger, providing convenience for comprehensive testing.
@@ -234,6 +254,8 @@ Sophisticated tool support is essential for automating the test generation and e
     \caption{Test Application Generation: Automated generation of test applications from service sequence models, showing the relationship between service models and generated test components.}
     \label{fig:generation_rules}
 \end{figure}
+
+Figure~\ref{fig:generation_rules} illustrates the test application generation process, showing the automated generation of test applications from service sequence models and the relationship between service models and generated test components, demonstrating how sophisticated tool support can streamline the testing workflow.
 
 The tool support includes service sequence editors with graphical and textual interfaces for creating service sequence models, a model interpreter framework for executing and validating service sequences, automated test generators for creating test function blocks from service models, result analyzers for analyzing and reporting test results, and export/import capabilities for porting test applications between platforms.
 
@@ -253,6 +275,8 @@ The processing station represents a realistic industrial control application tha
     \caption{Processing Station: Physical layout of the industrial control system used for validating cross-platform testing methodologies.}
     \label{fig:processing_station}
 \end{figure}
+
+Figure~\ref{fig:processing_station} shows the physical layout of the processing station, a realistic industrial control system used for validating cross-platform testing methodologies, demonstrating how the testing framework can be applied to complex, multi-component control systems in real-world scenarios.
 
 The processing station operates through a coordinated sequence of operations:
 
@@ -276,6 +300,8 @@ The TableControl function block network is responsible for managing the rotation
     \label{fig:table_rotate}
 \end{figure}
 
+Figure~\ref{fig:table_rotate} presents the TableRotate function block design, showing the interface, state diagram, and comprehensive test cases for validating table rotation control across different platforms, demonstrating how the testing framework can ensure consistent behavior of complex control logic.
+
 The TableRotate function block encapsulates the core control logic for table rotation, managing starting and stopping rotation movements, monitoring position feedback, handling timeout conditions, and ensuring safe operation under various conditions.
 
 The state diagram implements a robust control strategy that transitions between START, ROTATE\_START, ROTATE\_CONTINUE, and DONE states based on events and position feedback. This design ensures that the table can be accurately positioned while handling potential sensor failures or timing issues.
@@ -293,6 +319,8 @@ The TesterControl function block network manages the inspection process for dete
     \label{fig:test_ctrl}
 \end{figure}
 
+Figure~\ref{fig:test_ctrl} illustrates the TestCtrl function block design, including the interface, state diagram, and timeout test case for validating inspection control logic across different platforms, showing how the testing framework addresses critical timing and safety requirements in industrial control systems.
+
 The TestCtrl function block manages the sequence of extending, checking, and retracting the inspection probe, while handling timeout conditions that may occur during the inspection process. The function block transitions through EXTEND, CHECK, RETRACT, and DONE states based on sensor feedback and timing requirements.
 
 Test cases for the TestCtrl function block include scenarios for successful inspection, timeout conditions, and sensor failure handling. These tests ensure that the inspection logic works correctly across different platforms and can handle various operational conditions.
@@ -308,6 +336,8 @@ The DrillControl function block network orchestrates the drilling process, manag
     \label{fig:double_acting_cylinder}
 \end{figure}
 
+Figure~\ref{fig:double_acting_cylinder} shows the Double Acting Cylinder function block design, including the interface, state diagram, and comprehensive test cases for validating drill control operations across different platforms, demonstrating how the testing framework ensures reliable control of complex mechanical systems.
+
 The DoubleActingCylinder function block controls the bidirectional motion of the drill, managing extension (downward movement) and retraction (upward movement) operations. This function block ensures precise control of the drilling process through proper state management and position feedback.
 
 Test scenarios for the DoubleActingCylinder function block include normal drilling operations, emergency stop conditions, and position sensor failures. These tests validate that the drilling control logic works correctly across different runtime environments.
@@ -322,6 +352,8 @@ The case study revealed significant semantic execution differences between diffe
     \caption{Semantic Execution Issue: Illustration of how different runtime environments handle identical events differently, leading to unexpected behavior in ported applications.}
     \label{fig:semantic_issue}
 \end{figure}
+
+Figure~\ref{fig:semantic_issue} illustrates a critical semantic execution issue, showing how different runtime environments handle identical events differently, leading to unexpected behavior in ported applications, which highlights the importance of comprehensive cross-platform testing for ensuring reliable and safe operation of IEC 61499 applications.
 
 The primary semantic difference identified was in how EAE handles sequences of identical events. Unlike the IEC 61499 standard specification, EAE adopts a specific semantic execution model where a single event trigger can result in a direct transition to the final state, bypassing intermediate states entirely.
 

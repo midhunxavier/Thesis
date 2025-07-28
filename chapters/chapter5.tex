@@ -26,6 +26,8 @@ Smart contracts automate predefined processes, ensuring consistency and reliabil
     \label{fig:blockchain_architecture}
 \end{figure}
 
+Figure~\ref{fig:blockchain_architecture} illustrates the comprehensive architectural design for blockchain-powered product traceability in multi-agent systems, demonstrating how user agents, processing agents, execution agents, and verifying agents integrate with blockchain technology to create a secure and transparent manufacturing environment.
+
 \subsection{Multi-Agent Systems for Process Verification}
 
 The combination of blockchain technology with multi-agent systems creates a powerful framework for process verification and validation. Multi-agent systems, with their adaptable and reconfigurable structure, facilitate agile responses to changes in operational needs, enabling seamless adjustments in manufacturing processes. These systems exhibit considerable advancements within Industry 4.0 initiatives by effectively addressing intricate challenges inherent in industrial control systems.
@@ -59,11 +61,31 @@ The application of LLMs in industrial settings extends beyond simple query proce
     \label{fig:llm_workflow}
 \end{figure}
 
+Figure~\ref{fig:llm_workflow} presents the comprehensive workflow for developing intelligent multi-actor applications with LLMs, outlining the four-stage process from application construction to HMI integration for IEC 61499-based control systems.
+
 \subsection{Multi-Actor LLM Frameworks}
 
 The development of multi-actor LLM frameworks represents a sophisticated approach to leveraging artificial intelligence in industrial control systems. These frameworks utilize specialized LLM actors that interact through graph-based multi-actor architectures, addressing various aspects of IEC 61499 control systems including PLC code analysis, SQL query execution, and data visualization.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper12/images/IEC61499App.PNG}
+    \caption{IEC 61499 application architecture showing the integration of function blocks, human-machine interface, and LangGraph-based multi-actor system for intelligent data analysis}
+    \label{fig:iec61499_app}
+\end{figure}
+
+Figure~\ref{fig:iec61499_app} demonstrates the IEC 61499 application architecture, highlighting the seamless integration of function blocks, human-machine interface, and the LangGraph-based multi-actor system for intelligent data analysis and control system management.
+
 LangChain and LangGraph serve as foundational technologies for building these multi-actor systems. LangChain is an advanced software library designed to enhance the functionality of LLMs by facilitating the integration of external knowledge and reasoning capabilities. This framework supports the seamless combination of natural language processing tasks with data retrieval, offering a structured approach to managing workflows that incorporate external APIs, databases, and custom logic.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper12/images/LangGraph.PNG}
+    \caption{LangGraph-based multi-actor system architecture showing the coordination between Info Agent, SQL Manager, and Coder agents for comprehensive data analysis and visualization}
+    \label{fig:langgraph_architecture}
+\end{figure}
+
+Figure~\ref{fig:langgraph_architecture} shows the LangGraph-based multi-actor system architecture, illustrating the sophisticated coordination between Info Agent, SQL Manager, and Coder agents that enables comprehensive data analysis and visualization capabilities.
 
 LangGraph, on the other hand, is an innovative framework designed to increase the capabilities of LLMs by integrating them with graph-based data structures. This integration allows LLMs to leverage structured information in the form of graphs, enhancing their ability to understand relationships and dependencies between various entities and concepts. By utilizing LangGraph, LLMs can access and manipulate knowledge graphs, which store information in nodes and edges representing entities and their interconnections, respectively.
 
@@ -76,6 +98,15 @@ LLM-based approaches to data analysis include several key components. First, Ret
 Second, SQL agents provide sophisticated methods for constructing query and answer chains over SQL databases, allowing users to pose questions about data and receive answers in natural language. These agents offer dynamic interaction with SQL databases compared to standard query chains, enabling them to answer queries based not only on database content but also on database schema descriptions. The agents are equipped to handle errors effectively by catching tracebacks from failed query executions and regenerating queries correctly.
 
 Third, visualization agents enhance LLM functionality through tool integration for dynamic data visualization. These agents can utilize values extracted from databases to plot graphs, demonstrating advanced applications of chains and agents that can invoke tools ranging from APIs and functions to databases. The critical aspect of integrating models with tools lies in the effective prompting of the model and accurate parsing of its responses, ensuring the selection of appropriate tools and correct input for these tools.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{MX_Papers/Paper12/images/Result.PNG}
+    \caption{Data analysis and visualization results showing the integration of SQL queries, natural language processing, and automated chart generation for industrial control system data}
+    \label{fig:data_analysis_results}
+\end{figure}
+
+Figure~\ref{fig:data_analysis_results} presents the results of data analysis and visualization, showcasing the successful integration of SQL queries, natural language processing, and automated chart generation for industrial control system data, demonstrating the practical application of LLM-based analysis techniques.
 
 \section{Knowledge-Driven AI Agents for Planning and Testing}
 
@@ -94,6 +125,8 @@ The planning agent generates optimized skill sequences to fulfill user-defined o
     \label{fig:ai_agent_architecture}
 \end{figure}
 
+Figure~\ref{fig:ai_agent_architecture} illustrates the comprehensive multi-agent system architecture for planning, validation, and testing of industrial control systems, demonstrating the sophisticated coordination between triage, planning, validating, and testing agents that enables intelligent decision-making and automated system management.
+
 The validating agent is responsible for verifying whether proposed plans adhere to operational rules and resource constraints defined in the knowledge graph. It checks whether each skill is available, executable, and whether its dependencies are satisfied using functions such as \textit{getSkillDependencies()}, \textit{getExecutionRules()}, and \textit{checkComponentAvailability()}. If a plan is invalid, feedback is returned to the triage agent, which forwards it to the planning agent for replanning.
 
 \subsection{Automated Test Generation and Validation}
@@ -108,9 +141,31 @@ The integration of OPC UA communication enables these agents to interact directl
 
 Energy-efficient operation and planning in industrial environments represent critical challenges in modern manufacturing. The knowledge-driven AI agents address these challenges by generating optimized execution plans that balance operational performance with resource sustainability. These agents consider multiple factors including energy consumption, time constraints, wear costs, and operational dependencies when generating plans.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper13/images/PS_Arch.png}
+    \caption{Intelligent planning and conditional execution for drilling in a modular processing station, showing the integration of skill-based control with AI-driven decision making}
+    \label{fig:processing_station_architecture}
+\end{figure}
+
+Figure~\ref{fig:processing_station_architecture} demonstrates the intelligent planning and conditional execution system for drilling operations in a modular processing station, showcasing the seamless integration of skill-based control with AI-driven decision making that enables adaptive and efficient manufacturing processes.
+
 The planning process involves analyzing the current state of the system, identifying available skills and their associated costs, and generating sequences that minimize energy consumption while meeting operational requirements. The agents can handle complex scenarios such as conditional execution based on sensor feedback, enabling systems to adapt their behavior based on real-time conditions.
 
 For example, in a modular processing station scenario, the system can verify the presence of a hole in a workpiece and perform drilling operations only if the hole is absent. This conditional execution capability improves efficiency and reduces unnecessary operations, contributing to both cost savings and sustainability goals.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{MX_Papers/Paper13/images/DS_Arch.png}
+    \caption{Requirement-based testing for distributing station automation using AI agents, demonstrating the integration of robotic arms, pushers, and magazine units with intelligent control}
+    \label{fig:distributing_station_architecture}
+\end{figure}
+
+Figure~\ref{fig:distributing_station_architecture} illustrates the requirement-based testing framework for distributing station automation using AI agents, demonstrating the comprehensive integration of robotic arms, pushers, and magazine units with intelligent control systems that enable sophisticated automation and testing capabilities.
+
+The distributing station case study demonstrates the application of AI agent-based reasoning, planning, and testing to modular automation systems. The station comprises rotating arms, pushers, and magazine units, each exposing OPC UA method interfaces for control and sensor variables for state monitoring. The AI architecture incorporates specialized agents that share access to a centralized knowledge graph encoding system structure, operational rules, skill costs, and sensor information.
+
+This approach enables the generation of energy-efficient transfer plans under time constraints, where the system can optimize the sequence of operations to minimize energy consumption while meeting specific timing requirements. The agents can also perform requirement-based testing of system components, validating correct movement patterns and sensor feedback to ensure system reliability and performance.
 
 \section{Integration and Future Directions}
 
