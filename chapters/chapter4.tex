@@ -1,25 +1,25 @@
 
 \section{Introduction to IEC 61499 Portability Challenges}
 
-The IEC 61499 standard was developed to address the increasing demands for decentralized control and the exponential growth of control complexity in industrial automation systems. Its primary goal was to establish an open, component-oriented, and platform-independent development framework to improve the reusability, reconfigurability, interoperability, portability, and distribution of control software for complex distributed systems. However, despite these ambitious objectives, the reality of IEC 61499 implementation has revealed significant challenges in achieving true portability across different vendor platforms.
+The IEC 61499 standard was developed to address the increasing demands for decentralized control and the exponential growth of control complexity in industrial automation systems \cite{vyatkin2011iec}. Its primary goal was to establish an open, component-oriented, and platform-independent development framework to improve the reusability, reconfigurability, interoperability, portability, and distribution of control software for complex distributed systems. However, despite these ambitious objectives, the reality of IEC 61499 implementation has revealed significant challenges in achieving true portability across different vendor platforms.
 
 \subsection{The Promise and Reality of IEC 61499 Portability}
 
-The IEC 61499 standard provides a standardized XML format for data exchange between different development environments, theoretically enabling seamless portability of function blocks across various vendor platforms. This standardization was intended to eliminate vendor lock-in and facilitate the development of distributed control systems that could operate across heterogeneous hardware and software environments. The technology has been effectively used in implementing Intelligent Mechatronic Components and engineering processes using multiple commercial tools and hardware platforms.
+The IEC 61499 standard provides a standardized XML format for data exchange between different development environments, theoretically enabling seamless portability of function blocks across various vendor platforms \cite{iec61499part12012}. This standardization was intended to eliminate vendor lock-in and facilitate the development of distributed control systems that could operate across heterogeneous hardware and software environments. The technology has been effectively used in implementing Intelligent Mechatronic Components and engineering processes using multiple commercial tools and hardware platforms \cite{patil2013composition}.
 
-However, the practical implementation of IEC 61499 portability has encountered significant obstacles. While the file exchange format is standardized, it is currently interpreted differently across various vendors, and the execution semantics vary considerably among different runtime environments. This divergence in interpretation and execution behavior has created a situation where migrating programs from one IEC 61499 platform to another can introduce errors that are difficult to detect but could potentially lead to damage to humans or physical equipment.
+However, the practical implementation of IEC 61499 portability has encountered significant obstacles \cite{gerber2010does}. While the file exchange format is standardized, it is currently interpreted differently across various vendors, and the execution semantics vary considerably among different runtime environments. This divergence in interpretation and execution behavior has created a situation where migrating programs from one IEC 61499 platform to another can introduce errors that are difficult to detect but could potentially lead to damage to humans or physical equipment.
 
 \subsection{Vendor-Specific Execution Semantics}
 
-The fundamental challenge lies in the fact that the IEC 61499 language semantics is not formally specified and is subject to interpretation by different vendors. This has led to the emergence of different execution semantics across various runtime environments, which can significantly affect the behavior of cyber-physical systems. For example, when an identical function block is executed on different runtime environments, it may exhibit different behaviors due to variations in event processing order and timing, state transition mechanisms, data type handling and boundary conditions, algorithm execution semantics, and communication and synchronization protocols.
+The fundamental challenge lies in the fact that the IEC 61499 language semantics is not formally specified and is subject to interpretation by different vendors \cite{cengic_executionsemantics}. This has led to the emergence of different execution semantics across various runtime environments, which can significantly affect the behavior of cyber-physical systems. For example, when an identical function block is executed on different runtime environments, it may exhibit different behaviors due to variations in event processing order and timing, state transition mechanisms, data type handling and boundary conditions, algorithm execution semantics, and communication and synchronization protocols.
 
-These semantic variations pose a significant challenge for developers who need to ensure that their control applications behave consistently across different platforms. The lack of standardized execution semantics means that even syntactically equivalent IEC 61499 applications may behave differently when deployed on different runtime environments.
+These semantic variations pose a significant challenge for developers who need to ensure that their control applications behave consistently across different platforms \cite{hopsu2019portability}. The lack of standardized execution semantics means that even syntactically equivalent IEC 61499 applications may behave differently when deployed on different runtime environments.
 
 \subsection{The Need for Systematic Testing Approaches}
 
-Given these challenges, it becomes crucial to thoroughly test IEC 61499 applications on each relevant target platform before deploying them to real-world systems. Traditional testing approaches that rely on manual verification or platform-specific testing frameworks are insufficient for addressing the cross-platform compatibility issues inherent in IEC 61499 applications.
+Given these challenges, it becomes crucial to thoroughly test IEC 61499 applications on each relevant target platform before deploying them to real-world systems \cite{hametner2014}. Traditional testing approaches that rely on manual verification or platform-specific testing frameworks are insufficient for addressing the cross-platform compatibility issues inherent in IEC 61499 applications.
 
-A platform-independent test specification has the potential to greatly reduce the effort involved in validating IEC 61499 applications across multiple platforms. Such an approach would enable developers to systematically evaluate the behavior of function blocks across different runtime environments, identify and document vendor-specific execution differences, and ensure consistent behavior of control applications regardless of the target platform. This systematic approach would significantly reduce the time and effort required for cross-platform validation while improving the reliability and safety of distributed control systems.
+A platform-independent test specification has the potential to greatly reduce the effort involved in validating IEC 61499 applications across multiple platforms \cite{softwareTesting}. Such an approach would enable developers to systematically evaluate the behavior of function blocks across different runtime environments, identify and document vendor-specific execution differences, and ensure consistent behavior of control applications regardless of the target platform. This systematic approach would significantly reduce the time and effort required for cross-platform validation while improving the reliability and safety of distributed control systems.
 
 The development of comprehensive testing methodologies for IEC 61499 applications is therefore essential for realizing the full potential of the standard in industrial automation systems.
 
@@ -112,11 +112,11 @@ Adapter testing is particularly important for distributed control systems where 
 
 \section{Model-Based Testing Methodologies}
 
-Traditional manual testing approaches for IEC 61499 function blocks are time-consuming and error-prone, especially when dealing with cross-platform compatibility issues. Model-based testing methodologies offer a more systematic and automated approach to function block validation.
+Traditional manual testing approaches for IEC 61499 function blocks are time-consuming and error-prone, especially when dealing with cross-platform compatibility issues \cite{Hussain.2006}. Model-based testing methodologies offer a more systematic and automated approach to function block validation.
 
 \subsection{Service Sequence Models as Test Specifications}
 
-Service sequence models provide a standardized way to specify the expected input/output behavior of IEC 61499 function blocks. These models define the expected event occurrences, input values, and expected output values for each test scenario, making them ideal for automated test generation and execution.
+Service sequence models provide a standardized way to specify the expected input/output behavior of IEC 61499 function blocks \cite{wiesmayr2021}. These models define the expected event occurrences, input values, and expected output values for each test scenario, making them ideal for automated test generation and execution.
 
 \begin{figure}[!htbp]
     \centering
@@ -133,7 +133,7 @@ The use of service sequences as test specifications provides several advantages 
 
 \subsection{Test-Driven Development for Function Blocks}
 
-Test-driven development (TDD) is a software development methodology that emphasizes writing tests before implementing functionality. This approach is particularly valuable for IEC 61499 function block development, as it helps ensure that the implemented behavior matches the specified requirements from the beginning.
+Test-driven development (TDD) is a software development methodology that emphasizes writing tests before implementing functionality \cite{Buzhinsky.2015}. This approach is particularly valuable for IEC 61499 function block development, as it helps ensure that the implemented behavior matches the specified requirements from the beginning.
 
 The TDD process for IEC 61499 function blocks involves the following steps:
 
@@ -197,7 +197,7 @@ These transformation rules provide a systematic approach to converting service s
 
 \section{Cross-Platform Test Application Architecture}
 
-The development of portable test applications that can execute across different IEC 61499 runtime environments is essential for comprehensive cross-platform validation. These applications must be designed to work with any IEC 61499-compliant platform while providing accurate and reliable test results.
+The development of portable test applications that can execute across different IEC 61499 runtime environments is essential for comprehensive cross-platform validation \cite{christensen.2012}. These applications must be designed to work with any IEC 61499-compliant platform while providing accurate and reliable test results.
 
 \subsection{Test Signal Generation and Execution}
 
@@ -246,7 +246,7 @@ The test application includes an additional event pin "run\_all" that allows exe
 
 \subsection{Tool Support and Automation}
 
-Sophisticated tool support is essential for automating the test generation and execution process. The Eclipse 4diac IDE provides comprehensive support for specifying service sequences and simulating their results.
+Sophisticated tool support is essential for automating the test generation and execution process. The Eclipse 4diac IDE provides comprehensive support for specifying service sequences and simulating their results \cite{eclipse4diac}.
 
 \begin{figure}[!htbp]
     \centering
@@ -263,7 +263,7 @@ This tool support significantly reduces the manual effort required for test deve
 
 \section{Real-World Validation and Case Studies}
 
-The effectiveness of cross-platform testing methodologies must be validated through real-world case studies that demonstrate their applicability to industrial control systems. The processing station case study provides a comprehensive example of how these methodologies can be applied to complex, multi-component control systems.
+The effectiveness of cross-platform testing methodologies must be validated through real-world case studies that demonstrate their applicability to industrial control systems \cite{Thramboulidis.2009}. The processing station case study provides a comprehensive example of how these methodologies can be applied to complex, multi-component control systems.
 
 \subsection{Processing Station Control System}
 
@@ -344,7 +344,7 @@ Test scenarios for the DoubleActingCylinder function block include normal drilli
 
 \subsection{Semantic Execution Differences}
 
-The case study revealed significant semantic execution differences between different IEC 61499 runtime environments, particularly between Eclipse 4diac FORTE and Schneider Electric EcoStruxure Automation Expert (EAE). These differences highlight the importance of comprehensive cross-platform testing.
+The case study revealed significant semantic execution differences between different IEC 61499 runtime environments, particularly between Eclipse 4diac FORTE and Schneider Electric EcoStruxure Automation Expert (EAE) \cite{pang2014portability}. These differences highlight the importance of comprehensive cross-platform testing.
 
 \begin{figure}[!htbp]
     \centering
@@ -385,11 +385,11 @@ The evaluation results showed that the framework could detect both expected and 
 
 \section{Challenges and Limitations}
 
-While the cross-platform testing methodologies provide significant benefits for IEC 61499 application development, several challenges and limitations must be acknowledged and addressed.
+While the cross-platform testing methodologies provide significant benefits for IEC 61499 application development, several challenges and limitations must be acknowledged and addressed \cite{lyu2020towards}.
 
 \subsection{Vendor-Specific Implementation Variations}
 
-The primary challenge in cross-platform IEC 61499 development is the significant variation in how different vendors implement the standard. These variations can occur at multiple levels including syntax interpretation, where different vendors may interpret the XML format differently; semantic implementation, where execution semantics may vary significantly between platforms; feature support, where not all platforms support the complete set of IEC 61499 features; and performance characteristics, where timing and performance may vary between platforms.
+The primary challenge in cross-platform IEC 61499 development is the significant variation in how different vendors implement the standard \cite{sinha2019survey}. These variations can occur at multiple levels including syntax interpretation, where different vendors may interpret the XML format differently; semantic implementation, where execution semantics may vary significantly between platforms; feature support, where not all platforms support the complete set of IEC 61499 features; and performance characteristics, where timing and performance may vary between platforms.
 
 These variations make it difficult to create truly portable applications and require comprehensive testing across all target platforms.
 
