@@ -6,32 +6,50 @@
 %Included for Gather Purpose only:
 %input "thesisreferences.bib"
 
+% Additional packages for Paper 2
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Additional packages for Paper 4
+\usepackage{float}
+\usepackage{tabularx}
+
+% Additional packages for Paper 5
+\usepackage{url}
+
+% Additional packages for Paper 6
+\usepackage{algorithm2e}
+
+% Additional packages for Paper 13
+\usepackage{soul}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[normalem]{ulem}
+\usepackage{multirow}
+
 \makeglossaries
 
 \newacronym{nlp}{NLP}{Natural Language Processing}
 
 \begin{document}
 
-\defaultbibliography{thesisreferences}     %% Change this only.
+\defaultbibliography{thesisreferences,MX_Papers/Paper2/INDIN2021,MX_Papers/Paper3/refrencias_sobraep,MX_Papers/Paper1/sns,MX_Papers/Paper1/main,MX_Papers/Paper4/bibliography/Bibliography,MX_Papers/Paper5/INDIN2022,MX_Papers/Paper6/ETFA2022,MX_Papers/Paper7/bibliography/mybibfile,MX_Papers/Paper8/conference,MX_Papers/Paper9/refs,MX_Papers/Paper10/bibliography/mybibfile,MX_Papers/Paper11/conference,MX_Papers/Paper12/conference,MX_Papers/Paper13/conference}     %% Change this only.
 \defaultbibliographystyle{plain}        %% Could be changed if you like 
                                            %% references typeset differently.
 %-------------------------------------------------------------------
 % Define title, author, etc.
 %-------------------------------------------------------------------
-\def\thesistitle{Example Thesis updated by Tosin Adewumi}
-
-\begin{figure}[h]
- \centering
- \includegraphics[width=0.5\textwidth]{bg_wall.jpg}
-\end{figure}
-
-\def\theauthor{Johan E.\ Carlson}
+\def\thesistitle{Enabling dependable flexibility in industrial automation with formal methods integrated to development toolchains}
+\def\theauthor{Midhun Xavier}
 \def\theaddress{Dept.\ of Computer Science, Electrical and Space Engineering\\
 Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 
-\def\supervisors{Name of your supervisor(s)}
-\def\supervisorstring{Supervisors:} % Edit here if you have only one supervisor
-\def\dedication{To my surprise...}
+\def\supervisors{supervisors}
+\def\supervisorstring{Valeriy Vyatkin and Sandeep Patil} % Edit here if you have only one supervisor
+
+\def\dedication{"To my family and friends who have supported me throughout this journey."}
 
 % Read abstract and preface from separate files.
 % Make sure these exist. See example files.
@@ -47,6 +65,13 @@ Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 % The definitions above could be put directly in the function call below,
 % but is here defined explicitly, for the purpose of clarity.
 
+% Create cover page with title, author name, and image
+\makecoverpage
+  {\thesistitle}
+  {\theauthor}
+  {\includegraphics[width=0.5\textwidth]{bg_wall.jpg}}
+
+% Create title page with author information
 \startpreamble
   {\thesistitle}
   {\theauthor}
@@ -64,7 +89,6 @@ Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 
 %% Initialize part containing the thesis introduction chapters
 \startchapters
-\begin{bibunit}
 %------------------------ Start chapter 1 --------------------------
 % The \makechapter command takes three arguments
 %  1) An abbreviated version of the chapter name,
@@ -86,18 +110,24 @@ Lule{\aa} University of Technology\\ Lule{\aa}, Sweden}
 Introduction\label{ch1}}
 \input{chapters/chapter1.tex}
 
-\makechapter{Running header}{Table of contents entry}{Title
-appearing on the\\ chapter start page\label{ch2}}
+\makechapter{Model-Based Design Framework}{A Framework for Model-Based Design and Formal Verification of Component-Based Industrial Automation Systems}{A Framework for Model-Based Design and Formal Verification of Component-Based Industrial Automation Systems\label{ch2}}
 \input{chapters/chapter2.tex}
 
-\makechapter{Nonsense chapter}{Nonsense chapter}{Nonsense chapter, here only to verify that some issues in previous versions are really resolved!}
+\makechapter{Process Mining in Industrial Control Systems}{Process Mining in Industrial Control Systems}{Process Mining in Industrial Control Systems\label{ch3}}
 \input{chapters/chapter3.tex}
 
-\makechapter{Nonsense chapter}{Nonsense chapter}{Nonsense chapter, here only to verify that some issues in previous versions are really resolved!}
-%\input{chapter3.tex}
+\makechapter{Cross-Platform Testing and Portability Validation}{Cross-Platform Testing and Portability Validation for IEC 61499 Function Blocks}{Cross-Platform Testing and Portability Validation for IEC 61499 Function Blocks\label{ch4}}
+\input{chapters/chapter4.tex}
 
-\makebib
-\end{bibunit}
+\makechapter{Intelligent Industrial Automation}{Intelligent Industrial Automation: Blockchain, AI, and Multi-Agent Systems}{Intelligent Industrial Automation: Blockchain, AI, and Multi-Agent Systems\label{ch5}}
+\input{chapters/chapter5.tex}
+
+\makechapter{Conclusion and Future Research Directions}{Conclusion and Future Research Directions}{Conclusion and Future Research Directions\label{ch6}}
+\input{chapters/chapter6.tex}
+
+% Bibliography for Part I (Chapters)
+\bibliography{thesisreferences}
+\bibliographystyle{plain}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Begin Part II - Collection of papers
@@ -106,18 +136,20 @@ appearing on the\\ chapter start page\label{ch2}}
 \makepartpage{Part II}%
 \startpapers
 
+% Bibliography files for papers
+
 %-------------------------------------------------------------------
 \def\paperheader{Paper A}
-\def\papertitle{The Title of the Papers in the Thesis are Automatically Split In Several Lines if Necessary}
-\def\paperauthorstring{John Doe and Jane Doe}
-\def\referencestring{Example Thesis, Internal Report, Lule{\aa} University of Technology, 2002.}
-\def\copyrightstring{2002, The Publisher, Reprinted with permission.}
+\def\papertitle{Formal Modelling, Analysis, and Synthesis of Modular Industrial Systems inspired by Net Condition/Event Systems}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Victor Dubinin, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
 % use of the function \makepaper.
 
-\makepaper
+\makepaperaccepted
   {\paperheader}
   {\papertitle}
   {\paperauthorstring}
@@ -131,10 +163,10 @@ appearing on the\\ chapter start page\label{ch2}}
 
 %-------------------------------------------------------------------
 \def\paperheader{Paper B}
-\def\papertitle{The Theory of Research}
-\def\paperauthorstring{John Doe and Jane Doe}
-\def\referencestring{Example Thesis, Internal Report, Lule{\aa} University of Technology, 2009.}
-\def\copyrightstring{2009, The Publisher, Reprinted with permission.}
+\def\papertitle{Cyber-physical automation systems modelling with IEC 61499 for their formal verification}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
@@ -150,19 +182,18 @@ appearing on the\\ chapter start page\label{ch2}}
 % The actual contents is imported by un-commenting the \input line below.
 % Make sure the file exist.
 \input{papers/paper2.tex}
-
 %-------------------------------------------------------------------
 \def\paperheader{Paper C}
-\def\papertitle{Yet Another Sub-Optimal Estimator of Sinusoids in Noise}
-\def\paperauthorstring{Dr.\ C}
-\def\referencestring{Example Thesis, Internal Report, Lule{\aa} University of Technology, 2009.}
-\def\copyrightstring{2009, The Publisher, Reprinted with permission.}
+\def\papertitle{Formal verification of observers supervising a cyber-physical system implemented using IEC~61499}
+\def\paperauthorstring{Polina Ovsiannikova, Etienne Le Priol, Vincent Perret, Pranay Jhunjhunwala, Midhun Xavier, and Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
 % use of the function \makepaper.
 
-\makepapersubmitted
+\makepaperaccepted
   {\paperheader}
   {\papertitle}
   {\paperauthorstring}
@@ -175,22 +206,223 @@ appearing on the\\ chapter start page\label{ch2}}
 
 %-------------------------------------------------------------------
 \def\paperheader{Paper D}
-\def\papertitle{An example of a yet-to-be-submitted paper}
-\def\paperauthorstring{Dr.\ C}
+\def\papertitle{Formal Verification of the Control Software of a Radioactive Material Remote Handling System, based on IEC 61499}
+\def\paperauthorstring{Giordano Lilli, Midhun Xavier, Etienne Le Priol, Vincent Perret, Tatiana Liakh, Roberto Oboe, and Valeriy Vyatkin}
+\def\referencestring{IEEE Open Journal of the Industrial Electronics Society, 2023.}
+\def\copyrightstring{2023, IEEE, Reprinted with permission.}
 
 % The definitions above could just as well be put directly into the function
 % call below, but were explicitly defined to more clearly illustrate the
 % use of the function \makepaper.
 
-\makepapertobesubmitted
+\makepaperaccepted
   {\paperheader}
   {\papertitle}
   {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
 
 % The actual contents is imported by un-commenting the \input line below.
 % Make sure the file exist.
-\input{papers/paper3.tex}
+\input{papers/paper4.tex}
 
+%-------------------------------------------------------------------
+\def\paperheader{Paper E}
+\def\papertitle{Process mining in industrial control systems}
+\def\paperauthorstring{Midhun Xavier, Victor Dubinin, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2022.}
+\def\copyrightstring{2022, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper5.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper F}
+\def\papertitle{An interactive learning approach on digital twin for deriving the controller logic in IEC 61499 standard}
+\def\paperauthorstring{Midhun Xavier, Victor Dubinin, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Emerging Technologies and Factory Automation (ETFA), 2022.}
+\def\copyrightstring{2022, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper6.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper G}
+\def\papertitle{A framework for the generation of monitor and plant model from event logs using process mining for formal verification of event-driven systems}
+\def\paperauthorstring{Midhun Xavier, Victor Dubinin, Sandeep Patil, and Valeriy Vyatkin}
+\def\referencestring{IEEE Open Journal of the Industrial Electronics Society, 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper7.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper H}
+\def\papertitle{Developing a Test Suite for Evaluating IEC 61499 Application Portability}
+\def\paperauthorstring{Midhun Xavier, Tatiana Laikh, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2021.}
+\def\copyrightstring{2021, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper8.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper I}
+\def\papertitle{Generating Portable Test Cases for IEC~61499 FBs from Interface Behaviour Specifications}
+\def\paperauthorstring{Bianca Wiesmayr, Midhun Xavier, Sandeep Patil, Alois Zoitl, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Emerging Technologies and Factory Automation (ETFA), 2023.}
+\def\copyrightstring{2023, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper9.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper J}
+\def\papertitle{Develop Once, Test Everywhere: Cross-Platform Development of Distributed Control Software}
+\def\paperauthorstring{Bianca Wiesmayr, Melanie Winter, Midhun Xavier, Sandeep Patil, Valeriy Vyatkin, and Alois Zoitl}
+\def\referencestring{IEEE Open Journal of the Industrial Electronics Society, 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper10.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper K}
+\def\papertitle{Enhancing Traceability in Flexible Production System: A Blockchain-Powered Approach in IEC 61499 Multi-Agent Control System}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Emerging Technologies and Factory Automation (ETFA), 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper11.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper L}
+\def\papertitle{LLM-Powered Multi-Actor System for Intelligent Analysis and Visualization of IEC 61499 Control Systems}
+\def\paperauthorstring{Midhun Xavier, Tatiana Laikh, Sandeep Patil, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper12.tex}
+
+%-------------------------------------------------------------------
+\def\paperheader{Paper M}
+\def\papertitle{ReACT - Gen AI Agents for Reasoning, Planning, and Testing in IEC 61499-Based Control Systems}
+\def\paperauthorstring{Midhun Xavier, Sandeep Patil, Chen-Wei Yang, Valeriy Vyatkin}
+\def\referencestring{Proceedings of the IEEE International Conference on Industrial Informatics (INDIN), 2024.}
+\def\copyrightstring{2024, IEEE, Reprinted with permission.}
+
+% The definitions above could just as well be put directly into the function
+% call below, but were explicitly defined to more clearly illustrate the
+% use of the function \makepaper.
+
+\makepaperaccepted
+  {\paperheader}
+  {\papertitle}
+  {\paperauthorstring}
+  {\referencestring}
+  {\copyrightstring}
+
+% The actual contents is imported by un-commenting the \input line below.
+% Make sure the file exist.
+\input{papers/paper13.tex}
 
 \printglossary[type=\acronymtype]
 

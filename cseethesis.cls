@@ -172,6 +172,25 @@
   \vskip\belowcaptionskip}
 
 % ------------------------------------------
+% The \makecoverpage command.
+% Generates a cover page with title, image, and author name.
+% ------------------------------------------
+\newcommand{\makecoverpage}[3]
+{
+  \pagestyle{empty}
+  \thispagestyle{empty}
+  \setcounter{page}{0}
+  \pagenumbering{roman}
+  \begin{center}
+     \vspace{2cm}
+     {\Huge \textbf{#1\\[2cm]}}
+     #3\\[2cm]
+     {\LARGE \textbf{#2}}
+  \end{center}
+  \cleardoublepage
+}
+
+% ------------------------------------------
 % The \startpreamble command.
 % Generates all the stuff before the first
 % "real" chapter starts, like Abstract,

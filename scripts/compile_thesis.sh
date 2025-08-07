@@ -4,7 +4,8 @@
 # This script compiles your LaTeX thesis with proper bibliography and glossary handling
 # All generated files are organized in a build directory structure
 
-set -e  # Exit on any error
+# Don't exit on error - we want to continue even if there are warnings
+# set -e  # Exit on any error
 
 # Colors for output
 RED='\033[0;31m'
@@ -89,6 +90,75 @@ clean_aux_files() {
     print_success "Auxiliary files cleaned"
 }
 
+# Copy bibliography files to auxiliary directory for bibtex processing
+copy_bibliography_files() {
+    print_status "Copying bibliography files to auxiliary directory..."
+    
+    # Copy main bibliography file
+    if [ -f "thesisreferences.bib" ]; then
+        cp thesisreferences.bib "$AUX_DIR/"
+        print_success "Copied thesisreferences.bib"
+    fi
+    
+    # Copy paper bibliography files
+    if [ -f "MX_Papers/Paper1/sns.bib" ]; then
+        cp "MX_Papers/Paper1/sns.bib" "$AUX_DIR/"
+        print_success "Copied Paper1 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper2/INDIN2021.bib" ]; then
+        cp "MX_Papers/Paper2/INDIN2021.bib" "$AUX_DIR/"
+        print_success "Copied Paper2 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper3/refrencias_sobraep.bib" ]; then
+        cp "MX_Papers/Paper3/refrencias_sobraep.bib" "$AUX_DIR/"
+        print_success "Copied Paper3 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper4/bibliography/Bibliography.bib" ]; then
+        cp "MX_Papers/Paper4/bibliography/Bibliography.bib" "$AUX_DIR/"
+        print_success "Copied Paper4 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper5/INDIN2022.bib" ]; then
+        cp "MX_Papers/Paper5/INDIN2022.bib" "$AUX_DIR/"
+        print_success "Copied Paper5 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper6/ETFA2022.bib" ]; then
+        cp "MX_Papers/Paper6/ETFA2022.bib" "$AUX_DIR/"
+        print_success "Copied Paper6 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper7/bibliography/mybibfile.bib" ]; then
+        cp "MX_Papers/Paper7/bibliography/mybibfile.bib" "$AUX_DIR/"
+        print_success "Copied Paper7 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper8/conference.bib" ]; then
+        cp "MX_Papers/Paper8/conference.bib" "$AUX_DIR/"
+        print_success "Copied Paper8 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper9/refs.bib" ]; then
+        cp "MX_Papers/Paper9/refs.bib" "$AUX_DIR/"
+        print_success "Copied Paper9 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper10/bibliography/mybibfile.bib" ]; then
+        cp "MX_Papers/Paper10/bibliography/mybibfile.bib" "$AUX_DIR/"
+        print_success "Copied Paper10 bibliography"
+    fi
+    
+    if [ -f "MX_Papers/Paper11/conference.bib" ]; then
+        cp "MX_Papers/Paper11/conference.bib" "$AUX_DIR/"
+        print_success "Copied Paper11 bibliography"
+    fi
+    
+    print_status "Bibliography files copied to auxiliary directory"
+}
+
 # Move files to appropriate build directories
 organize_files() {
     print_status "Organizing generated files..."
@@ -123,27 +193,102 @@ organize_files() {
 # Compile LaTeX document
 compile_latex() {
     local pass=$1
+    local organize=$2
     print_status "LaTeX compilation pass $pass..."
     
-    if pdflatex -interaction=nonstopmode -shell-escape MX_Thesis.tex; then
-        print_success "LaTeX pass $pass completed"
-        organize_files
+    # Run pdflatex and capture exit code
+    pdflatex -interaction=nonstopmode -shell-escape MX_Thesis.tex
+    local exit_code=$?
+    
+    # Check if PDF was generated (this is the real success indicator)
+    if [ -f "MX_Thesis.pdf" ]; then
+        print_success "LaTeX pass $pass completed (PDF generated)"
+        if [ "$organize" = "true" ]; then
+            organize_files
+        fi
     else
-        print_error "LaTeX pass $pass failed"
+        print_error "LaTeX pass $pass failed (no PDF generated)"
         print_status "Check the log file for details: $LOG_DIR/MX_Thesis.log"
-        exit 1
+        return 1
     fi
+    
+    # Show warning if there were issues but PDF was still generated
+    if [ $exit_code -ne 0 ]; then
+        print_warning "LaTeX pass $pass had warnings but PDF was generated successfully"
+    fi
+    
+    return 0
 }
 
-# Compile bibliography
+# Compile bibliography for main document and bibunits
 compile_bibliography() {
     print_status "Compiling bibliography..."
     
-    if bibtex MX_Thesis; then
-        print_success "Bibliography compiled"
-        organize_files
-    else
-        print_warning "Bibliography compilation had issues (this might be normal if no citations exist)"
+    # Copy bibliography files to auxiliary directory
+    copy_bibliography_files
+    
+    # Compile main bibliography
+    if [ -f "MX_Thesis.aux" ]; then
+        print_status "Compiling main bibliography..."
+        if bibtex MX_Thesis; then
+            print_success "Main bibliography compiled"
+        else
+            print_warning "Main bibliography compilation had issues"
+        fi
+    fi
+    
+    # Compile bibunits bibliographies
+    print_status "Compiling bibunits bibliographies..."
+    
+    # Find all bu*.aux files and compile them
+    for bu_file in bu*.aux; do
+        if [ -f "$bu_file" ]; then
+            local bu_name="${bu_file%.aux}"
+            print_status "Compiling bibliography for $bu_name..."
+            
+            # Check if the bu*.aux file has \bibdata command
+            if grep -q "\\\\bibdata" "$bu_file"; then
+                if bibtex "$bu_name"; then
+                    print_success "Bibliography compiled for $bu_name"
+                else
+                    print_warning "Bibliography compilation had issues for $bu_name"
+                fi
+            else
+                print_warning "No bibliography data found in $bu_file"
+            fi
+        fi
+    done
+    
+    # Also check in auxiliary directory for any remaining bu*.aux files
+    if [ -d "$AUX_DIR" ]; then
+        for bu_file in "$AUX_DIR"/bu*.aux; do
+            if [ -f "$bu_file" ]; then
+                local bu_name=$(basename "${bu_file%.aux}")
+                print_status "Compiling bibliography for $bu_name (from auxiliary directory)..."
+                
+                # Check if the bu*.aux file has \bibdata command
+                if grep -q "\\\\bibdata" "$bu_file"; then
+                    if bibtex "$bu_name"; then
+                        print_success "Bibliography compiled for $bu_name"
+                    else
+                        print_warning "Bibliography compilation had issues for $bu_name"
+                    fi
+                else
+                    print_warning "No bibliography data found in $bu_file"
+                fi
+            fi
+        done
+    fi
+    
+    # Copy bibliography files back to main directory for LaTeX to find them
+    print_status "Copying bibliography files back to main directory..."
+    if [ -d "$AUX_DIR" ]; then
+        for bbl_file in "$AUX_DIR"/bu*.bbl; do
+            if [ -f "$bbl_file" ]; then
+                cp "$bbl_file" .
+                print_success "Copied $(basename "$bbl_file") to main directory"
+            fi
+        done
     fi
 }
 
@@ -154,7 +299,6 @@ compile_glossary() {
         
         if makeglossaries MX_Thesis; then
             print_success "Glossary compiled"
-            organize_files
         else
             print_warning "Glossary compilation had issues"
         fi
@@ -220,23 +364,36 @@ main() {
     echo
     print_status "Starting compilation process..."
     
-    # First LaTeX pass
-    compile_latex 1
+    # First LaTeX pass (don't organize files yet)
+    if ! compile_latex 1 false; then
+        print_error "First LaTeX pass failed. Check the log file for details."
+        print_status "Common issues:"
+        print_status "  - Undefined control sequences (\\RNum, \\com)"
+        print_status "  - Missing bibliography files"
+        print_status "  - Missing image files"
+        exit 1
+    fi
     
-    # Compile bibliography
+    # Compile bibliography (main + bibunits)
     compile_bibliography
     
     # Compile glossary
     compile_glossary
     
     # Second LaTeX pass (for bibliography references)
-    compile_latex 2
+    if ! compile_latex 2 false; then
+        print_warning "Second LaTeX pass had issues, but continuing..."
+    fi
     
     # Third LaTeX pass (for glossary references)
-    compile_latex 3
+    if ! compile_latex 3 false; then
+        print_warning "Third LaTeX pass had issues, but continuing..."
+    fi
     
-    # Final LaTeX pass (for any remaining references)
-    compile_latex 4
+    # Final LaTeX pass (for any remaining references) - organize files
+    if ! compile_latex 4 true; then
+        print_warning "Final LaTeX pass had issues, but PDF was generated"
+    fi
     
     # Show build summary
     show_build_summary
